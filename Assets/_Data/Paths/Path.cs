@@ -22,4 +22,9 @@ public class Path : MyMonoBehaviour
         }
         Debug.Log(transform.name + " :LoadPaths" , gameObject);
     }
+
+    public virtual Point GetPoint(int index)
+    {
+        return points[index];
+    }
 }
