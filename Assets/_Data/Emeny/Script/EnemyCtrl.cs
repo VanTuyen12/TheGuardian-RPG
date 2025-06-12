@@ -16,7 +16,9 @@ public class EnemyCtrl : MyMonoBehaviour
     {
         if(agent != null) return;
         agent = GetComponent<NavMeshAgent>();
-        
+        agent.speed = 4f;
+        agent.angularSpeed = 200f;
+        agent.acceleration = 50f;
         Debug.Log(transform.name + " :LoadNavMeshAgent",gameObject);
     }
 }

@@ -7,7 +7,11 @@ public class MyMonoBehaviour : MonoBehaviour
     {
         this.LoadComponents();
     }
-    
+
+    protected virtual void Start()
+    {
+        //For Override
+    }
     protected virtual void Reset()
     {
         this.LoadComponents();
