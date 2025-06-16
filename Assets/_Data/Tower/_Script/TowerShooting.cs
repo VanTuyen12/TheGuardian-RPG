@@ -6,22 +6,27 @@ public class TowerShooting : TowerAbstract
 {
     [SerializeField] protected EnemyCtrl target;
     [SerializeField] private float rotationSpeed = 5f;
+    [SerializeField] private float shootSpeed = 1f;
+    [SerializeField] private float targetLoadSpeed = 1f;
+    [SerializeField] private int currentFirePoint = 0;
+    [SerializeField] private float bulletSpeed = 20f;
+    
 
     protected override void Start()
     {
         base.Start();
-        Invoke(nameof(this.TargetLoading),1f);
+        Invoke(nameof(this.TargetLoading),this.targetLoadSpeed);
+        Invoke(nameof(this.Shooting),this.shootSpeed);
     }
 
     protected void FixedUpdate()
     {
         this.Looking();
-        this.Shooting();
     }
     
     protected virtual void TargetLoading()
     {
-        Invoke(nameof(this.TargetLoading),1f);
+        Invoke(nameof(this.TargetLoading),this.targetLoadSpeed);
         this.target = this.towerCtrl.TowerTargeting.Nearest;
     }
     
@@ -66,10 +71,27 @@ public class TowerShooting : TowerAbstract
             Time.fixedDeltaTime * rotationSpeed);
     }
 
+    
     protected virtual void Shooting()
     {
+        Invoke(nameof(this.Shooting),this.shootSpeed);
         if (this.target == null) return;
-        towerCtrl.BulletSpawner.Spawn(towerCtrl.Bullet.transform);
+        FirePoint firePoint = GetFirePoint();
+        Bullet newBullet = towerCtrl.BulletSpawner.Spawn(towerCtrl.Bullet, firePoint.transform.position);
+        
+        Vector3 rotatorDirection = towerCtrl.Rotation.transform.forward;
+        newBullet.GetComponent<Rigidbody>().linearVelocity = rotatorDirection * bulletSpeed;
+        //Debug.Log("Linear Velocity: " + bulletRb.linearVelocity);
+        
+        newBullet.gameObject.SetActive(true);
 
+    }
+    protected virtual FirePoint GetFirePoint()
+    {
+        FirePoint firePoint = towerCtrl.FirePoint[currentFirePoint];
+        currentFirePoint++;
+        if (currentFirePoint == towerCtrl.FirePoint.Count) currentFirePoint = 0;
+        
+        return firePoint;
     }
 }

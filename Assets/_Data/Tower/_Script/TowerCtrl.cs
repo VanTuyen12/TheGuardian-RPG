@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TowerCtrl : MyMonoBehaviour
@@ -16,6 +18,20 @@ public class TowerCtrl : MyMonoBehaviour
    
    [SerializeField]protected Bullet bullet;
    public Bullet Bullet => bullet;
+   
+   [SerializeField]protected List<FirePoint> firePoint;
+   public List<FirePoint> FirePoint => firePoint;
+
+   protected override void Awake()
+   {
+      base.Awake();
+      this.HidePrefabs();
+   }
+
+   protected virtual void HidePrefabs()
+   {
+      bullet.gameObject.SetActive(false);
+   }
 
    protected override void LoadComponents()
    {
@@ -24,6 +40,7 @@ public class TowerCtrl : MyMonoBehaviour
       this.LoadTowerTargeting();
       this.LoadBulletSpawner();
       this.LoadBullet();
+      this.LoadFirePoint();
    }
    protected virtual void LoadBulletSpawner()
    {
@@ -32,6 +49,14 @@ public class TowerCtrl : MyMonoBehaviour
       Debug.Log(transform.name + " :LoadBulletSpawner",gameObject);
    }
    
+   protected virtual void LoadFirePoint()
+   {
+      if(this.firePoint.Count > 0) return;
+      FirePoint[] point = GetComponentsInChildren<FirePoint>();
+      firePoint = point.ToList();
+      
+      Debug.Log(transform.name + " :LoadTowerTargeting",gameObject);
+   }
    protected virtual void LoadBullet()
    {
       if(this.bullet != null) return;
@@ -47,7 +72,7 @@ public class TowerCtrl : MyMonoBehaviour
    protected virtual void LoadModel()
    {
       if(this.model != null) return;
-      model = this.transform.Find("ModelHolder/Model");
+      model = this.transform.Find("Model");
       rotation = model.transform.Find("Rotation");
       Debug.Log(transform.name + " :LoadModel",gameObject);
    }

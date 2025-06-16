@@ -6,5 +6,11 @@ public abstract class Spawner : MyMonoBehaviour
     {
         Transform newObject = Instantiate(prefab);
         return newObject;
-    }  
+    }
+
+    public virtual void Despawn(Transform prefab)
+    {
+        Debug.Log("Despawn" + prefab.name);
+        Destroy(prefab.gameObject);
+    }
 }
