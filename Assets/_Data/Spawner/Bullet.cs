@@ -1,23 +1,21 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Bullet : MyMonoBehaviour
+public class Bullet : PoolObj
 {
     [SerializeField] protected Rigidbody rb;
-    [SerializeField] protected BulletDespawn despawn;
-    public BulletDespawn  Despawn => despawn;
+    
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadRigidbody();
-        this.loadDespawn();
     }
-    protected virtual void loadDespawn()
+
+    public override string GetName()
     {
-        if(this.despawn != null) return;
-        despawn = GetComponentInChildren<BulletDespawn>();
-        Debug.Log(transform.name + " :loadDespawn",gameObject);
+        return "Bullet";
     }
+
     protected virtual void LoadRigidbody()
     {
         if (rb != null) return;

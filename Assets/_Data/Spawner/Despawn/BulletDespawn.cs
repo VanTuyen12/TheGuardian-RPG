@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BulletDespawn : Despawn
+public class BulletDespawn : Despawn<Bullet>
 {
     
 }
