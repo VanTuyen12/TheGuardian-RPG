@@ -9,7 +9,7 @@ public class TowerShooting : TowerAbstract
     [SerializeField] private float shootSpeed = 1f;
     [SerializeField] private float targetLoadSpeed = 1f;
     [SerializeField] private int currentFirePoint = 0;
-    [SerializeField] private float bulletSpeed = 20f;
+    [SerializeField] private float bulletSpeed = 30f;
     
 
     protected override void Start()

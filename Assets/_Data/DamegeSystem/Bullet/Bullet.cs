@@ -10,12 +10,12 @@ public class Bullet : PoolObj
         base.LoadComponents();
         this.LoadRigidbody();
     }
-
+    
     public override string GetName()
     {
         return "Bullet";
     }
-
+    
     protected virtual void LoadRigidbody()
     {
         if (rb != null) return;
@@ -23,5 +23,6 @@ public class Bullet : PoolObj
         rb.useGravity = false;
         rb.freezeRotation = true;
         rb.linearDamping = 0;
+        Debug.Log(transform.name+" :LoadRigidbody ",gameObject);
     }
 }
