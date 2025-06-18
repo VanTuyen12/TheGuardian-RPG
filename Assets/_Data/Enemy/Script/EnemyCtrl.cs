@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyCtrl : MyMonoBehaviour
+public abstract class EnemyCtrl : PoolObj
 {
     [SerializeField]protected Transform model;
     [SerializeField]protected NavMeshAgent agent;
+    [SerializeField]protected DamageRecevier damageRecevier;
+    public DamageRecevier DamageRecevier => damageRecevier;
     public NavMeshAgent Agent => agent;
     
     [SerializeField]protected Animator animator;
@@ -20,8 +22,16 @@ public class EnemyCtrl : MyMonoBehaviour
         this.LoadModel();
         this.LoadAnimator();
         this.LoadEnemyTargetable();
+        this.LoadDamageRecevier();
     }
-
+    
+    protected virtual void LoadDamageRecevier()
+    {
+        if(this.damageRecevier != null) return;
+        damageRecevier = GetComponentInChildren<DamageRecevier>();
+        Debug.Log(transform.name + " :LoadDamageRecevier",gameObject);
+    }
+    
     protected virtual void LoadModel()
     {
         if(this.model != null) return;

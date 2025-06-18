@@ -9,6 +9,12 @@ public class EnemyDamageRecevier : DamageRecevier
         base.OnDead();
         enemyCtrl.Animator.SetBool("isDead",this.isDead);
     }
+    
+    protected override void OnHurt()
+    {
+        base.OnHurt();
+        enemyCtrl.Animator.SetTrigger("isHurt");
+    }
 
     protected override void LoadComponents()
     {

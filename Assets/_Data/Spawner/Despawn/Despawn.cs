@@ -38,7 +38,7 @@ public abstract class Despawn<T> : DespawnBase where T : PoolObj
     protected virtual void LoadSpawner()
     {
         if (this.spawner != null) return;
-        spawner = parent.transform.parent.GetComponent<Spawner<T>>();
+        spawner = FindAnyObjectByType<Spawner<T>>();
         Debug.Log(transform.name + " :LoadSpawner", gameObject);
     }
 
