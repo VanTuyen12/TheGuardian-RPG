@@ -57,15 +57,15 @@ public class TowerTargeting : MyMonoBehaviour
         return true;
     }
     
-    protected virtual void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider collider)
     {
-        this.AddEnemy(other);
+        this.AddEnemy(collider);
         //Debug.Log("OnTriggerEnter: " + other.name);
     }
 
-    protected virtual void OnTriggerExit(Collider other)
+    protected virtual void OnTriggerExit(Collider collider)
     {
-        this.RemoveEnemy(other);
+        this.RemoveEnemy(collider);
         //Debug.Log("OnTriggerExit: " + other.name);
     }
 

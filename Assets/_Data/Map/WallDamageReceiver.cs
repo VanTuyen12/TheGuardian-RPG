@@ -15,7 +15,7 @@ public class WallDamageReceiver : DamageRecevier
     {
         if(boxCollider != null) return;
         boxCollider = GetComponent<BoxCollider>();
-        boxCollider.isTrigger = true;
+        boxCollider.isTrigger = false;
         Debug.Log(transform.name + " has loaded WallDamageReceiver component");
     }
 
