@@ -5,6 +5,7 @@ public abstract class Despawn<T> : DespawnBase where T : PoolObj
 {
     [SerializeField] protected float timeLife = 7f;
     [SerializeField] protected float currentTime = 7f;
+    [SerializeField] protected bool isDespawnByTime = true;
     [SerializeField] protected Spawner<T> spawner;
     [SerializeField] protected T parent;
 
@@ -22,6 +23,7 @@ public abstract class Despawn<T> : DespawnBase where T : PoolObj
 
     protected virtual void DespawnChecking()
     {
+        if (!this.isDespawnByTime) return;
         currentTime -= Time.fixedDeltaTime;
         if (currentTime > 0) return;
         DoDespawn();

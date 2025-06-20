@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class DamageRecevier : MyMonoBehaviour
@@ -6,6 +7,12 @@ public abstract class DamageRecevier : MyMonoBehaviour
     [SerializeField] protected float currentHp = 100f;
     [SerializeField] protected bool isDead = false;
     [SerializeField]protected bool isImmortal = false;
+
+    protected virtual void OnEnable()
+    {
+        this.OnReborn();
+    }
+
     public virtual float Deduct(float hp)
     {
         if (!isImmortal ) currentHp -= hp;
@@ -15,11 +22,16 @@ public abstract class DamageRecevier : MyMonoBehaviour
         
         return currentHp;
     }
-
+    
     public virtual bool IsDead()
     {
         
         return isDead = this.currentHp <= 0;
+    }
+    protected virtual void OnReborn()
+    {
+        
+        this.currentHp = this.maxHp;
     }
     
     protected virtual void OnDead()

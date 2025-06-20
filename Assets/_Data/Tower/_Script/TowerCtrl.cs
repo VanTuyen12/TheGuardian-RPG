@@ -16,12 +16,17 @@ public class TowerCtrl : MyMonoBehaviour
    [SerializeField]protected BulletSpawner bulletSpawner;
    public BulletSpawner BulletSpawner => bulletSpawner;
    
+   
+   [SerializeField]protected BulletPrefabs bulletPrefabs;
+   public BulletPrefabs BulletPrefabs => bulletPrefabs;
+
    [SerializeField]protected Bullet bullet;
    public Bullet Bullet => bullet;
    
    [SerializeField]protected List<FirePoint> firePoint;
    public List<FirePoint> FirePoint => firePoint;
-
+   
+   private string bulletName = "Bullet";
    protected override void Awake()
    {
       base.Awake();
@@ -39,8 +44,8 @@ public class TowerCtrl : MyMonoBehaviour
       this.LoadModel();
       this.LoadTowerTargeting();
       this.LoadBulletSpawner();
-      this.LoadBullet();
       this.LoadFirePoint();
+      this.LoadBulletPrefabs();
    }
    protected virtual void LoadBulletSpawner()
    {
@@ -57,16 +62,24 @@ public class TowerCtrl : MyMonoBehaviour
       
       Debug.Log(transform.name + " :LoadTowerTargeting",gameObject);
    }
+   protected virtual void LoadBulletPrefabs()
+   {
+      if(this.bulletPrefabs != null) return;
+      bulletPrefabs = GameObject.FindAnyObjectByType<BulletPrefabs>();
+      this.LoadBullet();
+      Debug.Log(transform.name + " :LoadBulletSpawner",gameObject);
+   }
    protected virtual void LoadBullet()
    {
       if(this.bullet != null) return;
-      bullet = bulletSpawner.GetComponentInChildren<Bullet>();
+      bullet = this.bulletPrefabs.GetByName(bulletName);
       Debug.Log(transform.name + " :LoadBullet",gameObject);
    }
    protected virtual void LoadTowerTargeting()
    {
       if(this.towerTargeting != null) return;
       towerTargeting = GetComponentInChildren<TowerTargeting>();
+      towerTargeting.transform.localPosition = new Vector3(0,1,0);
       Debug.Log(transform.name + " :LoadTowerTargeting",gameObject);
    }
    protected virtual void LoadModel()

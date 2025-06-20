@@ -81,7 +81,6 @@ public class TowerShooting : TowerAbstract
         
         Vector3 rotatorDirection = towerCtrl.Rotation.transform.forward;
         newBullet.GetComponent<Rigidbody>().linearVelocity = rotatorDirection * bulletSpeed;
-        //Debug.Log("Linear Velocity: " + bulletRb.linearVelocity);
         
         newBullet.gameObject.SetActive(true);
 

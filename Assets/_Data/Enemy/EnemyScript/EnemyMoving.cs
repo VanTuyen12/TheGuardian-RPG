@@ -15,6 +15,12 @@ public class EnemyMoving : MyMonoBehaviour
     [SerializeField]protected bool isFinish = false;
     [SerializeField]protected bool isMoving = false;
     [SerializeField]protected bool canMove  = false;
+
+    protected virtual void OnEnable()
+    {
+        this.OnReborn();
+    }
+
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -43,6 +49,12 @@ public class EnemyMoving : MyMonoBehaviour
             return;
         }
         
+        if (enemyCtrl.DamageRecevier.IsDead())
+        {
+            enemyCtrl.Agent.isStopped = true;
+            return;
+        }
+          
         FindNextPoint();
         if (currentPoint == null || isFinish == true)
         {
@@ -73,6 +85,11 @@ public class EnemyMoving : MyMonoBehaviour
             if (currentPoint == null) isFinish = true;
            
         }
+    }
+    protected virtual void OnReborn()
+    {
+       isFinish = false;
+       currentPoint = null;
     }
     
     protected virtual void LoadEnemyCtrl()

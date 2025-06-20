@@ -11,11 +11,14 @@ public class TowerTargeting : MyMonoBehaviour
     [SerializeField] protected SphereCollider sphereCollider;
     [SerializeField] protected EnemyCtrl nearest;
     public EnemyCtrl Nearest => nearest;
+    [SerializeField] protected LayerMask layerMask; 
     [SerializeField] protected List<EnemyCtrl> enemies = new List<EnemyCtrl>();
+    
 
     protected virtual void FixedUpdate()
     {
         this.FindNearest();
+        this.RemoveDeadEnemy();
     }
 
     protected virtual void FindNearest()
@@ -25,14 +28,35 @@ public class TowerTargeting : MyMonoBehaviour
 
         foreach (EnemyCtrl enemyCtrl in enemies)
         {
-            enemyDistance = Vector3.Distance(transform.position,enemyCtrl.transform.position); 
-            if (enemyDistance < nearestDistance)
-            {
-                nearestDistance = enemyDistance;
-                this.nearest = enemyCtrl;
-            }
+            if (!this.CanSeeTarget(enemyCtrl)) continue;
+            
+                enemyDistance = Vector3.Distance(transform.position,enemyCtrl.transform.position); 
+                if (enemyDistance < nearestDistance)
+                {
+                    nearestDistance = enemyDistance;
+                    this.nearest = enemyCtrl;
+                }
         }
     }
+
+    protected virtual bool CanSeeTarget(EnemyCtrl target)
+    {
+        Vector3 directionToTager = target.transform.position - this.transform.position;
+        float distanceToTager = directionToTager.magnitude;
+        Ray rayToTager = new Ray(this.transform.position, directionToTager);
+        
+        if (Physics.Raycast( rayToTager, out RaycastHit hitInfo, distanceToTager , layerMask))
+        {
+            Vector3 directionToCollder = hitInfo.point - this.transform.position;
+            float distanceToCollider = directionToCollder.magnitude;
+            Debug.DrawRay(this.transform.position, directionToCollder.normalized * distanceToCollider, Color.red);
+            return false;
+        }
+        
+        Debug.DrawRay(this.transform.position, directionToTager.normalized * distanceToTager, Color.green);
+        return true;
+    }
+    
     protected virtual void OnTriggerEnter(Collider other)
     {
         this.AddEnemy(other);
@@ -49,6 +73,7 @@ public class TowerTargeting : MyMonoBehaviour
     {
         if (collider.name != Const.TOWER_TARGETABLES) return;
         EnemyCtrl enemyCtrl = collider.transform.parent.GetComponent<EnemyCtrl>();
+        if(enemyCtrl.DamageRecevier.IsDead()) return;
         
         this.enemies.Add(enemyCtrl);
     }
@@ -59,6 +84,21 @@ public class TowerTargeting : MyMonoBehaviour
         {
             if (collider.transform.parent.name == enemyCtrl.name)
             {
+                if (enemyCtrl == nearest) nearest = null;
+                
+                enemies.Remove(enemyCtrl);
+                return;
+            }
+        }
+    }
+    
+    protected virtual void RemoveDeadEnemy()
+    {
+        foreach (EnemyCtrl enemyCtrl in enemies)
+        {
+            if (enemyCtrl.DamageRecevier.IsDead())
+            {
+                if (enemyCtrl == this.nearest) this.nearest = null;
                 enemies.Remove(enemyCtrl);
                 return;
             }

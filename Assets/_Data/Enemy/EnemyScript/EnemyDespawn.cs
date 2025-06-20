@@ -2,11 +2,10 @@ using UnityEngine;
 
 public class EnemyDespawn : Despawn<EnemyCtrl>
 {
-    protected override void DespawnChecking()
+    protected override void ResetValue()
     {
-        if (parent.DamageRecevier.IsDead())
-        {
-            DoDespawn();
-        }
+        base.ResetValue();
+        isDespawnByTime = false;
     }
+    
 }

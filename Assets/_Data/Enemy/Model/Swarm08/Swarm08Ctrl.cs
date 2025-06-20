@@ -8,11 +8,6 @@ public class Swarm08Ctrl : EnemyCtrl
         agent.height = 1f;
     }
     
-    protected override void LoadEnemyTargetable()
-    {
-        base.LoadEnemyTargetable();
-        enemyTargetable.transform.localPosition = new Vector3(0f, 0.1f, 0f);
-    }
 
     public override string GetName()
     {

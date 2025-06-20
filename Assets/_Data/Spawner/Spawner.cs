@@ -5,13 +5,9 @@ public abstract class Spawner<T> : MyMonoBehaviour where T : PoolObj
 {
     //Object Pooling
     private int spawnCount = 0;
+    [SerializeField]protected PoolHolder poolHolder;
     [SerializeField]protected List<T> inPoolObjs = new List<T>();
-    public virtual Transform Spawn(Transform prefab)
-    {
-        Transform newObject = Instantiate(prefab);
-        
-        return newObject;
-    }
+    
     public virtual T Spawn(T prefab, Vector3 position)
     {
         T newBullet = Spawn(prefab);
@@ -32,6 +28,9 @@ public abstract class Spawner<T> : MyMonoBehaviour where T : PoolObj
             UpdateName(prefab.transform, newObject.transform);
            
         }
+
+        if (poolHolder != null) newObject.transform.SetParent(poolHolder.transform);
+        
         return newObject;
     }
     
@@ -75,6 +74,19 @@ public abstract class Spawner<T> : MyMonoBehaviour where T : PoolObj
             }
         }
         return null;
+    }
+    
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadPoolHolder();
+    }
+
+    protected virtual void LoadPoolHolder()
+    {
+        if(poolHolder != null) return;
+        poolHolder = GetComponentInChildren<PoolHolder>();
+        Debug.Log(transform.name+ " :LoadPoolHolder", gameObject);
     }
 
 }

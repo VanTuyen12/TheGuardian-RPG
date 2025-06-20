@@ -16,7 +16,7 @@ public class EnemyTargetable : MyMonoBehaviour
         if (this.sphereCollider != null) return;
         this.sphereCollider = this.GetComponent<SphereCollider>();
         sphereCollider.isTrigger = true;
-        sphereCollider.radius = 0.5f;
+        sphereCollider.radius = 0.35f;
         Debug.Log(transform.name + " LoadSphereCollider",gameObject);
     }
 }

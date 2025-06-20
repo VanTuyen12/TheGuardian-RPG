@@ -42,7 +42,7 @@ public abstract class EnemyCtrl : PoolObj
     {
         if(this.enemyTargetable != null) return;
         enemyTargetable = this.transform.GetComponentInChildren<EnemyTargetable>();
-        enemyTargetable.transform.localPosition = new Vector3(0f, 1f, 0f);
+        enemyTargetable.transform.localPosition = new Vector3(0f, 0.5f, 0f);
         Debug.Log(transform.name + " :LoadEnemyTargetable",gameObject);
     }
     

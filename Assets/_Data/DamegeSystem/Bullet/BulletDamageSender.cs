@@ -34,6 +34,6 @@ public class BulletDamageSender : DamageSender
        if (damageRecevier == null) return;
        this.SendDamege(damageRecevier);
        bullet.Despawn.DoDespawn();
-       Debug.Log(" :OnTriggerEnter "+ collider.name);
+      // Debug.Log(" :OnTriggerEnter "+ collider.name);
     }
 }
