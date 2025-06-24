@@ -1,7 +1,8 @@
 using System;
-using Cinemachine;
 using StarterAssets;
+using Unity.Cinemachine;
 using UnityEngine;
+
 
 public class ThirdPersonShooterController : MyMonoBehaviour
 {
@@ -18,7 +19,15 @@ public class ThirdPersonShooterController : MyMonoBehaviour
    Transform hitTransform = null;
    [SerializeField] private Transform red;
    [SerializeField] private Transform green;
-    void Update()
+   [SerializeField] private Animator animator;
+
+   protected override void Awake()
+   {
+       base.Awake();
+       animator = GetComponent<Animator>();
+   }
+
+   void Update()
     {
         this.LookAtCrosshair();
         this.CheckAimInputs();
@@ -33,7 +42,7 @@ public class ThirdPersonShooterController : MyMonoBehaviour
             aimVirtualCamera.gameObject.SetActive(true);
             thirdPersonCtrl.SetSensitivity(aimlSensitivity);
             thirdPersonCtrl.SetRotateOnMove(false);
-            
+            //animator.SetLayerWeight(1,Mathf.Lerp(animator.GetLayerWeight(1),1 ,Time.deltaTime * 10f));
             this.FaceTheTarget(mouseWorldPosition);
         }
         else
@@ -41,6 +50,7 @@ public class ThirdPersonShooterController : MyMonoBehaviour
             aimVirtualCamera.gameObject.SetActive(false);
             thirdPersonCtrl.SetSensitivity(normalSensitivity);
             thirdPersonCtrl.SetRotateOnMove(true);
+            //animator.SetLayerWeight(1,Mathf.Lerp(animator.GetLayerWeight(1),0f ,Time.deltaTime * 10f));
         }
     }
     
@@ -96,7 +106,9 @@ public class ThirdPersonShooterController : MyMonoBehaviour
         this.LoadCinemachineVirtualCamera();
         this.LoadStarterAssetsInputs();
         this.LoadThirdPersonController();
+       
     }
+    
     protected virtual void LoadThirdPersonController()
     {
         if (thirdPersonCtrl != null) return;

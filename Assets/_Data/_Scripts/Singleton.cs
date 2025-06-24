@@ -16,7 +16,7 @@ public class Singleton<T> : MyMonoBehaviour where T : MyMonoBehaviour
                 {
                     Debug.LogError("Singleton instance has not been created yet!");
                 }
-
+                
                 return _instance;
             }
         }
