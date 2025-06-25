@@ -25,8 +25,8 @@ public class ThirdPersonShooterController : MyMonoBehaviour
    [SerializeField] private RigBuilder rigBuilder;
    [SerializeField] private Rig rig;
    [SerializeField] private bool isAiming = false;
-   [SerializeField] private bool isShoting = false;
    private Vector3 mouseWorldPosition = Vector3.zero;
+ 
    protected override void Awake()
    {
        base.Awake();
@@ -38,11 +38,12 @@ public class ThirdPersonShooterController : MyMonoBehaviour
     {
         this.LookAtCrosshair();
         this.CheckAimInputs();
+        //this.CheckSooting();
         this.Shooting();
-        this.Test();
         
     }
-    
+   
+
     protected virtual void CheckAimInputs()
     {
         bool shouldAim = starterAssetsInputs.aim;
@@ -64,6 +65,8 @@ public class ThirdPersonShooterController : MyMonoBehaviour
         }
         UpdateAimingWeights();
     }
+
+    
     private void UpdateAimingWeights()
     {
         float targetRigWeight = isAiming ? 1f : 0f;
@@ -74,7 +77,7 @@ public class ThirdPersonShooterController : MyMonoBehaviour
             rig.weight = Mathf.MoveTowards(rig.weight, targetRigWeight, Time.deltaTime * 5f);
             animator.SetLayerWeight(1, Mathf.MoveTowards(animator.GetLayerWeight(1), targetLayerWeight, Time.deltaTime * 5f));
     
-            this.FaceTheTarget(mouseWorldPosition);
+            this.FaceTheTarget(mouseWorldPosition,20f);
         }
         else
         {
@@ -97,34 +100,43 @@ public class ThirdPersonShooterController : MyMonoBehaviour
             mouseWorldPosition = hit.point;
             //Debug.Log("Point:" + hit.collider.name);
             Debug.DrawLine(Camera.main.transform.position, hit.point, Color.red);
-           
         }
     }
 
-    protected virtual void FaceTheTarget(Vector3 mouseWorldPosition)
+    protected virtual void FaceTheTarget(Vector3 mouseWorldPosition, float speed)
     {
        
         Vector3 worldAimTarget = mouseWorldPosition;
         worldAimTarget.y = transform.position.y;
         Vector3 aimDirection = (worldAimTarget - this.transform.position).normalized;
-        transform.forward = Vector3.Lerp(transform.forward, aimDirection,Time.deltaTime * 20f);
+        transform.forward = Vector3.Lerp(transform.forward, aimDirection,Time.deltaTime * speed);
+    }
+    
+    protected virtual void FaceTheTargetInstant(Vector3 mouseWorldPosition)
+    {
+        Vector3 worldAimTarget = mouseWorldPosition;
+        worldAimTarget.y = transform.position.y;
+        Vector3 aimDirection = (worldAimTarget - this.transform.position).normalized;
+        transform.forward = aimDirection; // Quay ngay lập tức
     }
 
-    protected virtual void Test()
-    {
-        if (isAiming == false) return;
-        FaceTheTarget(mouseWorldPosition);
-    }
     protected virtual void Shooting()
     {
-        isShoting = starterAssetsInputs.shoot;
-        if (starterAssetsInputs.shoot )
+
+        if (starterAssetsInputs.shoot)
         {
+            UpdateAimingWeights();
+            FaceTheTargetInstant(mouseWorldPosition);
+            
+            
             Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.transform.position).normalized;
-            Instantiate(pfBulletProjectile,spawnBulletPosition.transform.position,Quaternion.LookRotation(aimDir,Vector3.up));
-            starterAssetsInputs.shoot =  false;
+            Instantiate(pfBulletProjectile, spawnBulletPosition.transform.position,
+                Quaternion.LookRotation(aimDir, Vector3.up));
+            starterAssetsInputs.shoot = false;
         }
+        
     }
+
     protected override void LoadComponents()
     {
         base.LoadComponents();
