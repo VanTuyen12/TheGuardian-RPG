@@ -1,8 +1,10 @@
 using System;
 using StarterAssets;
 using Unity.Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using UnityEngine.Serialization;
 
 
 [Obsolete("Obsolete")]
@@ -10,20 +12,21 @@ public class ThirdPersonShooterController : MyMonoBehaviour
 {
    [SerializeField] CinemachineVirtualCamera  aimVirtualCamera;
    [SerializeField] StarterAssetsInputs  starterAssetsInputs;
+   [SerializeField] protected Transform model;
    [SerializeField] ThirdPersonController  thirdPersonCtrl;
    [SerializeField] private float normalSensitivity = 1f ;
    [SerializeField] private float aimlSensitivity = 0.5f;
    [SerializeField] private LayerMask aimColLayerMask;
-   [SerializeField] private Transform target;
-   private Vector3 mouseWorldPosition = Vector3.zero;
+   [SerializeField] private Transform centerTarget;
+   
    [SerializeField] Transform pfBulletProjectile;
-   [SerializeField] Transform spawnBulletPosition;
-   Transform hitTransform = null;
-   [SerializeField] private Transform red;
-   [SerializeField] private Transform green;
+   [SerializeField] SpawnBulletPosition spawnBulletPosition;
    [SerializeField] private Animator animator;
+   [SerializeField] private RigBuilder rigBuilder;
    [SerializeField] private Rig rig;
-
+   [SerializeField] private bool isAiming = false;
+   [SerializeField] private bool isShoting = false;
+   private Vector3 mouseWorldPosition = Vector3.zero;
    protected override void Awake()
    {
        base.Awake();
@@ -36,32 +39,53 @@ public class ThirdPersonShooterController : MyMonoBehaviour
         this.LookAtCrosshair();
         this.CheckAimInputs();
         this.Shooting();
+        this.Test();
         
     }
     
     protected virtual void CheckAimInputs()
     {
-        if (starterAssetsInputs.aim)
+        bool shouldAim = starterAssetsInputs.aim;
+        if (shouldAim && !isAiming)
         {
+            isAiming = true;
             aimVirtualCamera.gameObject.SetActive(true);
             thirdPersonCtrl.SetSensitivity(aimlSensitivity);
             thirdPersonCtrl.SetRotateOnMove(false);
-            //rig.weight = 1;
-            //animator.SetLayerWeight(1,Mathf.Lerp(animator.GetLayerWeight(1),1 ,Time.deltaTime * 10f));
             
+        }
+        if (!shouldAim && isAiming)
+        {
+            isAiming = false;
+            aimVirtualCamera.gameObject.SetActive(false);
+            thirdPersonCtrl.SetSensitivity(normalSensitivity);
+            thirdPersonCtrl.SetRotateOnMove(true);
+           
+        }
+        UpdateAimingWeights();
+    }
+    private void UpdateAimingWeights()
+    {
+        float targetRigWeight = isAiming ? 1f : 0f;
+        float targetLayerWeight = isAiming ? 1f : 0f;
+        
+        if (isAiming)
+        {
+            rig.weight = Mathf.MoveTowards(rig.weight, targetRigWeight, Time.deltaTime * 5f);
+            animator.SetLayerWeight(1, Mathf.MoveTowards(animator.GetLayerWeight(1), targetLayerWeight, Time.deltaTime * 5f));
+    
             this.FaceTheTarget(mouseWorldPosition);
         }
         else
         {
-            aimVirtualCamera.gameObject.SetActive(false);
-            thirdPersonCtrl.SetSensitivity(normalSensitivity);
-            thirdPersonCtrl.SetRotateOnMove(true);
-            //rig.weight = 0f;
-            //animator.SetLayerWeight(1,Mathf.Lerp(animator.GetLayerWeight(1),0f ,Time.deltaTime * 10f));
-           
+            rig.weight = Mathf.MoveTowards(rig.weight, 0f, Time.deltaTime * 6);
+            if (rig.weight < 0.1f)
+            {
+                animator.SetLayerWeight(1, Mathf.MoveTowards(animator.GetLayerWeight(1), 0f, Time.deltaTime * 5f));
+            }
         }
     }
-    
+
     protected virtual void LookAtCrosshair()
     {
        
@@ -69,9 +93,8 @@ public class ThirdPersonShooterController : MyMonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
         if (Physics.Raycast(ray, out RaycastHit hit,Mathf.Infinity, aimColLayerMask, QueryTriggerInteraction.Ignore))
         {
-            target.position = hit.point;
+            centerTarget.position = hit.point;
             mouseWorldPosition = hit.point;
-            hitTransform = hit.transform;
             //Debug.Log("Point:" + hit.collider.name);
             Debug.DrawLine(Camera.main.transform.position, hit.point, Color.red);
            
@@ -84,27 +107,21 @@ public class ThirdPersonShooterController : MyMonoBehaviour
         Vector3 worldAimTarget = mouseWorldPosition;
         worldAimTarget.y = transform.position.y;
         Vector3 aimDirection = (worldAimTarget - this.transform.position).normalized;
-        
         transform.forward = Vector3.Lerp(transform.forward, aimDirection,Time.deltaTime * 20f);
     }
 
+    protected virtual void Test()
+    {
+        if (isAiming == false) return;
+        FaceTheTarget(mouseWorldPosition);
+    }
     protected virtual void Shooting()
     {
-        if (starterAssetsInputs.shoot)
+        isShoting = starterAssetsInputs.shoot;
+        if (starterAssetsInputs.shoot )
         {
-            if (hitTransform != null)
-            {
-                if (hitTransform.GetComponent<TargetTest>() != null)
-                {
-                    Instantiate(green,hitTransform.transform.position,Quaternion.identity);
-                }
-                else
-                {
-                    Instantiate(red,hitTransform.transform.position,Quaternion.identity);
-                }
-            }
-            //Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
-            //Instantiate(pfBulletProjectile,spawnBulletPosition.position,Quaternion.LookRotation(aimDir,Vector3.up));
+            Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.transform.position).normalized;
+            Instantiate(pfBulletProjectile,spawnBulletPosition.transform.position,Quaternion.LookRotation(aimDir,Vector3.up));
             starterAssetsInputs.shoot =  false;
         }
     }
@@ -114,7 +131,34 @@ public class ThirdPersonShooterController : MyMonoBehaviour
         this.LoadCinemachineVirtualCamera();
         this.LoadStarterAssetsInputs();
         this.LoadThirdPersonController();
-       
+        this.LoadAnimator();
+        this.LoadRigBuilder();
+        this.LoadCenterTarget();
+        this.LoadModel();
+    }
+    
+    protected virtual void LoadModel()
+    {
+        if (model != null) return;
+        model = GameObject.Find("Model").transform;
+        spawnBulletPosition = model.GetComponentInChildren<SpawnBulletPosition>();
+        Debug.Log(transform.name+": LoadModel",gameObject);
+    }
+    protected virtual void LoadCenterTarget()
+    {
+        if (centerTarget != null) return;
+        centerTarget = GameObject.Find("CenterTarget").gameObject.transform;
+        Debug.Log(transform.name+": LoadCenterTarget",gameObject);
+    }
+    protected virtual void LoadRigBuilder()
+    {
+        if (rigBuilder != null) return;
+        rigBuilder = GetComponent<RigBuilder>();
+        if (rig == null && rigBuilder.layers.Count > 0)
+        {
+            rig = rigBuilder.layers[0].rig;
+        }
+        Debug.Log(transform.name+": LoadRigBuilder",gameObject);
     }
     
     protected virtual void LoadThirdPersonController()
@@ -124,6 +168,7 @@ public class ThirdPersonShooterController : MyMonoBehaviour
         Debug.Log(transform.name+": LoadThirdPersonController",gameObject);
     }
     [Obsolete("Obsolete")]
+    
     protected virtual void LoadCinemachineVirtualCamera()
     {
         if (aimVirtualCamera != null) return;
@@ -131,6 +176,12 @@ public class ThirdPersonShooterController : MyMonoBehaviour
         Debug.Log(transform.name+": aimVirtualCamera",gameObject);
     }
    
+    protected virtual void LoadAnimator()
+    {
+        if (animator != null) return;
+        animator = GetComponent<Animator>();
+        Debug.Log(transform.name+": LoadAnimator",gameObject);
+    }
     protected virtual void LoadStarterAssetsInputs()
     {
         if (starterAssetsInputs != null) return;

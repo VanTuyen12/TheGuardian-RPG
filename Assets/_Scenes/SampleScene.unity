@@ -867,7 +867,7 @@ MonoBehaviour:
     m_SourceObjects:
       m_Length: 1
       m_Item0:
-        transform: {fileID: 713661129}
+        transform: {fileID: 1208673258}
         weight: 1
       m_Item1:
         transform: {fileID: 0}
@@ -1222,8 +1222,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 713661129}
+  m_Children: []
   m_Father: {fileID: 1964716508}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &285133191
@@ -1244,7 +1243,7 @@ MonoBehaviour:
     m_SourceObjects:
       m_Length: 1
       m_Item0:
-        transform: {fileID: 713661129}
+        transform: {fileID: 1208673258}
         weight: 1
       m_Item1:
         transform: {fileID: 0}
@@ -3150,37 +3149,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1aa2df7b247ca0e4984e6bf0acf47f1a, type: 3}
---- !u!1 &713661128
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 713661129}
-  m_Layer: 0
-  m_Name: TargetAim
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &713661129
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 713661128}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 64.5, y: 2.5, z: 83}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 285133190}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &715239479
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5057,7 +5025,7 @@ GameObject:
   - component: {fileID: 1208673257}
   - component: {fileID: 1208673256}
   m_Layer: 0
-  m_Name: TargetCenter
+  m_Name: CenterTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5131,6 +5099,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1217832743 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 770894727913645563, guid: 9b79a45bc490eee42b06fd27ce971d5b, type: 3}
+  m_PrefabInstance: {fileID: 5990226457989079055}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1217832745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217832743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a163aee9804f908489d6e338847119ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1240216953
 GameObject:
   m_ObjectHideFlags: 0
@@ -8236,7 +8221,7 @@ MonoBehaviour:
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0}
     m_Visible: 1
-  - m_Transform: {fileID: 713661129}
+  - m_Transform: {fileID: 0}
     m_Style:
       shape: {fileID: 4300000, guid: e050c2b16fe384bd994474655a4b4968, type: 2}
       color: {r: 1, g: 0, b: 0, a: 0.5}
@@ -8244,7 +8229,7 @@ MonoBehaviour:
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0}
     m_Visible: 1
-  - m_Transform: {fileID: 713661129}
+  - m_Transform: {fileID: 0}
     m_Style:
       shape: {fileID: 4300000, guid: e050c2b16fe384bd994474655a4b4968, type: 2}
       color: {r: 1, g: 0, b: 0, a: 0.5}
@@ -8252,7 +8237,7 @@ MonoBehaviour:
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0}
     m_Visible: 1
-  - m_Transform: {fileID: 713661129}
+  - m_Transform: {fileID: 0}
     m_Style:
       shape: {fileID: 4300000, guid: e050c2b16fe384bd994474655a4b4968, type: 2}
       color: {r: 1, g: 0, b: 0, a: 0.5}
@@ -13090,7 +13075,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 770894727913645563, guid: 9b79a45bc490eee42b06fd27ce971d5b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1217832745}
   m_SourcePrefab: {fileID: 100100000, guid: 9b79a45bc490eee42b06fd27ce971d5b, type: 3}
 --- !u!4 &6000407479079923919 stripped
 Transform:
@@ -13542,19 +13530,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aimVirtualCamera: {fileID: 2010300100}
   starterAssetsInputs: {fileID: 135756641569395980}
+  model: {fileID: 543450653031876641}
   thirdPersonCtrl: {fileID: 4416926083378710907}
   normalSensitivity: 1
   aimlSensitivity: 0.5
   aimColLayerMask:
     serializedVersion: 2
     m_Bits: 1
-  target: {fileID: 1208673258}
+  centerTarget: {fileID: 1208673258}
   pfBulletProjectile: {fileID: 2342482907697801827, guid: 3d7274573692bc8408385305ed0a19c8, type: 3}
-  spawnBulletPosition: {fileID: 1373011914}
-  red: {fileID: 4583094836520722448, guid: c869e57a28e8e5d4b92dc73519b9d187, type: 3}
-  green: {fileID: 9220669731370811178, guid: 56b347f213ce8d240bb591a4985148ac, type: 3}
-  animator: {fileID: 0}
+  spawnBulletPosition: {fileID: 1217832745}
+  animator: {fileID: 6982812147906480560}
+  rigBuilder: {fileID: 6982812147906480563}
   rig: {fileID: 1964716507}
+  isAiming: 0
 --- !u!114 &6982812147906480562
 MonoBehaviour:
   m_ObjectHideFlags: 0
