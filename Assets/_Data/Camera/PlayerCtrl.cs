@@ -7,8 +7,6 @@ using UnityEngine.Animations.Rigging;
     {
         [SerializeField] CinemachineCamera  aimVirtualCamera;
         public CinemachineCamera AimVirtualCamera => aimVirtualCamera;
-        [SerializeField] StarterAssetsInputs  starterAssetsInputs;
-        public StarterAssetsInputs StarterAssetsInputs => starterAssetsInputs;
         [SerializeField] protected Transform model;
         [SerializeField] protected ThirdPersonController  thirdPersonCtrl;
         public ThirdPersonController ThirdPersonCtrl => thirdPersonCtrl;
@@ -51,7 +49,6 @@ using UnityEngine.Animations.Rigging;
         {
             base.LoadComponents();
             this.LoadCinemachineCamera();
-            this.LoadStarterAssetsInputs();
             this.LoadThirdPersonController();
             this.LoadAnimator();
             this.LoadRigBuilder();
@@ -116,12 +113,6 @@ using UnityEngine.Animations.Rigging;
             if (animator != null) return;
             animator = GetComponent<Animator>();
             Debug.Log(transform.name+": LoadAnimator",gameObject);
-        }
-        protected virtual void LoadStarterAssetsInputs()
-        {
-            if (starterAssetsInputs != null) return;
-            starterAssetsInputs = GetComponent<StarterAssetsInputs>();
-            Debug.Log(transform.name+": LoadStarterAssetsInputs",gameObject);
         }
     }
 

@@ -1,17 +1,16 @@
 using System;
 using UnityEngine;
 
-public class PlayerShoot : AttackAbstract
+public class PlayerFastShoot : ShootAbstract
 {
     
     protected override void Shooting()
     {
-        if (playerCtrl.StarterAssetsInputs.shoot)
-        {
+        bool shouldShoot = InputManager.Instance.IsShooting();
+        if (!shouldShoot) return;
             AttackPoint attackPoint = GetAttackPoint();
             Debug.Log("Shootingggg" + attackPoint.transform.position);
-            playerCtrl.StarterAssetsInputs.shoot = false; 
-        }
+            
         
     }
 }

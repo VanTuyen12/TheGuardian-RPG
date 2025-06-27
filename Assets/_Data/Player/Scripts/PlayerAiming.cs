@@ -30,13 +30,14 @@
         
         protected virtual void CheckAimInputs()
         {   
-            bool shouldAim = playerCtrl.StarterAssetsInputs.aim;
+            bool shouldAim = InputManager.Instance.IsAiming();
             if (shouldAim && !isAiming)
             {
                 isAiming = true;
                 playerCtrl.AimVirtualCamera.gameObject.SetActive(true);
                 playerCtrl.ThirdPersonCtrl.SetSensitivity(aimlSensitivity);
                 playerCtrl.ThirdPersonCtrl.SetRotateOnMove(false);
+                SetCrosshairState(true);
             }
             if (!shouldAim && isAiming)
             {
@@ -44,9 +45,9 @@
                 playerCtrl.AimVirtualCamera.gameObject.SetActive(false);
                 playerCtrl.ThirdPersonCtrl.SetSensitivity(normalSensitivity);
                 playerCtrl.ThirdPersonCtrl.SetRotateOnMove(true);
+                SetCrosshairState(false);
            
             }
-            SetCrosshairState(isAiming);
         }
         
         private void SetCrosshairState(bool aiming)
@@ -98,11 +99,11 @@
         protected virtual void FaceTheTarget()
         {
             if(!isAiming) return;
-            NormalCrosshair normalCrosshair = playerCtrl.NormalCrosshair;
-            Vector3 worldAimTarget = normalCrosshair.transform.position;
+            AimingCrosshair _aimingCrosshair = playerCtrl.AimingCrosshair;
+            Vector3 worldAimTarget = _aimingCrosshair.transform.position;
             worldAimTarget.y = playerCtrl.transform.position.y;
             Vector3 aimDirection = (worldAimTarget - this.playerCtrl.transform.position).normalized;
-            playerCtrl.transform.forward = Vector3.Slerp(playerCtrl.transform.forward, aimDirection,Time.deltaTime * 10f);
+            playerCtrl.transform.forward = Vector3.Lerp(playerCtrl.transform.forward, aimDirection,Time.deltaTime * 20f);
             
         }
         

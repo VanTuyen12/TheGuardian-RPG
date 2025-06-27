@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class AttackAbstract : MyMonoBehaviour
+public abstract class ShootAbstract : MyMonoBehaviour
 {
     [SerializeField]protected PlayerCtrl playerCtrl;
     protected void Update()
