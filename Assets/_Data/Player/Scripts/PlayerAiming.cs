@@ -9,15 +9,27 @@
         [SerializeField] private float normalSensitivity = 1f ;
         [SerializeField] private float aimlSensitivity = 0.5f;
         [SerializeField] private bool isAiming = false;
-      
+        [SerializeField] protected GameObject normalCrosshair;
+        [SerializeField] protected GameObject aimingCrosshair;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            normalCrosshair = playerCtrl.NormalCrosshair.gameObject;
+            aimingCrosshair = playerCtrl.AimingCrosshair.gameObject;
+            SetCrosshairState(false);
+            
+        }
+
         protected virtual void Update()
         {
             CheckAimInputs();
+            FaceTheTarget();
+            UpdateAimingWeights();
         }
         
-        
         protected virtual void CheckAimInputs()
-        {
+        {   
             bool shouldAim = playerCtrl.StarterAssetsInputs.aim;
             if (shouldAim && !isAiming)
             {
@@ -25,7 +37,6 @@
                 playerCtrl.AimVirtualCamera.gameObject.SetActive(true);
                 playerCtrl.ThirdPersonCtrl.SetSensitivity(aimlSensitivity);
                 playerCtrl.ThirdPersonCtrl.SetRotateOnMove(false);
-                
             }
             if (!shouldAim && isAiming)
             {
@@ -35,39 +46,66 @@
                 playerCtrl.ThirdPersonCtrl.SetRotateOnMove(true);
            
             }
-            UpdateAimingWeights();
+            SetCrosshairState(isAiming);
+        }
+        
+        private void SetCrosshairState(bool aiming)
+        {
+            isAiming = aiming;
+            
+            // Switch crosshair
+            if (normalCrosshair != null)
+                normalCrosshair.SetActive(!aiming);
+            
+            if (aimingCrosshair != null)
+                aimingCrosshair.SetActive(aiming);
+            
+            Debug.Log($"Crosshair switched to: {(aiming ? "Aiming" : "Normal")} mode");
+        }
+        
+        public void StartAiming()
+        {
+            SetCrosshairState(true);
+        }
+    
+        public void StopAiming()
+        {
+            SetCrosshairState(false);
         }
         
         private void UpdateAimingWeights()
         {
             float targetRigWeight = isAiming ? 1f : 0f;
             float targetLayerWeight = isAiming ? 1f : 0f;
-        
+            
             if (isAiming)
             {
-                this.FaceTheTarget(playerCtrl.CrosshairPointer.MouseWorldPosition);
-                playerCtrl.Rig.weight = Mathf.MoveTowards(playerCtrl.Rig.weight, targetRigWeight, Time.deltaTime * 5f);
-                playerCtrl.Animator.SetLayerWeight(1, Mathf.MoveTowards( playerCtrl.Animator.GetLayerWeight(1), targetLayerWeight, Time.deltaTime * 5f));
-               
+                playerCtrl.Rig.weight = Mathf.MoveTowards(playerCtrl.Rig.weight, targetRigWeight, Time.deltaTime * 20f);
+                playerCtrl.Animator.SetLayerWeight(1, Mathf.MoveTowards( playerCtrl.Animator.GetLayerWeight(1), 
+                    targetLayerWeight, Time.deltaTime * 20f));
             }
             else
             {
-                playerCtrl.Rig.weight = Mathf.MoveTowards(playerCtrl.Rig.weight, 0f, Time.deltaTime * 6);
+                playerCtrl.Rig.weight = Mathf.MoveTowards(playerCtrl.Rig.weight, 0f, Time.deltaTime * 22);
                 if (playerCtrl.Rig.weight < 0.1f)
                 {
-                    playerCtrl.Animator.SetLayerWeight(1, Mathf.MoveTowards( playerCtrl.Animator.GetLayerWeight(1), 0f, Time.deltaTime * 5f));
+                    playerCtrl.Animator.SetLayerWeight(1, Mathf.MoveTowards( 
+                        playerCtrl.Animator.GetLayerWeight(1), 0f, Time.deltaTime * 20f));
                 }
             }
         }
         
-        protected virtual void FaceTheTarget(Vector3 mouseWorldPosition)
+        protected virtual void FaceTheTarget()
         {
-       
-            Vector3 worldAimTarget = mouseWorldPosition;
-            worldAimTarget.y = transform.position.y;
-            Vector3 aimDirection = (worldAimTarget - this.transform.position).normalized;
-            transform.forward = Vector3.Slerp(transform.forward, aimDirection,Time.deltaTime * 50f);
+            if(!isAiming) return;
+            NormalCrosshair normalCrosshair = playerCtrl.NormalCrosshair;
+            Vector3 worldAimTarget = normalCrosshair.transform.position;
+            worldAimTarget.y = playerCtrl.transform.position.y;
+            Vector3 aimDirection = (worldAimTarget - this.playerCtrl.transform.position).normalized;
+            playerCtrl.transform.forward = Vector3.Slerp(playerCtrl.transform.forward, aimDirection,Time.deltaTime * 10f);
+            
         }
-
+        
+        
     }
 

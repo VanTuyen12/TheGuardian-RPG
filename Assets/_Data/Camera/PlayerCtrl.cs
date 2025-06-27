@@ -5,16 +5,19 @@ using UnityEngine.Animations.Rigging;
 
     public class PlayerCtrl : MyMonoBehaviour
     {
-        [SerializeField] CinemachineVirtualCamera  aimVirtualCamera;
-        public CinemachineVirtualCamera AimVirtualCamera => aimVirtualCamera;
+        [SerializeField] CinemachineCamera  aimVirtualCamera;
+        public CinemachineCamera AimVirtualCamera => aimVirtualCamera;
         [SerializeField] StarterAssetsInputs  starterAssetsInputs;
         public StarterAssetsInputs StarterAssetsInputs => starterAssetsInputs;
         [SerializeField] protected Transform model;
         [SerializeField] protected ThirdPersonController  thirdPersonCtrl;
         public ThirdPersonController ThirdPersonCtrl => thirdPersonCtrl;
    
-        [SerializeField] protected CrosshairPointer crosshairPointer;
-        public CrosshairPointer CrosshairPointer => crosshairPointer;
+        [SerializeField] protected NormalCrosshair normalCrosshair;
+        public NormalCrosshair NormalCrosshair => normalCrosshair;
+        
+        [SerializeField] protected AimingCrosshair aimingCrosshair;
+        public AimingCrosshair AimingCrosshair => aimingCrosshair;
    
         //[SerializeField] Transform pfBulletProjectile;
         //[SerializeField] SpawnBulletPosition spawnBulletPosition;
@@ -23,16 +26,10 @@ using UnityEngine.Animations.Rigging;
         [SerializeField] private RigBuilder rigBuilder;
         [SerializeField] private Rig rig;
         public Rig Rig => rig;
-   
-   
-        protected virtual void FaceTheTargetInstant(Vector3 mouseWorldPosition)
-        {
-            Vector3 worldAimTarget = mouseWorldPosition;
-            worldAimTarget.y = transform.position.y;
-            Vector3 aimDirection = (worldAimTarget - this.transform.position).normalized;
-            transform.forward = aimDirection; // Quay ngay lập tức
-        }
-
+        
+        [SerializeField]protected Weapons weapons;
+        public Weapons Weapons => weapons;
+        
         /*protected virtual void Shooting()
     {
 
@@ -53,15 +50,23 @@ using UnityEngine.Animations.Rigging;
         protected override void LoadComponents()
         {
             base.LoadComponents();
-            this.LoadCinemachineVirtualCamera();
+            this.LoadCinemachineCamera();
             this.LoadStarterAssetsInputs();
             this.LoadThirdPersonController();
             this.LoadAnimator();
             this.LoadRigBuilder();
-            this.LoadCrosshairPointer();
+            this.LoadNormalCrosshair();
+            this.LoadAimingCrosshair();
             this.LoadModel();
+            this.LoadWeapons();
         }
-    
+        
+        protected virtual void LoadWeapons()
+        {
+            if (weapons != null) return;
+            weapons = GetComponentInChildren<Weapons>();
+            Debug.Log(transform.name+": LoadWeapons",gameObject);
+        }
         protected virtual void LoadModel()
         {
             if (model != null) return;
@@ -69,11 +74,17 @@ using UnityEngine.Animations.Rigging;
             //spawnBulletPosition = model.GetComponentInChildren<SpawnBulletPosition>();
             Debug.Log(transform.name+": LoadModel",gameObject);
         }
-        protected virtual void LoadCrosshairPointer()
+        protected virtual void LoadNormalCrosshair()
         {
-            if (crosshairPointer != null) return;
-            crosshairPointer = GetComponentInChildren<CrosshairPointer>();
-            Debug.Log(transform.name+": LoadCrosshairPointer",gameObject);
+            if (normalCrosshair != null) return;
+            normalCrosshair = FindAnyObjectByType<NormalCrosshair>();
+            Debug.Log(transform.name+": LoadNormalCrosshair",gameObject);
+        }
+        protected virtual void LoadAimingCrosshair()
+        {
+            if (aimingCrosshair != null) return;
+            aimingCrosshair = FindAnyObjectByType<AimingCrosshair>();
+            Debug.Log(transform.name+": LoadAimingCrosshair",gameObject);
         }
         protected virtual void LoadRigBuilder()
         {
@@ -93,11 +104,11 @@ using UnityEngine.Animations.Rigging;
             Debug.Log(transform.name+": LoadThirdPersonController",gameObject);
         }
     
-        protected virtual void LoadCinemachineVirtualCamera()
+        protected virtual void LoadCinemachineCamera()
         {
             if (aimVirtualCamera != null) return;
-            aimVirtualCamera =GameObject.Find("PlayerAimCamera").GetComponent<CinemachineVirtualCamera>();
-            Debug.Log(transform.name+": aimVirtualCamera",gameObject);
+            aimVirtualCamera =GameObject.Find("PlayerAimCamera").GetComponent<CinemachineCamera>();
+            Debug.Log(transform.name+": LoadCinemachineCamera",gameObject);
         }
    
         protected virtual void LoadAnimator()
@@ -112,7 +123,5 @@ using UnityEngine.Animations.Rigging;
             starterAssetsInputs = GetComponent<StarterAssetsInputs>();
             Debug.Log(transform.name+": LoadStarterAssetsInputs",gameObject);
         }
-    
-    
     }
 
