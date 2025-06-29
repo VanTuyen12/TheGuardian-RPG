@@ -49,60 +49,7 @@
         protected virtual void MoveAiming()
         {
             playerCtrl.PlayerActionCtrl.UpdateRigAndLayer(isAiming);
-            playerCtrl.PlayerActionCtrl.FaceTarget(targetCrosshair.transform,isAiming);
+            playerCtrl.PlayerActionCtrl.FaceTarget(GetCrosshair(1),isAiming);
         }
-        /*public void SetCrosshairState(bool isAttack)
-        {
-            // Switch crosshair
-            if (normalCrosshair != null)
-                normalCrosshair.SetActive(!isAttack);
-            
-            if (targetCrosshair != null)
-                targetCrosshair.SetActive(isAttack);
-            
-            Debug.Log($"Crosshair switched to: {(isAttack ? "Aiming" : "Normal")} mode");
-        }*/
-        
-        /*public void StartAiming()
-        {
-            SetCrosshairState(true);
-        }
-    
-        public void StopAiming()
-        {
-            SetCrosshairState(false);
-        }
-        
-        private void UpdateAimingWeights(bool isAttack)
-        {
-            float targetRigWeight = isAttack ? 1f : 0f;
-            float targetLayerWeight = isAttack ? 1f : 0f;
-            
-            if (isAttack)
-            {
-                playerCtrl.Rig.weight = Mathf.MoveTowards(playerCtrl.Rig.weight, targetRigWeight, Time.deltaTime * 20f);
-                playerCtrl.Animator.SetLayerWeight(1, Mathf.MoveTowards( playerCtrl.Animator.GetLayerWeight(1), 
-                    targetLayerWeight, Time.deltaTime * 20f));
-            }
-            else
-            {
-                playerCtrl.Rig.weight = Mathf.MoveTowards(playerCtrl.Rig.weight, 0f, Time.deltaTime * 22);
-                if (playerCtrl.Rig.weight < 0.1f)
-                {
-                    playerCtrl.Animator.SetLayerWeight(1, Mathf.MoveTowards( 
-                        playerCtrl.Animator.GetLayerWeight(1), 0f, Time.deltaTime * 20f));
-                }
-            }
-        }
-        
-        protected virtual void FaceTheTarget(bool isAttack)
-        {
-            if(!isAttack) return;
-            TargetCrosshair targetCrosshair = playerCtrl.TargetCrosshair;
-            Vector3 worldAimTarget = targetCrosshair.transform.position;
-            worldAimTarget.y = playerCtrl.transform.position.y;
-            Vector3 aimDirection = (worldAimTarget - this.playerCtrl.transform.position).normalized;
-            playerCtrl.transform.forward = Vector3.Lerp(playerCtrl.transform.forward, aimDirection,Time.deltaTime * 20f);
-        }*/
     }
 

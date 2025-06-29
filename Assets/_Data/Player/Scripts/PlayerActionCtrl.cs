@@ -14,13 +14,17 @@ public class PlayerActionCtrl : PlayerAbstract
             
         if (isAttack)
         {
-            playerCtrl.Rig.weight = Mathf.MoveTowards(playerCtrl.Rig.weight, rigWeight, Time.deltaTime * rigTransitionSpeed);
+            playerCtrl.Rig.weight = Mathf.MoveTowards(playerCtrl.Rig.weight, 
+                rigWeight, Time.deltaTime * rigTransitionSpeed);
+            
             playerCtrl.Animator.SetLayerWeight(1, Mathf.MoveTowards( playerCtrl.Animator.GetLayerWeight(1), 
                 layerWeight, Time.deltaTime * layerTransitionSpeed));
         }
         else
         {
-            playerCtrl.Rig.weight = Mathf.MoveTowards(playerCtrl.Rig.weight, 0f, Time.deltaTime * rigDisableSpeed);
+            playerCtrl.Rig.weight = Mathf.MoveTowards(playerCtrl.Rig.weight, 
+                0f, Time.deltaTime * rigDisableSpeed);
+            
             if (playerCtrl.Rig.weight < 0.1f)
             {
                 playerCtrl.Animator.SetLayerWeight(1, Mathf.MoveTowards( 
@@ -30,14 +34,14 @@ public class PlayerActionCtrl : PlayerAbstract
         
     }
     
-    public virtual void FaceTarget(Transform crosshair,bool isAttack)
+    public virtual void FaceTarget(CrosshairAbstract crosshair,bool isAttack)
     {
         if(!isAttack) return;
         if (crosshair is null) return;
        
         Transform mySelf = playerCtrl.transform;
         
-        Vector3 worldTarget = crosshair.position;
+        Vector3 worldTarget = crosshair.transform.position;
         worldTarget.y = mySelf.position.y;
         Vector3 aimDirection = (worldTarget - mySelf.position).normalized;
         mySelf.forward = Vector3.Lerp(mySelf.forward, aimDirection,Time.deltaTime * rotationSpeed);
@@ -45,12 +49,15 @@ public class PlayerActionCtrl : PlayerAbstract
     
     public void SetCrosshairState(bool isAttack)
     {
+        CrosshairAbstract normalCrosshair = GetCrosshair(0);
+        CrosshairAbstract targetCrosshair = GetCrosshair(1);
+        
         // Switch crosshair
         if (normalCrosshair != null)
-            normalCrosshair.SetActive(!isAttack);
+            normalCrosshair.gameObject.SetActive(!isAttack);
             
         if (targetCrosshair != null)
-            targetCrosshair.SetActive(isAttack);
+            targetCrosshair.gameObject.SetActive(isAttack);
             
         Debug.Log($"Crosshair switched to: {(isAttack ? "target" : "Normal")} mode");
     }

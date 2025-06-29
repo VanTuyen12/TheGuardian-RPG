@@ -1,28 +1,14 @@
 using UnityEngine;
 
-public class TargetCrosshair : MyMonoBehaviour
+public class TargetCrosshair : CrosshairAbstract
 {
     [SerializeField] protected LayerMask aimColLayerMask = 1 << 0;
-    
-    private Vector2 screenCenterPoint;
-    private Camera mainCamera;
     private Ray ray;
     private RaycastHit hit;
-    protected override void Awake()
-    {
-        base.Awake();
-        mainCamera =  Camera.main; 
-        screenCenterPoint = new Vector2(Screen.width / 2, Screen.height / 2);
-    }
     
-    protected virtual void Update()
+    protected override void Pointing()
     {
-        Pointing();
-    }
-    
-    protected virtual void Pointing()
-    {
-        ray = mainCamera.ScreenPointToRay(screenCenterPoint);
+        ray = mainCamera.ScreenPointToRay(this.screenCenterPoint);
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, aimColLayerMask, QueryTriggerInteraction.Ignore))
         {
             transform.position = hit.point;

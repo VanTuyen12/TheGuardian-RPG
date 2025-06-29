@@ -3057,6 +3057,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a7b15efb93ab4348afb9a1b8f59b2d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 0}
   aimColLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -4339,8 +4340,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCtrl: {fileID: 6982812147906480561}
-  normalCrosshair: {fileID: 0}
-  targetCrosshair: {fileID: 0}
   normalSensitivity: 1
   aimlSensitivity: 0.5
   isAiming: 0
@@ -6364,7 +6363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ace797d975e7234a80b3a4805d9cc26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  assetsInputs: {fileID: 0}
+  assetsInputs: {fileID: 135756641569395980}
   isSlowShoot: 0
   isFastShoot: 0
 --- !u!4 &1502145967 stripped
@@ -6687,8 +6686,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCtrl: {fileID: 6982812147906480561}
-  normalCrosshair: {fileID: 376381874}
-  targetCrosshair: {fileID: 636493506}
   rigTransitionSpeed: 20
   layerTransitionSpeed: 20
   rigDisableSpeed: 22
@@ -7485,6 +7482,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1729284451}
+  - component: {fileID: 1729284452}
   m_Layer: 0
   m_Name: Crosshair
   m_TagString: Untagged
@@ -7509,6 +7507,21 @@ Transform:
   - {fileID: 636493507}
   m_Father: {fileID: 890277839}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1729284452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729284450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b5cfc524a561e1408d7875b0e28cf82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crosshairs:
+  - {fileID: 376381876}
+  - {fileID: 636493508}
 --- !u!1 &1742136082
 GameObject:
   m_ObjectHideFlags: 0
@@ -14171,8 +14184,7 @@ MonoBehaviour:
   aimVirtualCamera: {fileID: 2070925441519553354}
   model: {fileID: 543450653031876641}
   thirdPersonCtrl: {fileID: 4416926083378710907}
-  normalCrosshair: {fileID: 376381876}
-  targetCrosshair: {fileID: 636493508}
+  crosshairCtrl: {fileID: 1729284452}
   playerAiming: {fileID: 924040366}
   actionCtrl: {fileID: 1584244936}
   animator: {fileID: 6982812147906480560}

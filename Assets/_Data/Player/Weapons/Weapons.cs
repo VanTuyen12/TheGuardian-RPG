@@ -9,17 +9,17 @@ public class Weapons : MyMonoBehaviour
         base.LoadComponents();
         this.LoadWeapons();
     }
-    protected virtual void LoadWeapons()
-    {
-        if (weapons.Count > 0) return;
-        foreach (Transform child  in transform)
+        protected virtual void LoadWeapons()
         {
-            WeaponAbstract weaponAbstract = child.GetComponentInChildren<WeaponAbstract>();
-            if (weaponAbstract == null) continue;
-            this.weapons.Add(weaponAbstract);
+            if (weapons.Count > 0) return;
+            foreach (Transform child  in transform)
+            {
+                WeaponAbstract weaponAbstract = child.GetComponentInChildren<WeaponAbstract>();
+                if (weaponAbstract == null) continue;
+                this.weapons.Add(weaponAbstract);
+            }
+            Debug.Log(transform.name + "LoadAttackPoint",gameObject);
         }
-        Debug.Log(transform.name + "LoadAttackPoint",gameObject);
-    }
 
 
     public virtual WeaponAbstract GetCurrentWeapon()

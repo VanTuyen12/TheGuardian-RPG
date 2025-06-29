@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerFastShoot : ShootAbstract
 {
-    
+
     protected override void Shooting()
     {
 
@@ -12,20 +12,26 @@ public class PlayerFastShoot : ShootAbstract
             bool shouldShoot = InputManager.Instance.IsShooting();
             //bool shouldShoot = InputManager.Instance.IsFastShoot();
             if (!shouldShoot) return;
-       
+
             //if (playerCtrl)
-        
+
             AttackPoint attackPoint = GetAttackPoint();
             Debug.Log("PlayerFastShoot" + attackPoint.transform.position);
             InputManager.Instance.ResetShoot();
         }*/
-        
+
         bool shouldShoot = InputManager.Instance.IsFastShoot();
         if (!shouldShoot) return;
         playerCtrl.PlayerActionCtrl.SetCrosshairState(true);
         AttackPoint attackPoint = GetAttackPoint();
         Debug.Log("PlayerFastShoot" + attackPoint.transform.position);
         InputManager.Instance.ResetShoot();
-        
+
     }
+
+    /*protected virtual void MoveShooting()
+    {
+        playerCtrl.PlayerActionCtrl.UpdateRigAndLayer(isAiming);
+        playerCtrl.PlayerActionCtrl.FaceTarget(targetCrosshair.transform, isAiming);
+    }*/
 }

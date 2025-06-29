@@ -23,7 +23,7 @@ public abstract class ShootAbstract : MyMonoBehaviour
         
     }
 
-    protected virtual AttackPoint GetAttackPoint()
+    public virtual AttackPoint GetAttackPoint()
     {
         return playerCtrl.Weapons.GetCurrentWeapon().AttackPoint;
     }

@@ -12,11 +12,9 @@ public class PlayerCtrl : MyMonoBehaviour
     [SerializeField] protected ThirdPersonController thirdPersonCtrl;
     public ThirdPersonController ThirdPersonCtrl => thirdPersonCtrl;
 
-    [SerializeField] protected NormalCrosshair normalCrosshair;
-    public NormalCrosshair NormalCrosshair => normalCrosshair;
+    [SerializeField] protected CrosshairCtrl crosshairCtrl;
+    public CrosshairCtrl CrosshairCtrl => crosshairCtrl;
 
-    [SerializeField] protected TargetCrosshair targetCrosshair;
-    public TargetCrosshair TargetCrosshair => targetCrosshair;
     [SerializeField] protected PlayerAiming playerAiming;
     public PlayerAiming PlayerAiming => playerAiming;
     [SerializeField] protected PlayerActionCtrl actionCtrl;
@@ -57,8 +55,7 @@ public class PlayerCtrl : MyMonoBehaviour
         this.LoadThirdPersonController();
         this.LoadAnimator();
         this.LoadRigBuilder();
-        this.LoadNormalCrosshair();
-        this.LoadAimingCrosshair();
+        this.LoadCrosshairCtrl();
         this.LoadModel();
         this.LoadWeapons();
         this.LoadPlayerAiming();
@@ -98,19 +95,13 @@ public class PlayerCtrl : MyMonoBehaviour
         Debug.Log(transform.name + ": LoadModel", gameObject);
     }
 
-    protected virtual void LoadNormalCrosshair()
+    protected virtual void LoadCrosshairCtrl()
     {
-        if (normalCrosshair != null) return;
-        normalCrosshair = FindAnyObjectByType<NormalCrosshair>();
-        Debug.Log(transform.name + ": LoadNormalCrosshair", gameObject);
+        if (crosshairCtrl != null) return;
+        crosshairCtrl = FindAnyObjectByType<CrosshairCtrl>();
+        Debug.Log(transform.name + ": LoadCrosshairCtrl", gameObject);
     }
-
-    protected virtual void LoadAimingCrosshair()
-    {
-        if (targetCrosshair != null) return;
-        targetCrosshair = FindAnyObjectByType<TargetCrosshair>();
-        Debug.Log(transform.name + ": LoadAimingCrosshair", gameObject);
-    }
+    
 
     protected virtual void LoadRigBuilder()
     {
