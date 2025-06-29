@@ -2808,8 +2808,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1490609400}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &632268857
@@ -3024,7 +3023,7 @@ GameObject:
   - component: {fileID: 636493507}
   - component: {fileID: 636493508}
   m_Layer: 0
-  m_Name: AimingCrosshair
+  m_Name: TargetCrosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4340,11 +4339,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCtrl: {fileID: 6982812147906480561}
+  normalCrosshair: {fileID: 0}
+  targetCrosshair: {fileID: 0}
   normalSensitivity: 1
   aimlSensitivity: 0.5
   isAiming: 0
-  normalCrosshair: {fileID: 0}
-  aimingCrosshair: {fileID: 0}
 --- !u!4 &939405698 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 723541624038950529, guid: 60fe8015b75f4cf4bb320446aabdee89, type: 3}
@@ -6346,12 +6345,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1490609399}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 614442646}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1490609401
 MonoBehaviour:
@@ -6366,6 +6365,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   assetsInputs: {fileID: 0}
+  isSlowShoot: 0
+  isFastShoot: 0
 --- !u!4 &1502145967 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3229266543402988259, guid: 9ed1b565e3a3bc141b7f2dbe53c704e4, type: 3}
@@ -6656,6 +6657,57 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!1 &1584244935
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1584244937}
+  - component: {fileID: 1584244936}
+  m_Layer: 8
+  m_Name: PlayerActionCtrl
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1584244936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584244935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40b0db6394cd1ac4dbc8a3a641117a11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCtrl: {fileID: 6982812147906480561}
+  normalCrosshair: {fileID: 376381874}
+  targetCrosshair: {fileID: 636493506}
+  rigTransitionSpeed: 20
+  layerTransitionSpeed: 20
+  rigDisableSpeed: 22
+  rotationSpeed: 20
+--- !u!4 &1584244937
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584244935}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3893294199583429578}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1587858235 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6848077940526388620, guid: 1aa2df7b247ca0e4984e6bf0acf47f1a, type: 3}
@@ -7729,6 +7781,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1888369374}
+  - component: {fileID: 1888369375}
   m_Layer: 0
   m_Name: PlayerSlowShoot
   m_TagString: Untagged
@@ -7751,6 +7804,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1196787510}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1888369375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888369373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d074a703f7d0a1e4db8f7d0e0f1926e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCtrl: {fileID: 6982812147906480561}
 --- !u!1 &1894148782
 GameObject:
   m_ObjectHideFlags: 0
@@ -12135,6 +12201,7 @@ Transform:
   - {fileID: 8002264680804308760}
   - {fileID: 8338988565585719340}
   - {fileID: 924040365}
+  - {fileID: 1584244937}
   - {fileID: 1196787510}
   m_Father: {fileID: 890277839}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14105,7 +14172,9 @@ MonoBehaviour:
   model: {fileID: 543450653031876641}
   thirdPersonCtrl: {fileID: 4416926083378710907}
   normalCrosshair: {fileID: 376381876}
-  aimingCrosshair: {fileID: 636493508}
+  targetCrosshair: {fileID: 636493508}
+  playerAiming: {fileID: 924040366}
+  actionCtrl: {fileID: 1584244936}
   animator: {fileID: 6982812147906480560}
   rigBuilder: {fileID: 6982812147906480563}
   rig: {fileID: 1964716507}
@@ -15294,6 +15363,7 @@ SceneRoots:
   - {fileID: 890277839}
   - {fileID: 1683401511}
   - {fileID: 614442646}
+  - {fileID: 1490609400}
   - {fileID: 1517668132}
   - {fileID: 1899870705}
   - {fileID: 554585037}

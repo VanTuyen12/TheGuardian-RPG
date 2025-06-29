@@ -4,11 +4,21 @@ public class PlayerSlowShoot : ShootAbstract
 {
     protected override void Shooting()
     {
-        /*if (InputManager.Instance.IsAiming())
+        /*if (playerCtrl.PlayerAiming.IsAiming)
         {
-            AttackPoint attackPoint = GetAttackPoint();
-            Debug.Log("Shootingggg" + attackPoint.transform.position);
-            
+            //bool shouldShoot = InputManager.Instance.IsSlowShoot();
+            bool shouldShoot = InputManager.Instance.IsShooting();
+            if (!shouldShoot) return;
+                AttackPoint attackPoint = GetAttackPoint();
+                Debug.Log("PlayerSlowShoot" + attackPoint.transform.position);
+                InputManager.Instance.ResetShoot();
         }*/
+        
+        bool shouldShoot = InputManager.Instance.IsSlowShoot();
+        if (!shouldShoot) return;
+        
+        AttackPoint attackPoint = GetAttackPoint();
+        Debug.Log("PlayerSlowShoot" + attackPoint.transform.position);
+        InputManager.Instance.ResetShoot();
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AimingCrosshair : MyMonoBehaviour
+public class TargetCrosshair : MyMonoBehaviour
 {
     [SerializeField] protected LayerMask aimColLayerMask = 1 << 0;
     
