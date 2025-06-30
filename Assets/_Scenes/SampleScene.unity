@@ -7830,6 +7830,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCtrl: {fileID: 6982812147906480561}
+  isShooting: 0
+  isattacking: 0
+  shotTimer: 0
+  ceasefireTime: 0.5
 --- !u!1 &1894148782
 GameObject:
   m_ObjectHideFlags: 0
@@ -9035,6 +9039,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCtrl: {fileID: 6982812147906480561}
+  isShooting: 0
+  isattacking: 0
+  shotTimer: 0
+  ceasefireTime: 5
 --- !u!1 &2111821360
 GameObject:
   m_ObjectHideFlags: 0

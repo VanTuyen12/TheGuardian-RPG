@@ -3,10 +3,11 @@ using UnityEngine;
 public abstract class ShootAbstract : MyMonoBehaviour
 {
     [SerializeField]protected PlayerCtrl playerCtrl;
-    protected void Update()
-    {
-        Shooting();
-    }
+    [SerializeField] protected bool isShooting = false;
+    [SerializeField] protected bool isattacking = false;
+    [SerializeField] protected float shotTimer = 0f;
+    [SerializeField] protected float ceasefireTime = 5f;
+    
     protected abstract void Shooting();
 
     protected override void LoadComponents()
@@ -23,6 +24,9 @@ public abstract class ShootAbstract : MyMonoBehaviour
         
     }
 
+    
+    
+    
     public virtual AttackPoint GetAttackPoint()
     {
         return playerCtrl.Weapons.GetCurrentWeapon().AttackPoint;
