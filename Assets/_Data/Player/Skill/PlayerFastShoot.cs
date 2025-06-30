@@ -5,91 +5,41 @@ using Update = Unity.VisualScripting.Update;
 
 public class PlayerFastShoot : ShootAbstract
 {
-    private bool wasShootingLastFrame = false;
+    [SerializeField] protected bool isShooting = false;
     protected virtual void Update()
     {
-        bool isHoldingShoot  = InputManager.Instance.IsShooting();
-            FaceTargetToShooting(isHoldingShoot);
-            UpdateRigAndLayer(isHoldingShoot);
-            CheckCrosshair(isHoldingShoot);
-        
         Shooting();
+        //MoveToShooting();
         
     }
-
-    private void FixedUpdate()
-    {
-        CheckStopShoot();
-    }
+    
 
     protected override void Shooting()
     {
-        bool shouldShoot = InputManager.Instance.IsFastShoot();
-        if (!shouldShoot)
-        {
-            isShooting = false;
-            return; 
-        } 
-        
-        /*isShooting = true;
-        CheckCrosshair(true);
-        AttackPoint attackPoint = GetAttackPoint();
-        Debug.Log("PlayerFastShoot" + attackPoint.transform.position);
-        InputManager.Instance.ResetShoot();*/
-        // Chỉ bắn khi mới bắt đầu nhấn (edge detection)
-        if (!wasShootingLastFrame && shouldShoot)
+        bool shouldAim = InputManager.Instance.IsFastShoot();
+        if (shouldAim)
         {
             isShooting = true;
-            CheckCrosshair(true);
-            
+            playerCtrl.ThirdPersonCtrl.SetRotateOnMove(false);
             AttackPoint attackPoint = GetAttackPoint();
-            Debug.Log("PlayerFastShoot" + attackPoint.transform.position);
-            
-            // Reset input sau khi đã xử lý
-            InputManager.Instance.ResetShoot();
+            //Debug.Log("PlayerFastShoot" + attackPoint.transform.position);
         }
-        
-        
-        wasShootingLastFrame = shouldShoot;
-    }
-
-    protected virtual bool InputCheck()
-    {
-        return InputManager.Instance.IsFastShoot();
+        else
+        {
+            isShooting = false;
+            playerCtrl.ThirdPersonCtrl.SetRotateOnMove(true);
+        }
+        CheckCrosshair(isShooting);
     }
     
-    public virtual void CheckStopShoot()
-    {
-        if (isShooting) {
-           
-            shotTimer = 0f;
-            isattacking = true;
-        }
-        else {
-            if (!isattacking) return;
-            shotTimer += Time.deltaTime;
-                
-            if (!(shotTimer > ceasefireTime)) return;
-            isattacking = false;
-            //CheckCrosshair(false);
-            //FaceTargetToShooting(false);
-            shotTimer = 0f;
-        }
-    }
     protected virtual void CheckCrosshair(bool crosshair)
     {
-        playerCtrl.PlayerActionCtrl.SetCrosshairState(crosshair);
+        playerCtrl.PlayerActionCtrl.SetShootingMode(crosshair);
     }
     
-    protected virtual void FaceTargetToShooting(bool isattacking)
+    protected virtual void MoveToShooting()
     {
-        playerCtrl.PlayerActionCtrl.FaceTarget(playerCtrl.CrosshairCtrl.GetCrosshair(1), isattacking);
+        playerCtrl.PlayerActionCtrl.FaceTarget(isShooting);
     }
-    protected virtual void UpdateRigAndLayer(bool isattacking)
-    {
-        playerCtrl.PlayerActionCtrl.UpdateRigAndLayer( isattacking);
-    }
-    
-    
     
 }

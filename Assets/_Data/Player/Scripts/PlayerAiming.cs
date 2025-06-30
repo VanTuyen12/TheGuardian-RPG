@@ -4,23 +4,15 @@
 
     public class PlayerAiming : PlayerAbstract
     {
-        
-        
         [SerializeField] private float normalSensitivity = 1f ;
         [SerializeField] private float aimlSensitivity = 0.5f;
         [SerializeField] private bool isAiming = false;
         
-        protected override void Awake()
-        {
-            base.Awake();
-            playerCtrl.PlayerActionCtrl.SetCrosshairState(false);;
-            
-        }
 
         protected virtual void Update()
         {
             CheckAimInputs();
-            MoveAiming();
+            //MoveAiming();
         }
         
         protected virtual void CheckAimInputs()
@@ -29,27 +21,36 @@
             if (shouldAim && !isAiming)
             {
                 isAiming = true;
-                playerCtrl.AimVirtualCamera.gameObject.SetActive(true);
-                playerCtrl.ThirdPersonCtrl.SetSensitivity(aimlSensitivity);
-                playerCtrl.ThirdPersonCtrl.SetRotateOnMove(false);
-                playerCtrl.PlayerActionCtrl.SetCrosshairState(true);
+                LookClose();
             }
             if (!shouldAim && isAiming)
             {
                 isAiming = false;
-                playerCtrl.AimVirtualCamera.gameObject.SetActive(false);
-                playerCtrl.ThirdPersonCtrl.SetSensitivity(normalSensitivity);
-                playerCtrl.ThirdPersonCtrl.SetRotateOnMove(true);
-                playerCtrl.PlayerActionCtrl.SetCrosshairState(false);
-           
+                LookFar();
             }
+            playerCtrl.PlayerActionCtrl.SetAimingMode(isAiming);
         }
 
+        protected virtual void LookClose()
+        {
+            playerCtrl.AimVirtualCamera.gameObject.SetActive(true);
+            playerCtrl.ThirdPersonCtrl.SetSensitivity(aimlSensitivity);
+            playerCtrl.ThirdPersonCtrl.SetRotateOnMove(false);//camera zoom
+           
+        }
+        
+        protected virtual void LookFar()
+        {
+            playerCtrl.AimVirtualCamera.gameObject.SetActive(false);
+            playerCtrl.ThirdPersonCtrl.SetSensitivity(normalSensitivity);
+            playerCtrl.ThirdPersonCtrl.SetRotateOnMove(true);
+            
+        }
         // ReSharper disable Unity.PerformanceAnalysis
         protected virtual void MoveAiming()
         {
-            playerCtrl.PlayerActionCtrl.UpdateRigAndLayer(isAiming);
-            playerCtrl.PlayerActionCtrl.FaceTarget(GetCrosshair(1),isAiming);
+            playerCtrl.PlayerActionCtrl.FaceTarget(isAiming);
+            //playerCtrl.PlayerActionCtrl.UpdateRigAndLayer(isAiming);
         }
     }
 

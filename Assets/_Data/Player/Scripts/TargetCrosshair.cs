@@ -8,7 +8,8 @@ public class TargetCrosshair : CrosshairAbstract
     
     protected override void Pointing()
     {
-        ray = mainCamera.ScreenPointToRay(this.screenCenterPoint);
+        Vector2 screenCenterPoint = new Vector2(Screen.width / 2, Screen.height / 2);
+        ray = mainCamera.ScreenPointToRay(screenCenterPoint);
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, aimColLayerMask, QueryTriggerInteraction.Ignore))
         {
             transform.position = hit.point;

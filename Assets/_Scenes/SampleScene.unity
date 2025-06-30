@@ -6363,9 +6363,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ace797d975e7234a80b3a4805d9cc26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  assetsInputs: {fileID: 135756641569395980}
+  isLeftClick: 0
+  isRightClick: 0
   isSlowShoot: 0
-  isFastShoot: 0
 --- !u!4 &1502145967 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3229266543402988259, guid: 9ed1b565e3a3bc141b7f2dbe53c704e4, type: 3}
@@ -6686,9 +6686,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCtrl: {fileID: 6982812147906480561}
-  rigTransitionSpeed: 20
-  layerTransitionSpeed: 20
-  rigDisableSpeed: 22
+  normalCrosshair: {fileID: 0}
+  targetCrosshair: {fileID: 0}
+  rigTransitionSpeed: 5
+  layerTransitionSpeed: 5
+  rigDisableSpeed: 6
   rotationSpeed: 20
 --- !u!4 &1584244937
 Transform:
@@ -7830,10 +7832,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCtrl: {fileID: 6982812147906480561}
-  isShooting: 0
-  isattacking: 0
-  shotTimer: 0
-  ceasefireTime: 0.5
 --- !u!1 &1894148782
 GameObject:
   m_ObjectHideFlags: 0
@@ -8566,7 +8564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b342d8ce5c2fd48b8fa3147d48d1d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Weight: 1
+  m_Weight: 0
   m_Effectors:
   - m_Transform: {fileID: 0}
     m_Style:
@@ -9040,9 +9038,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCtrl: {fileID: 6982812147906480561}
   isShooting: 0
-  isattacking: 0
-  shotTimer: 0
-  ceasefireTime: 5
 --- !u!1 &2111821360
 GameObject:
   m_ObjectHideFlags: 0

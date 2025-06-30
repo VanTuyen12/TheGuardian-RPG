@@ -3,12 +3,44 @@ using UnityEngine.Animations.Rigging;
 
 public class PlayerActionCtrl : PlayerAbstract
 {
-    [SerializeField] private float rigTransitionSpeed = 20f;
-    [SerializeField] private float layerTransitionSpeed = 20f;
-    [SerializeField] private float rigDisableSpeed = 22f;
+    [SerializeField] protected CrosshairAbstract normalCrosshair;
+    [SerializeField] protected CrosshairAbstract targetCrosshair;
+    
+    [SerializeField] private float rigTransitionSpeed = 5f;
+    [SerializeField] private float layerTransitionSpeed = 5f;
+    [SerializeField] private float rigDisableSpeed = 6f;
     [SerializeField] private float rotationSpeed = 20f;
+    
+    private bool isShootingMode = false;
+    private bool isAimingMode = false;
+    private bool isLastState = false;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        normalCrosshair = GetCrosshair(0);
+        targetCrosshair = GetCrosshair(1);
+        playerCtrl.PlayerActionCtrl.SetCrosshairState(false);
+    }
+    protected virtual void Update()
+    {
+        UpdateMoveToAttack();
+    }
+
+    protected virtual void UpdateMoveToAttack()
+    {
+        bool shouldActivateRig = isShootingMode || isAimingMode;
+        UpdateRigAndLayer(shouldActivateRig);
+        
+        if (shouldActivateRig)
+        {
+            FaceTarget(true);
+        }
+    }
+    
     public void UpdateRigAndLayer(bool isAttack)
     {
+        
         float rigWeight = isAttack ? 1f : 0f;
         float layerWeight = isAttack ? 1f : 0f;
             
@@ -31,35 +63,56 @@ public class PlayerActionCtrl : PlayerAbstract
                     playerCtrl.Animator.GetLayerWeight(1), 0f, Time.deltaTime * layerTransitionSpeed));
             }
         }
-        
     }
     
-    public virtual void FaceTarget(CrosshairAbstract crosshair,bool isAttack)
+    public virtual void FaceTarget(bool isAttack)
     {
         if(!isAttack) return;
-        if (crosshair is null) return;
-       
+        CrosshairAbstract crosshair = GetCrosshair(1);
         Transform mySelf = playerCtrl.transform;
         
         Vector3 worldTarget = crosshair.transform.position;
         worldTarget.y = mySelf.position.y;
         Vector3 aimDirection = (worldTarget - mySelf.position).normalized;
+        //mySelf.forward = aimDirection;
         mySelf.forward = Vector3.Lerp(mySelf.forward, aimDirection,Time.deltaTime * rotationSpeed);
+    }
+    
+    public void SetShootingMode(bool shooting)
+    {
+        if (isShootingMode == shooting ) return;
+       
+        isShootingMode = shooting;
+        UpdatePlayerState();
+    }
+    
+    public void SetAimingMode(bool aiming)
+    {
+        if (isAimingMode == aiming ) return;
+        
+        isAimingMode = aiming;
+        UpdatePlayerState();
+    }
+    
+    private void UpdatePlayerState()
+    {
+        bool showTargetCrosshair = isShootingMode || isAimingMode;
+        if (showTargetCrosshair == isLastState) return;
+        
+        isLastState = showTargetCrosshair;
+        SetCrosshairState(showTargetCrosshair);
+        
     }
     
     public void SetCrosshairState(bool isAttack)
     {
-        CrosshairAbstract normalCrosshair = GetCrosshair(0);
-        CrosshairAbstract targetCrosshair = GetCrosshair(1);
-        
         // Switch crosshair
         if (normalCrosshair != null)
             normalCrosshair.gameObject.SetActive(!isAttack);
-            
+        
         if (targetCrosshair != null)
             targetCrosshair.gameObject.SetActive(isAttack);
-            
-        Debug.Log($"Crosshair switched to: {(isAttack ? "target" : "Normal")} mode");
+        //Debug.Log($"Crosshair switched to: {(isAttack ? "target" : "Normal")} mode");
     }
     
 }

@@ -4,73 +4,54 @@ using UnityEngine;
 
 public class InputManager : Singleton<InputManager>
 {
-    [SerializeField]protected StarterAssetsInputs assetsInputs;
-    private bool isLeftClick = false;
-    private bool isRightClick =  false;
     
+    [SerializeField]private bool isLeftClick = false;
+    [SerializeField]private bool isRightClick =  false;
     //Check Shoot
     [SerializeField]private bool isSlowShoot = false;
-    [SerializeField]private bool isFastShoot  = false;
+   
 
     private void Update()
     {
-        CheckRightClick();
-        CheckLeftClick();
+        CheckAiming();
+        CheckFastShoot();
         CheckShoot();
     }
 
-    protected virtual void CheckRightClick()
+    protected virtual void CheckAiming()
     {
-        this.isRightClick = assetsInputs.aim;
+        this.isRightClick = Input.GetMouseButton(1);
     }
-    protected virtual void CheckLeftClick()
+    protected virtual void CheckFastShoot()
     {
-        this.isLeftClick = assetsInputs.shoot;
+        this.isLeftClick = Input.GetMouseButton(0);
     }
-
+    
+    
+    // ReSharper disable Unity.PerformanceAnalysis
     protected virtual void CheckShoot()
     {
-        if (isRightClick && isLeftClick) isSlowShoot =  true;
-        else isSlowShoot = false;
-        
-        if (!isRightClick && isLeftClick) isFastShoot =  true;
-        else isFastShoot = false;
-        
-    }
-   
-    public virtual void ResetShoot()
-    {
-        assetsInputs.shoot = false;
+        if (Input.GetMouseButton(1))
+        {
+            isSlowShoot = Input.GetMouseButtonUp(0);
+        }else isSlowShoot = false;
     }
     
     public virtual bool IsSlowShoot()
     {
         return this.isSlowShoot;
     }
-    public virtual bool IsFastShoot()
-    {
-        return this.isFastShoot;
-    }
+    
     public virtual bool IsAiming()
     {
         return this.isRightClick;
     }
     
-    public virtual bool IsShooting()
+    public virtual bool IsFastShoot()
     {
         return this.isLeftClick;
     }
-    protected override void LoadComponents()
-    {
-        base.LoadComponents();
-        this.LoadStarterAssetsInputs();
-    }
 
-    protected virtual void LoadStarterAssetsInputs()
-    {
-        if (assetsInputs != null) return;
-        assetsInputs = FindAnyObjectByType<StarterAssetsInputs>();
-        Debug.Log(transform.name+": LoadStarterAssetsInputs",gameObject);
-    }
+    
     
 }

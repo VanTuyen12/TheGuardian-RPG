@@ -5,6 +5,7 @@ public abstract class PlayerAbstract : MyMonoBehaviour
 {
     [SerializeField]protected PlayerCtrl playerCtrl;
     
+
     protected override void LoadComponents()
     {
         base.LoadComponents();
