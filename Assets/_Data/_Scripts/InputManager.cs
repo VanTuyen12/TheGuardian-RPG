@@ -15,7 +15,7 @@ public class InputManager : Singleton<InputManager>
     {
         CheckAiming();
         CheckFastShoot();
-        CheckShoot();
+        CheckSlowShoot();
     }
 
     protected virtual void CheckAiming()
@@ -24,17 +24,18 @@ public class InputManager : Singleton<InputManager>
     }
     protected virtual void CheckFastShoot()
     {
+        if(IsAiming()) return;
+        
         this.isLeftClick = Input.GetMouseButton(0);
     }
     
     
     // ReSharper disable Unity.PerformanceAnalysis
-    protected virtual void CheckShoot()
+    protected virtual void CheckSlowShoot()
     {
-        if (Input.GetMouseButton(1))
-        {
-            isSlowShoot = Input.GetMouseButtonUp(0);
-        }else isSlowShoot = false;
+        if(!IsAiming()) return;
+        
+        isSlowShoot = Input.GetMouseButtonUp(0);
     }
     
     public virtual bool IsSlowShoot()

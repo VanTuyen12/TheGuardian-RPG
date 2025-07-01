@@ -19,9 +19,7 @@ public class PlayerCtrl : MyMonoBehaviour
     public PlayerAiming PlayerAiming => playerAiming;
     [SerializeField] protected PlayerActionCtrl actionCtrl;
     public PlayerActionCtrl PlayerActionCtrl => actionCtrl;
-
-    //[SerializeField] Transform pfBulletProjectile;
-    //[SerializeField] SpawnBulletPosition spawnBulletPosition;
+    
     [SerializeField] private Animator animator;
     public Animator Animator => animator;
     [SerializeField] private RigBuilder rigBuilder;
@@ -30,23 +28,6 @@ public class PlayerCtrl : MyMonoBehaviour
 
     [SerializeField] protected Weapons weapons;
     public Weapons Weapons => weapons;
-
-    /*protected virtual void Shooting()
-{
-
-    if (starterAssetsInputs.shoot)
-    {
-        //UpdateAimingWeights();
-        FaceTheTargetInstant(mouseWorldPosition);
-
-
-        Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.transform.position).normalized;
-        Instantiate(pfBulletProjectile, spawnBulletPosition.transform.position,
-            Quaternion.LookRotation(aimDir, Vector3.up));
-        starterAssetsInputs.shoot = false;
-    }
-
-}*/
 
     protected override void LoadComponents()
     {

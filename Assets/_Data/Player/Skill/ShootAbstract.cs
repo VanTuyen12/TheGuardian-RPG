@@ -23,7 +23,8 @@ public abstract class ShootAbstract : MyMonoBehaviour
     {
         if(effectSpawner != null) return;
         effectSpawner = GameObject.FindObjectOfType<EffectSpawner>();
-        effectPrefabs = effectSpawner.GetComponentInChildren<EffectPrefabs>();
+        effectPrefabs = GameObject.FindObjectOfType<EffectPrefabs>();
+        //effectPrefabs = effectSpawner.GetComponentInChildren<EffectPrefabs>();
         Debug.Log(transform.name+" : LoadEffect",gameObject);
         
     }
