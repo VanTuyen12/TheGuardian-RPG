@@ -4,7 +4,13 @@ using UnityEngine;
 public class FlyToTarget : MyMonoBehaviour
 {   [SerializeField]protected Transform target;
     [SerializeField]protected float speed = 10f;
-    private void Update()
+    [SerializeField]protected Rigidbody rigBullet;
+
+    protected override void Start()
+    {
+        rigBullet = transform.parent.GetComponent<Rigidbody>();
+    }
+    private void FixedUpdate()
     {
         this.Flying();
     }
@@ -18,7 +24,7 @@ public class FlyToTarget : MyMonoBehaviour
     protected virtual void Flying()
     {
         if (target == null) return;
-        //transform.parent.GetComponent<Rigidbody>().linearVelocity = Vector3.forward * speed;
-        transform.parent.Translate(Vector3.forward * speed * Time.deltaTime);
+        rigBullet.linearVelocity = transform.parent.forward * speed;
+        //transform.parent.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 }

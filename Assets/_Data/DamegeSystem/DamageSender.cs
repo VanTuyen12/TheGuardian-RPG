@@ -3,11 +3,28 @@ using UnityEngine;
 
 public abstract class DamageSender : MyMonoBehaviour
 {
-    [SerializeField]protected float damege = 10f;
-    public float Damege => damege;
+    [SerializeField]protected float damage = 10f;
+    public float Damage => damage;
 
-    protected virtual void SendDamege(DamageRecevier damageRecevier)
+    protected virtual void OnTriggerEnter(Collider collider)
+    {   
+        DamageRecevier damageRecevier = collider.GetComponent<DamageRecevier>();
+        if (damageRecevier == null)
+        {
+            ConsiderDespawn();
+            return; 
+        }
+           
+        this.SendDamege(damageRecevier,collider);
+        // Debug.Log(" :OnTriggerEnter "+ collider.name);
+    }
+
+    protected virtual void ConsiderDespawn() {
+        //
+    }
+    
+    protected virtual void SendDamege(DamageRecevier damageRecevier,Collider collider)
     {
-        damageRecevier.Deduct(damege);
+        damageRecevier.Deduct(damage);
     }
 }

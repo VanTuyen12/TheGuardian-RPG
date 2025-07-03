@@ -7,27 +7,27 @@ using Update = Unity.VisualScripting.Update;
 public class PlayerFastShoot : ShootAbstract
 {
     [Header("Shooting Settings")]
-    [SerializeField] private float fireRate = 0.1f; // Thời gian giữa các viên đạn
-    [SerializeField] private float aimTime = 0.3f; // Thời gian nhắm trước khi bắn
-    [SerializeField] private float crosshairDelay = 1f; // Delay ẩn crosshair
+    [SerializeField] private float fireRate = 0.07f; // time distance mid
+    [SerializeField] private float aimTime = 0.15f; // time aim
+    [SerializeField] private float crosshairDelay = 1.5f; // Delay hide crosshair
     
     [SerializeField] protected bool isShooting = false;
-    protected string effectName = "GunBullet";
+    private string effectName = "GunBullet";
     
     private float lastShootTime = 0f;
-    private Coroutine shootCoroutine;
-    private Coroutine hideCrosshairCoroutine;
+    private Coroutine shootCor;
+    private Coroutine hideCrosshair;
 
     protected override void Shooting()
     {
         bool fastShoot = InputManager.Instance.IsFastShoot();
         
-        // Bắt đầu bắn
+        // start shooting
         if (fastShoot && !isShooting)
         {
             StartShooting();
         }
-        // Ngừng bắn
+        // End Shooting
         else if (!fastShoot && isShooting)
         {
             StopShooting();
@@ -38,65 +38,46 @@ public class PlayerFastShoot : ShootAbstract
     {
         isShooting = true;
         
-        // Hủy coroutine ẩn crosshair nếu có
-        if (hideCrosshairCoroutine != null)
+        // Cancel crosshair
+        if (hideCrosshair != null)
         {
-            StopCoroutine(hideCrosshairCoroutine);
-            hideCrosshairCoroutine = null;
+            StopCoroutine(hideCrosshair);
+            hideCrosshair = null;
         }
         
-        // Hiện crosshair ngay
         CheckCrosshair(true);
         
-        // Bắt đầu bắn
-        if (shootCoroutine != null) StopCoroutine(shootCoroutine);
-        shootCoroutine = StartCoroutine(ShootSequence());
+        // start shooting
+        if (shootCor != null) StopCoroutine(shootCor);//check Cancel shooting
+        shootCor = StartCoroutine(ShootSequence());
     }
 
     private void StopShooting()
     {
         isShooting = false;
         
-        // Bắt đầu đếm ngược ẩn crosshair
-        if (hideCrosshairCoroutine != null) StopCoroutine(hideCrosshairCoroutine);
-        hideCrosshairCoroutine = StartCoroutine(HideCrosshairAfterDelay());
+        if (hideCrosshair != null) StopCoroutine(hideCrosshair);
+        hideCrosshair = StartCoroutine(HideCrosshairAfterDelay());
     }
 
     private IEnumerator ShootSequence()
     {
-        // Đợi animation nhắm hoàn thành
         yield return new WaitForSeconds(aimTime);
         
-        // Bắn liên tục cho đến khi ngừng
+        // Shooting
         while (isShooting)
         {
-            // Kiểm tra thời gian có thể bắn tiếp không
+            // check shooting 
             if (Time.time >= lastShootTime + fireRate)
             {
                 FireBullet();
                 lastShootTime = Time.time;
             }
             
-            yield return null; // Đợi frame tiếp theo
+            yield return null;
         }
-        
-        shootCoroutine = null;
+        shootCor = null;
     }
-
-    private IEnumerator HideCrosshairAfterDelay()
-    {
-        // Đợi delay
-        yield return new WaitForSeconds(crosshairDelay);
-        
-        // Kiểm tra lại xem có đang bắn không
-        if (!isShooting)
-        {
-            CheckCrosshair(false);
-        }
-        
-        hideCrosshairCoroutine = null;
-    }
-
     private void FireBullet()
     {
         AttackPoint attackPoint = GetAttackPoint();
@@ -105,9 +86,21 @@ public class PlayerFastShoot : ShootAbstract
         effectFly.FlyToTarget.SetTarget(playerCtrl.CrosshairCtrl.GetCrosshair(1).transform);
         effect.gameObject.SetActive(true);
 
-        Debug.Log("PlayerFastShoot: " + attackPoint.transform.position);
+        //Debug.Log("PlayerFastShoot: " + attackPoint.transform.position);
     }
-
+    private IEnumerator HideCrosshairAfterDelay()
+    {
+        // Đợi delay
+        yield return new WaitForSeconds(crosshairDelay);
+        
+        //check shooting
+        if (!isShooting)
+        {
+            CheckCrosshair(false);
+        }
+        
+        hideCrosshair = null;
+    }
     protected virtual EffectCtrl GetEffecct()
     {
         return effectPrefabs.GetByName(effectName);
@@ -118,38 +111,10 @@ public class PlayerFastShoot : ShootAbstract
         playerCtrl.PlayerActionCtrl.SetShootingMode(isShoot);
     }
 
-    // Cleanup khi object bị hủy
+    // Cleanup object Destroy
     private void OnDestroy()
     {
-        if (shootCoroutine != null) StopCoroutine(shootCoroutine);
-        if (hideCrosshairCoroutine != null) StopCoroutine(hideCrosshairCoroutine);
+        if (shootCor != null) StopCoroutine(shootCor);
+        if (hideCrosshair != null) StopCoroutine(hideCrosshair);
     }
-    /*[SerializeField] protected bool isShooting = false;
-     protected string effectName = "GunBullet";
-    protected override void Shooting()
-    {
-        bool fastShoot = InputManager.Instance.IsFastShoot();
-        CheckCrosshair(fastShoot);
-        if (!fastShoot) return;
-        
-            AttackPoint attackPoint = GetAttackPoint();
-            EffectCtrl effect = effectSpawner.Spawn(GetEffecct(), attackPoint.transform.position);
-            EffectFlyAbstract effectFly = (EffectFlyAbstract)effect;
-            effectFly.FlyToTarget.SetTarget(playerCtrl.CrosshairCtrl.GetCrosshair(1).transform);
-            effect.gameObject.SetActive(true);
-
-            Debug.Log("PlayerFastShoot" + attackPoint.transform.position);
-            
-    }
-
-    protected virtual EffectCtrl GetEffecct()
-    {
-        return effectPrefabs.GetByName(effectName);
-    }
-    protected virtual void CheckCrosshair(bool isShoot)
-    {
-        playerCtrl.PlayerActionCtrl.SetShootingMode(isShoot);
-    }*/
-    
-    
 }

@@ -9,6 +9,11 @@ public class PlayerCtrl : MyMonoBehaviour
     [SerializeField] CinemachineCamera aimVirtualCamera;
     public CinemachineCamera AimVirtualCamera => aimVirtualCamera;
     [SerializeField] protected Transform model;
+    [SerializeField] private Animator animator;
+    public Animator Animator => animator;
+    [SerializeField] private RigBuilder rigBuilder;
+    [SerializeField] private Rig rig;
+    public Rig Rig => rig;
     [SerializeField] protected ThirdPersonController thirdPersonCtrl;
     public ThirdPersonController ThirdPersonCtrl => thirdPersonCtrl;
 
@@ -20,11 +25,7 @@ public class PlayerCtrl : MyMonoBehaviour
     [SerializeField] protected PlayerActionCtrl actionCtrl;
     public PlayerActionCtrl PlayerActionCtrl => actionCtrl;
     
-    [SerializeField] private Animator animator;
-    public Animator Animator => animator;
-    [SerializeField] private RigBuilder rigBuilder;
-    [SerializeField] private Rig rig;
-    public Rig Rig => rig;
+    
 
     [SerializeField] protected Weapons weapons;
     public Weapons Weapons => weapons;
