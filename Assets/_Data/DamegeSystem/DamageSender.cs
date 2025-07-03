@@ -9,19 +9,12 @@ public abstract class DamageSender : MyMonoBehaviour
     protected virtual void OnTriggerEnter(Collider collider)
     {   
         DamageRecevier damageRecevier = collider.GetComponent<DamageRecevier>();
-        if (damageRecevier == null)
-        {
-            ConsiderDespawn();
-            return; 
-        }
-           
+        if (damageRecevier == null) return; 
         this.SendDamege(damageRecevier,collider);
         // Debug.Log(" :OnTriggerEnter "+ collider.name);
     }
 
-    protected virtual void ConsiderDespawn() {
-        //
-    }
+    
     
     protected virtual void SendDamege(DamageRecevier damageRecevier,Collider collider)
     {

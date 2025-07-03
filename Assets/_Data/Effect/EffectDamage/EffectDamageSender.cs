@@ -10,13 +10,7 @@ public class EffectDamageSender : DamageSender
         base.SendDamege(damageRecevier, collider);
         effectCtrlt.Despawn.DoDespawn();
     }
-
-    protected override void ConsiderDespawn()
-    {
-        base.ConsiderDespawn();
-        effectCtrlt.Despawn.DoDespawn();
-    }
-
+    
     protected override void LoadComponents()
     {
         base.LoadComponents();
