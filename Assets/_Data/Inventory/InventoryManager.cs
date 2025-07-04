@@ -43,8 +43,7 @@ public class InventoryManager : Singleton<InventoryManager>
         item2.itemCount = 999 ;
         inventoryCtrl1.AddItem(item2);
     }
-
-
+    
     protected virtual void LoadInventories()
     {
         if (inventories.Count > 0) return;
@@ -57,7 +56,7 @@ public class InventoryManager : Singleton<InventoryManager>
         Debug.Log(transform.name +"LoadInventories: ",gameObject);
     }
 
-    protected virtual InventoryCtrl GetByName(InvCodeName inventoryName)
+    public virtual InventoryCtrl GetByName(InvCodeName inventoryName)
     {
         foreach (InventoryCtrl inventory in inventories)
         {
@@ -65,12 +64,22 @@ public class InventoryManager : Singleton<InventoryManager>
         }
         return null;
     }
-    protected virtual ItemProfileSO GetProfileByCode(ItemCode itemCodeName)
+    public virtual ItemProfileSO GetProfileByCode(ItemCode itemCodeName)
     {
         foreach (ItemProfileSO itemProfile in itemProfiles)
         {
             if(itemProfile.itemCode == itemCodeName) return itemProfile;
         }
         return null;
+    }
+
+    public virtual InventoryCtrl Monies()
+    {
+        return GetByName(InvCodeName.Monies);
+    }
+    
+    public virtual InventoryCtrl Items()
+    {
+        return GetByName(InvCodeName.Items);
     }
 }

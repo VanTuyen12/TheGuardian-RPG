@@ -11,6 +11,7 @@ public class EnemyDamageRecevier : DamageRecevier
         base.OnDead();
         enemyCtrl.Animator.SetBool("isDead",this.isDead);
         capsuleCollider.enabled= false;
+        RewardOnDead();
         Invoke(nameof(Disappear), deaAfterTime);
     }
 
@@ -29,6 +30,15 @@ public class EnemyDamageRecevier : DamageRecevier
     {
         base.OnHurt();
         enemyCtrl.Animator.SetTrigger("isHurt");
+    }
+
+    protected virtual void RewardOnDead()
+    {
+        ItemInventory item = new();
+        item.itemProfile = InventoryManager.Instance.GetProfileByCode(ItemCode.Gold);
+        item.itemCount = 10;
+        
+        InventoryManager.Instance.Monies().AddItem(item);
     }
 
     protected override void LoadComponents()

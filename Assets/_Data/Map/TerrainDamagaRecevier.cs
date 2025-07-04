@@ -1,9 +1,8 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Terrain))]
-public class TerrainCollider : DamageRecevier
+public class TerrainDamagaRecevier : DamageRecevier
 {
-    [SerializeField] protected Terrain terrainCollider;
+    [SerializeField] protected TerrainCollider terrainCollider;
 
     protected override void LoadComponents()
     {
@@ -14,7 +13,7 @@ public class TerrainCollider : DamageRecevier
     protected virtual void LoadBoxCollider()
     {
         if(terrainCollider != null) return;
-        terrainCollider = GetComponent<Terrain>();
+        terrainCollider = GetComponent<TerrainCollider>();
         //terrainCollider.;
         Debug.Log(transform.name + " has loaded WallDamageReceiver component");
     }
