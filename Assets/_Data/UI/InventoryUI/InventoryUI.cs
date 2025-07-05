@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class InventoryUI : Singleton<InventoryUI>
 {
+    [SerializeField]protected BtnItemInventory itemInventory;
     [SerializeField]private bool isShow = false;
     public bool IsShow => isShow;
 
@@ -10,6 +11,14 @@ public class InventoryUI : Singleton<InventoryUI>
         base.Start();
         //Hide();
         Show();
+        this.HideDefaultItemInventory();
+    }
+
+    
+
+    protected virtual void HideDefaultItemInventory()
+    {
+        itemInventory.gameObject.SetActive(false);
     }
 
     public virtual void Show()
@@ -29,5 +38,18 @@ public class InventoryUI : Singleton<InventoryUI>
         if (isShow) Hide();
         else Show();
         
+    }
+    
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadBtnItemInventory();
+    }
+
+    protected virtual void LoadBtnItemInventory()
+    {
+        if (itemInventory != null) return;
+        itemInventory = GetComponentInChildren<BtnItemInventory>();
+        Debug.Log(transform.name + ": LoadBtnItemInventory", gameObject);
     }
 }
