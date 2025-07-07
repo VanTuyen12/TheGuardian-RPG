@@ -6512,7 +6512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31f83e25421b42b45ae7392df0511ba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 0}
+  button: {fileID: 1237201737}
 --- !u!1 &1240216953
 GameObject:
   m_ObjectHideFlags: 0
@@ -8050,7 +8050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d05c98d22780daf449993bb24d840371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemInventory: {fileID: 1237201740}
+  defaultItemInventoryUI: {fileID: 1237201740}
   isShow: 0
 --- !u!4 &1502145967 stripped
 Transform:

@@ -23,25 +23,33 @@ public class InventoryManager : Singleton<InventoryManager>
 
         ItemInventory gold1 = new ItemInventory();
         gold1.itemProfile = GetProfileByCode(ItemCode.Gold);
+        gold1.itemName = gold1.itemProfile.itemName; 
         gold1.itemCount = 11 ;
         inventoryCtrl.AddItem(gold1);
         
         ItemInventory gold2 = new ItemInventory();
         gold2.itemProfile = GetProfileByCode(ItemCode.Gold);
+        gold2.itemName = gold2.itemProfile.itemName; 
         gold2.itemCount = -999 ;
         inventoryCtrl.AddItem(gold2);
         
         InventoryCtrl inventoryCtrl1 = GetByName(InvCodeName.Items);
 
-        ItemInventory item1 = new ItemInventory();
-        item1.itemProfile = GetProfileByCode(ItemCode.Gun);
-        item1.itemCount = 11 ;
-        inventoryCtrl1.AddItem(item1);
+        for (int i = 0; i < 20; i++)
+        {
+            ItemInventory item = new();
+            item.itemProfile = GetProfileByCode(ItemCode.Gun);
+            item.itemName = item.itemProfile.itemName; 
+            item.itemCount = 1 ;
+            inventoryCtrl1.AddItem(item);
+        }
         
-        ItemInventory item2 = new ItemInventory();
+        
+        /*ItemInventory item2 = new ItemInventory();
         item2.itemProfile = GetProfileByCode(ItemCode.Gun);
+        item2.itemName = item2.itemProfile.itemName; 
         item2.itemCount = 999 ;
-        inventoryCtrl1.AddItem(item2);
+        inventoryCtrl1.AddItem(item2);*/
     }
     
     protected virtual void LoadInventories()

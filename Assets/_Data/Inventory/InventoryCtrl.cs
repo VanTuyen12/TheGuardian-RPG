@@ -4,6 +4,7 @@ using UnityEngine;
 public abstract class InventoryCtrl : MyMonoBehaviour
 {
     [SerializeField]protected List<ItemInventory> items = new();
+    public List<ItemInventory> Items => items;
     public abstract InvCodeName GetName();
 
     public virtual void AddItem(ItemInventory item)
@@ -12,6 +13,7 @@ public abstract class InventoryCtrl : MyMonoBehaviour
         ItemInventory itemExsit = FindItem(item.itemProfile.itemCode);
         if ( !item.itemProfile.isStackable ||itemExsit == null)
         {
+            item.itemId = Random.Range(0, int.MaxValue);
             items.Add(item);
             return;
         }
