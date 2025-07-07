@@ -14,28 +14,29 @@ public class InventoryManager : Singleton<InventoryManager>
     protected override void Start()
     {
         base.Start();
-        this.AddItemTest();
+        this.AddItemTest(20);
+        this.AddGoldTest(100);
+        Invoke(nameof(AddTest),5f);
     }
 
-    private void AddItemTest()
+    protected virtual void AddTest()
+    {
+        AddItemTest(8);
+    }
+    private void AddGoldTest(int count)
     {
         InventoryCtrl inventoryCtrl = GetByName(InvCodeName.Monies);
 
         ItemInventory gold1 = new ItemInventory();
         gold1.itemProfile = GetProfileByCode(ItemCode.Gold);
         gold1.itemName = gold1.itemProfile.itemName; 
-        gold1.itemCount = 11 ;
+        gold1.itemCount = count ;
         inventoryCtrl.AddItem(gold1);
-        
-        ItemInventory gold2 = new ItemInventory();
-        gold2.itemProfile = GetProfileByCode(ItemCode.Gold);
-        gold2.itemName = gold2.itemProfile.itemName; 
-        gold2.itemCount = -999 ;
-        inventoryCtrl.AddItem(gold2);
-        
+    }
+    private void AddItemTest(int count)
+    {
         InventoryCtrl inventoryCtrl1 = GetByName(InvCodeName.Items);
-
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < count; i++)
         {
             ItemInventory item = new();
             item.itemProfile = GetProfileByCode(ItemCode.Gun);
@@ -43,13 +44,6 @@ public class InventoryManager : Singleton<InventoryManager>
             item.itemCount = 1 ;
             inventoryCtrl1.AddItem(item);
         }
-        
-        
-        /*ItemInventory item2 = new ItemInventory();
-        item2.itemProfile = GetProfileByCode(ItemCode.Gun);
-        item2.itemName = item2.itemProfile.itemName; 
-        item2.itemCount = 999 ;
-        inventoryCtrl1.AddItem(item2);*/
     }
     
     protected virtual void LoadInventories()

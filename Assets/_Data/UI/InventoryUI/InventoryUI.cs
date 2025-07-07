@@ -54,11 +54,10 @@ public class InventoryUI : Singleton<InventoryUI>
             BtnItemInventory newBtnItem = GetExistItem(itemInventory);
             if (newBtnItem == null)
             {
-                newBtnItem = Instantiate(defaultItemInventoryUI);
-                newBtnItem.transform.SetParent(defaultItemInventoryUI.transform.parent);
+                newBtnItem = Instantiate(defaultItemInventoryUI, defaultItemInventoryUI.transform.parent);
                 newBtnItem.SetItem(itemInventory);
-                newBtnItem.transform.localScale = Vector3.one;
                 newBtnItem.gameObject.SetActive(true);
+                newBtnItem.name = itemInventory.itemName + " - " + itemInventory.itemId;
                 btnItems.Add(newBtnItem);
             }
         }
