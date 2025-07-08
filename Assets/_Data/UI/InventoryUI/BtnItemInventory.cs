@@ -16,8 +16,15 @@ public class BtnItemInventory : ButtonAbstract
 
     protected virtual void ItemUpdating()
     {
+        
         this.txtItemName.text = itemInventory.itemName;
         this.txtItemCount.text = itemInventory.itemCount.ToString();
+
+        if (itemInventory.itemCount <= 0)
+        {
+            despawn.DoDespawn();
+        }
+        
     }
 
     public virtual void SetItem(ItemInventory itemInv)
@@ -33,6 +40,11 @@ public class BtnItemInventory : ButtonAbstract
     {
         base.LoadComponents();
         this.LoadtxtBtnItem();
+    }
+
+    public override string GetName()
+    {
+        return "ItemInventory";
     }
 
     protected virtual void LoadtxtBtnItem()

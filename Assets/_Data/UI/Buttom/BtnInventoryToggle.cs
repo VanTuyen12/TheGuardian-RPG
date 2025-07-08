@@ -6,7 +6,9 @@ public class BtnInventoryToggle : ButtonAbstract
     {
        InventoryUI.Instance.Toggle();
     }
-    
-    
-    
+
+    public override string GetName()
+    {
+        return "BtnInventoryToggle";
+    }
 }

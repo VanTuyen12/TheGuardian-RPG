@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using com.cyborgAssets.inspectorButtonPro;
 using UnityEngine;
 
 public class InventoryManager : Singleton<InventoryManager>
@@ -9,43 +10,18 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         base.LoadComponents();
         this.LoadInventories();
+        this.LoaditemProfiles();
     }
 
-    protected override void Start()
+    private void LoaditemProfiles()
     {
-        base.Start();
-        this.AddItemTest(20);
-        this.AddGoldTest(100);
-        Invoke(nameof(AddTest),5f);
+        if (itemProfiles.Count > 0) return;
+        ItemProfileSO[] item = Resources.LoadAll<ItemProfileSO>("ItemProfiles");
+        itemProfiles.AddRange(item);
+        
+        Debug.Log(transform.name +" LoaditemProfiles: ",gameObject);
     }
 
-    protected virtual void AddTest()
-    {
-        AddItemTest(8);
-    }
-    private void AddGoldTest(int count)
-    {
-        InventoryCtrl inventoryCtrl = GetByName(InvCodeName.Monies);
-
-        ItemInventory gold1 = new ItemInventory();
-        gold1.itemProfile = GetProfileByCode(ItemCode.Gold);
-        gold1.itemName = gold1.itemProfile.itemName; 
-        gold1.itemCount = count ;
-        inventoryCtrl.AddItem(gold1);
-    }
-    private void AddItemTest(int count)
-    {
-        InventoryCtrl inventoryCtrl1 = GetByName(InvCodeName.Items);
-        for (int i = 0; i < count; i++)
-        {
-            ItemInventory item = new();
-            item.itemProfile = GetProfileByCode(ItemCode.Gun);
-            item.itemName = item.itemProfile.itemName; 
-            item.itemCount = 1 ;
-            inventoryCtrl1.AddItem(item);
-        }
-    }
-    
     protected virtual void LoadInventories()
     {
         if (inventories.Count > 0) return;

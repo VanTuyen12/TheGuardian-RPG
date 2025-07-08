@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class ButtonAbstract : MyMonoBehaviour
+public abstract class ButtonAbstract : PoolObj
 {
     [SerializeField]protected Button button;
     protected override void Start()

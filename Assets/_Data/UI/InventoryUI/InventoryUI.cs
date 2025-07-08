@@ -5,8 +5,11 @@ using UnityEngine;
 public class InventoryUI : Singleton<InventoryUI>
 {
     [SerializeField]protected BtnItemInventory defaultItemInventoryUI;
-    protected List<BtnItemInventory> btnItems = new();
-    [SerializeField]private bool isShow = false;
+    [SerializeField]protected List<BtnItemInventory> btnItems = new();
+    [SerializeField] protected InventorySpawner invSpawner;
+    public InventorySpawner InvSpawner => invSpawner;
+    [SerializeField]protected bool isShow = false;
+        
     public bool IsShow => isShow;
 
     protected override void Start()
@@ -52,15 +55,24 @@ public class InventoryUI : Singleton<InventoryUI>
         foreach (ItemInventory itemInventory in itemInvCtrl.Items)
         {
             BtnItemInventory newBtnItem = GetExistItem(itemInventory);
+            
             if (newBtnItem == null)
             {
-                newBtnItem = Instantiate(defaultItemInventoryUI, defaultItemInventoryUI.transform.parent);
+              
+                newBtnItem = invSpawner.Spawn(defaultItemInventoryUI);
+                DefaultBtnItem(newBtnItem);
                 newBtnItem.SetItem(itemInventory);
                 newBtnItem.gameObject.SetActive(true);
-                newBtnItem.name = itemInventory.itemName + " - " + itemInventory.itemId;
+                newBtnItem.name = itemInventory.itemName;
                 btnItems.Add(newBtnItem);
             }
         }
+    }
+
+    protected virtual void DefaultBtnItem(BtnItemInventory newBtnItem)
+    {
+        newBtnItem.transform.SetParent(defaultItemInventoryUI.transform.parent, false);
+        newBtnItem.transform.localScale = Vector3.one;
     }
 
     protected virtual BtnItemInventory GetExistItem(ItemInventory itemInventory)
@@ -77,8 +89,14 @@ public class InventoryUI : Singleton<InventoryUI>
     {
         base.LoadComponents();
         this.LoadBtnItemInventory();
+        this.LoadInventorySpawner();
     }
-
+    protected virtual void LoadInventorySpawner()
+    {
+        if (invSpawner != null) return;
+        invSpawner = FindAnyObjectByType<InventorySpawner>();
+        Debug.Log(transform.name + ": LoadInventorySpawner", gameObject);
+    }
     protected virtual void LoadBtnItemInventory()
     {
         if (defaultItemInventoryUI != null) return;
