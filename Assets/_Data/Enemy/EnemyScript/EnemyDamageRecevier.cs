@@ -37,8 +37,9 @@ public class EnemyDamageRecevier : DamageRecevier
         ItemInventory item = new();
         item.itemProfile = InventoryManager.Instance.GetProfileByCode(ItemCode.Gold);
         item.itemCount = 10;
-        
         InventoryManager.Instance.Monies().AddItem(item);
+        
+        ItemDropManager.Instance.Drop(ItemCode.Gold,1,transform.position);
     }
 
     protected override void LoadComponents()

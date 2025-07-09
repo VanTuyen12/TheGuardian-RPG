@@ -5,8 +5,9 @@ using UnityEngine;
 public class InventoryUI : Singleton<InventoryUI>
 {
     [SerializeField]protected BtnItemInventory defaultItemInventoryUI;
-    [SerializeField]protected List<BtnItemInventory> btnItems = new();
     [SerializeField] protected InventorySpawner invSpawner;
+    [SerializeField] protected GameObject showHideUI;
+    [SerializeField]protected List<BtnItemInventory> btnItems = new();
     public InventorySpawner InvSpawner => invSpawner;
     [SerializeField]protected bool isShow = false;
         
@@ -25,6 +26,17 @@ public class InventoryUI : Singleton<InventoryUI>
         ItemUpdating();
     }
 
+    private void LateUpdate()
+    {
+        this.HotkeyToogleInventory();
+    }
+
+    private void HotkeyToogleInventory()
+    {
+        if (InputHotKey.Instance.IsToogleInvUI) Toggle();
+        
+    }
+
     protected virtual void HideDefaultItemInventory()
     {
         defaultItemInventoryUI.gameObject.SetActive(false);
@@ -33,13 +45,13 @@ public class InventoryUI : Singleton<InventoryUI>
     public virtual void Show()
     {
         isShow = true;
-        gameObject.SetActive(isShow);
+        showHideUI.gameObject.SetActive(isShow);
     }
 
     public virtual void Hide()
     {
         isShow = false;
-        gameObject.SetActive(isShow);
+        showHideUI.gameObject.SetActive(isShow);
     }
 
     public virtual void Toggle()
@@ -90,6 +102,13 @@ public class InventoryUI : Singleton<InventoryUI>
         base.LoadComponents();
         this.LoadBtnItemInventory();
         this.LoadInventorySpawner();
+        this.LoadShowHideUI();
+    }
+    protected virtual void LoadShowHideUI()
+    {
+        if (showHideUI != null) return;
+        showHideUI = GameObject.Find("ShowHide");
+        Debug.Log(transform.name + ": loadShowHideUI", gameObject);
     }
     protected virtual void LoadInventorySpawner()
     {
