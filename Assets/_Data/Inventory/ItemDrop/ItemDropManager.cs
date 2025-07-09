@@ -25,6 +25,7 @@ public class ItemDropManager : Singleton<ItemDropManager>
         ItemDropCtrl itemPrefab = spawner.PoolPrefabs.GetByName("Gold");
         
         ItemDropCtrl newItem = spawner.Spawn(itemPrefab, spawnPosition);
+        newItem.SetValue(InvCodeName.Monies,itemCode,dropCoint);
         newItem.gameObject.SetActive(true);
         
         Vector3 rdDirection = Random.onUnitSphere;

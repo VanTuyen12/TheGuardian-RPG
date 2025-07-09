@@ -16,8 +16,8 @@ public class InventoryUI : Singleton<InventoryUI>
     protected override void Start()
     {
         base.Start();
-        //Hide();
-        Show();
+        Hide();
+        //Show();
         this.HideDefaultItemInventory();
     }
 

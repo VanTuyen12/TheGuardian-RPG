@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using com.cyborgAssets.inspectorButtonPro;
 using UnityEngine;
 
 public class InventoryManager : Singleton<InventoryManager>
@@ -34,7 +33,7 @@ public class InventoryManager : Singleton<InventoryManager>
         Debug.Log(transform.name +"LoadInventories: ",gameObject);
     }
 
-    public virtual InventoryCtrl GetByName(InvCodeName inventoryName)
+    public virtual InventoryCtrl GetByCodeName(InvCodeName inventoryName)
     {
         foreach (InventoryCtrl inventory in inventories)
         {
@@ -53,11 +52,11 @@ public class InventoryManager : Singleton<InventoryManager>
 
     public virtual InventoryCtrl Monies()
     {
-        return GetByName(InvCodeName.Monies);
+        return GetByCodeName(InvCodeName.Monies);
     }
     
     public virtual InventoryCtrl Items()
     {
-        return GetByName(InvCodeName.Items);
+        return GetByCodeName(InvCodeName.Items);
     }
 }

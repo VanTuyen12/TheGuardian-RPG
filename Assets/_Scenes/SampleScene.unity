@@ -6204,7 +6204,7 @@ MonoBehaviour:
   currentTime: 7
   isDespawnByTime: 1
   spawner: {fileID: 404516887}
-  parent: {fileID: 0}
+  parent: {fileID: 1184732906}
 --- !u!1001 &1061342488
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10865,8 +10865,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 349822140}
   m_HandleRect: {fileID: 349822139}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 0.99999994
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
