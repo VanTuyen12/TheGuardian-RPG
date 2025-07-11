@@ -1,9 +1,6 @@
-using System;
-
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class TextGoldCount : TextAbstract
+public class TextPlayerExpCount : TextAbstract
 {
     protected virtual void FixedUpdate()
     {
@@ -12,12 +9,11 @@ public class TextGoldCount : TextAbstract
 
     public virtual void LoadGoldCount()
     {
-        ItemInventory item = InventoryManager.Instance.Currency().FindItem(ItemCode.Gold);
+        ItemInventory item = InventoryManager.Instance.Currency().FindItem(ItemCode.PlayerExp);
         string goldCount;
         if (item == null)  goldCount = "0";
         else goldCount = item.itemCount.ToString();
         
         txtCount.text = goldCount;
     }
-    
 }

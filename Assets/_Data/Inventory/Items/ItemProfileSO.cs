@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ItemProfile", menuName = "ScriptableObjects/ItemProfile", order = 1)]
 public class ItemProfileSO : ScriptableObject
 {
-   
+    public InvCodeName invCodeName;
     public ItemCode itemCode;
     public string itemName;
     public bool isStackable = false; //may or may not be merged
@@ -11,9 +11,22 @@ public class ItemProfileSO : ScriptableObject
     
     protected virtual void Reset()
     {
-        //this.ResetValue();
-        AutoLoadItemName();
+        this.ResetValue();
     }
+
+    protected virtual void ResetValue()
+    {
+        this.AutoLoadItemCode();
+        this.AutoLoadItemName();
+    }
+
+    protected virtual void AutoLoadItemCode()
+    {
+        string className = this.GetType().Name;
+        Debug.Log("className: " + className);
+        this.itemCode = ItemCodeParse.Parse("Item1");
+    }
+
     protected virtual void AutoLoadItemName()
     {
         Debug.Log("name: " + this.name);

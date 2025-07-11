@@ -20,7 +20,7 @@ public class InventoryManager : Singleton<InventoryManager>
         
         Debug.Log(transform.name +" LoaditemProfiles: ",gameObject);
     }
-
+ 
     protected virtual void LoadInventories()
     {
         if (inventories.Count > 0) return;
@@ -50,9 +50,9 @@ public class InventoryManager : Singleton<InventoryManager>
         return null;
     }
 
-    public virtual InventoryCtrl Monies()
+    public virtual InventoryCtrl Currency()
     {
-        return GetByCodeName(InvCodeName.Monies);
+        return GetByCodeName(InvCodeName.Currency);
     }
     
     public virtual InventoryCtrl Items()

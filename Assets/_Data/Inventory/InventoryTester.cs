@@ -6,7 +6,7 @@ public class InventoryTester : MyMonoBehaviour
     [ProButton]
     private void AddGoldTest(int count)
     {
-        InventoryCtrl inventoryCtrl = InventoryManager.Instance.GetByCodeName(InvCodeName.Monies);
+        InventoryCtrl inventoryCtrl = InventoryManager.Instance.GetByCodeName(InvCodeName.Currency);
 
         ItemInventory gold1 = new ItemInventory();
         gold1.itemProfile = InventoryManager.Instance.GetProfileByCode(ItemCode.Gold);
@@ -18,7 +18,7 @@ public class InventoryTester : MyMonoBehaviour
     [ProButton]
     private void RemoveGoldTest(int count)
     {
-        InventoryCtrl inventoryCtrl1 = InventoryManager.Instance.GetByCodeName(InvCodeName.Monies);
+        InventoryCtrl inventoryCtrl1 = InventoryManager.Instance.GetByCodeName(InvCodeName.Currency);
             ItemInventory item = new();
             item.itemProfile = InventoryManager.Instance.GetProfileByCode(ItemCode.Gold);
             item.itemName = item.itemProfile.itemName; 

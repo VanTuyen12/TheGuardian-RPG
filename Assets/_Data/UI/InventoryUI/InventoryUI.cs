@@ -91,7 +91,7 @@ public class InventoryUI : Singleton<InventoryUI>
     {
         foreach (BtnItemInventory itemInvUI in btnItems)
         {
-            if (itemInvUI.ItemInventory.itemId == itemInventory.itemId) return itemInvUI;
+            if (itemInvUI.ItemInventory.ItemId == itemInventory.ItemId) return itemInvUI;
         }
         
         return null;

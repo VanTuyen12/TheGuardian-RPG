@@ -4,17 +4,18 @@ public class ItemDropDespawn : Despawn<ItemDropCtrl>
 {
    public override void DoDespawn()
    {
-      this.AddGoldWhenDead();
-      base.DoDespawn();
-   }
-   
-   protected virtual void AddGoldWhenDead()
-   {
-      var itemDropCtrl = parent as ItemDropCtrl;
+      ItemDropCtrl itemDropCtrl = parent as ItemDropCtrl;
       
-         ItemInventory item = new();
-        item.itemProfile = InventoryManager.Instance.GetProfileByCode(itemDropCtrl.ItemCode);
-        item.itemCount = itemDropCtrl.ItemCount;
-        InventoryManager.Instance.GetByCodeName(itemDropCtrl.InvCodeName).AddItem(item);
+      ItemInventory item = new();
+      item.itemProfile = InventoryManager.Instance.GetProfileByCode(itemDropCtrl.ItemCode);
+      item.itemCount = itemDropCtrl.ItemCount;
+      item.itemName = itemDropCtrl.GetName();
+      
+      InvCodeName invCodeName = item.ItemProfile.invCodeName;
+      InventoryCtrl inventoryCtrl = InventoryManager.Instance.GetByCodeName(invCodeName);
+      
+      inventoryCtrl.AddItem(item);
+      
+      base.DoDespawn();
    }
 }

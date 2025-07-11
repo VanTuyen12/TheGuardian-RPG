@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d38cf1443db268645b6111ab23f231a4, type: 3}
   m_Name: PotionMana
   m_EditorClassIdentifier: 
+  invCodeName: 10
   itemCode: 100
   itemName: PotionMana
   isStackable: 1

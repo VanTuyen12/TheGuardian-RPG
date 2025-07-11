@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d38cf1443db268645b6111ab23f231a4, type: 3}
-  m_Name: Gold
+  m_Name: PlayerExp
   m_EditorClassIdentifier: 
   invCodeName: 1
-  itemCode: 1
-  itemName: Gold
+  itemCode: 50
+  itemName: PlayerExp
   isStackable: 1

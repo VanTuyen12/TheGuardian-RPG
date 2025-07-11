@@ -81,8 +81,9 @@ public abstract class Spawner<T> : MyMonoBehaviour where T : PoolObj
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadPoolHolder();
         this.LoadPoolPrefabs();
+        this.LoadPoolHolder();
+        
     }
 
     private void LoadPoolPrefabs()

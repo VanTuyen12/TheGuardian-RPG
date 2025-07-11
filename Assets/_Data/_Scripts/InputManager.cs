@@ -5,10 +5,10 @@ using UnityEngine;
 public class InputManager : Singleton<InputManager>
 {
     
-    [SerializeField]private bool isLeftClick = false;
-    [SerializeField]private bool isRightClick =  false;
+    private bool isLeftClick = false;
+    private bool isRightClick =  false;
     //Check Shoot
-    [SerializeField]private bool isSlowShoot = false;
+    private bool isSlowShoot = false;
    
 
     private void Update()

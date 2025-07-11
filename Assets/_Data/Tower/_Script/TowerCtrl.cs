@@ -14,9 +14,10 @@ public class TowerCtrl : MyMonoBehaviour
    [SerializeField]protected TowerTargeting towerTargeting;
    public TowerTargeting TowerTargeting => towerTargeting;
    
+   [SerializeField]protected TowerShooting towerShooting;
+   public TowerShooting TowerShooting => towerShooting;
    [SerializeField]protected BulletSpawner bulletSpawner;
    public BulletSpawner BulletSpawner => bulletSpawner;
-   
    
    [SerializeField]protected BulletPrefabs bulletPrefabs;
    public BulletPrefabs BulletPrefabs => bulletPrefabs;
@@ -47,6 +48,14 @@ public class TowerCtrl : MyMonoBehaviour
       this.LoadBulletSpawner();
       this.LoadFirePoint();
       this.LoadBulletPrefabs();
+      this.LoadTowerShooting();
+   }
+   
+   protected virtual void LoadTowerShooting()
+   {
+      if(this.towerShooting != null) return;
+      towerShooting =GetComponentInChildren<TowerShooting>();
+      Debug.Log(transform.name + " :LoadTowerShooting",gameObject);
    }
    protected virtual void LoadBulletSpawner()
    {

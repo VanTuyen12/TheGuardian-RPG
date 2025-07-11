@@ -34,13 +34,9 @@ public class EnemyDamageRecevier : DamageRecevier
 
     protected virtual void RewardOnDead()
     {
-        /*ItemInventory item = new();
-        item.itemProfile = InventoryManager.Instance.GetProfileByCode(ItemCode.Gold);
-        item.itemCount = 10;
-        InventoryManager.Instance.Monies().AddItem(item);
-        */
         
-        ItemDropManager.Instance.Drop(ItemCode.Gold,1,transform.position);
+        ItemDropManager.Instance.DropMany(ItemCode.Gold,5,transform.position);
+        ItemDropManager.Instance.DropMany(ItemCode.PlayerExp,10,transform.position);
     }
 
     protected override void LoadComponents()
