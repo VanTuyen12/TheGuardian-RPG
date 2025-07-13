@@ -1,8 +1,10 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.Serialization;
+
 public abstract class TextAbstract : MyMonoBehaviour
 {
-    [SerializeField]protected TextMeshProUGUI txtCount;
+    [SerializeField]protected TextMeshProUGUI txtProUi;
     
     protected override void LoadComponents()
     {
@@ -12,8 +14,8 @@ public abstract class TextAbstract : MyMonoBehaviour
 
     protected virtual void LoadTextPro()
     {
-        if (this.txtCount != null) return;
-        txtCount = GetComponent<TextMeshProUGUI>();
+        if (this.txtProUi != null) return;
+        txtProUi = GetComponent<TextMeshProUGUI>();
         Debug.Log(transform.name + " :LoadTextPro " , gameObject);
     }
 }

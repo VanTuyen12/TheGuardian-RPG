@@ -24,11 +24,13 @@ public class TowerCtrl : MyMonoBehaviour
 
    [SerializeField]protected Bullet bullet;
    public Bullet Bullet => bullet;
-   
+   [SerializeField]protected LevelAbstract level;
+   public LevelAbstract Level => level;
    [SerializeField]protected List<FirePoint> firePoint;
    public List<FirePoint> FirePoint => firePoint;
    
    private string bulletName = "Bullet";
+   
    protected override void Awake()
    {
       base.Awake();
@@ -49,8 +51,14 @@ public class TowerCtrl : MyMonoBehaviour
       this.LoadFirePoint();
       this.LoadBulletPrefabs();
       this.LoadTowerShooting();
+      this.LoadLevel();
    }
-   
+   protected virtual void LoadLevel()
+   {
+      if(this.level != null) return;
+      level =GetComponentInChildren<LevelAbstract>();
+      Debug.Log(transform.name + " :LoadLevel",gameObject);
+   }
    protected virtual void LoadTowerShooting()
    {
       if(this.towerShooting != null) return;

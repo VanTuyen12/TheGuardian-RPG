@@ -17,7 +17,7 @@ public class TextGoldCount : TextAbstract
         if (item == null)  goldCount = "0";
         else goldCount = item.itemCount.ToString();
         
-        txtCount.text = goldCount;
+        txtProUi.text = goldCount;
     }
     
 }

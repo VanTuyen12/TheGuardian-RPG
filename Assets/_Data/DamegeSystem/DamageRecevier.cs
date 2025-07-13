@@ -4,7 +4,9 @@ using UnityEngine;
 public abstract class DamageRecevier : MyMonoBehaviour
 {
     [SerializeField]protected float maxHp = 100f;
+    public float MaxHp => maxHp;
     [SerializeField] protected float currentHp = 100f;
+    public float CurrentHp => currentHp;
     [SerializeField] protected bool isDead = false;
     [SerializeField]protected bool isImmortal = false;
 

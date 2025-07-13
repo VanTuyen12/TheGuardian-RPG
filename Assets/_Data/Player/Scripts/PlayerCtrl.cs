@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
 
-public class PlayerCtrl : MyMonoBehaviour
+public class PlayerCtrl : Singleton<PlayerCtrl>
 {
     [SerializeField] CinemachineCamera aimVirtualCamera;
     public CinemachineCamera AimVirtualCamera => aimVirtualCamera;
@@ -24,11 +24,12 @@ public class PlayerCtrl : MyMonoBehaviour
     public PlayerAiming PlayerAiming => playerAiming;
     [SerializeField] protected PlayerActionCtrl actionCtrl;
     public PlayerActionCtrl PlayerActionCtrl => actionCtrl;
-    
-    
-
     [SerializeField] protected Weapons weapons;
     public Weapons Weapons => weapons;
+    [SerializeField] protected LevelAbstract level;
+    public LevelAbstract Level => level;
+
+    
 
     protected override void LoadComponents()
     {
@@ -42,6 +43,13 @@ public class PlayerCtrl : MyMonoBehaviour
         this.LoadWeapons();
         this.LoadPlayerAiming();
         this.LoadPlayerActionCtrl();
+        this.LoadLevel();
+    }
+    protected virtual void LoadLevel()
+    {
+        if (level != null) return;
+        level = GetComponentInChildren<LevelAbstract>();
+        Debug.Log(transform.name + ": LoadLevel", gameObject);
     }
     protected virtual void LoadPlayerActionCtrl()
     {
