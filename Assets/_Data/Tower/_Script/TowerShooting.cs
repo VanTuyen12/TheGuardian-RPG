@@ -5,11 +5,16 @@ using UnityEngine;
 public class TowerShooting : TowerAbstract
 {
     [SerializeField] protected EnemyCtrl target;
+    [SerializeField] protected EffectSpawner effectSpawner;
+    
+    [Header("Setting Tower")]
     [SerializeField] private float rotationSpeed = 5f;
     [SerializeField] private float shootSpeed = 1f;
     [SerializeField] private float targetLoadSpeed = 1f;
     [SerializeField] private int currentFirePoint = 0;
     [SerializeField] private float bulletSpeed = 30f;
+    
+    [Header("Kill")]
     [SerializeField] private int totalKill = 0;
     [SerializeField] private int killCount = 0;
     public int KillCount => killCount;
@@ -26,6 +31,19 @@ public class TowerShooting : TowerAbstract
     {
         this.Looking();
         this.IsTargetDead();
+    }
+
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadEffectSpawer();
+    }
+
+    protected virtual void LoadEffectSpawer()
+    {
+        if(this.effectSpawner != null) return;
+        effectSpawner =GameObject.Find("EffectSpawner").GetComponent<EffectSpawner>();
+        Debug.Log(transform.name + " :LoadEffectSpawer",gameObject);
     }
 
     public virtual bool DeductKillCount(int count)
@@ -99,20 +117,41 @@ public class TowerShooting : TowerAbstract
         Invoke(nameof(this.Shooting),this.shootSpeed);
         if (this.target == null) return;
         FirePoint firePoint = GetFirePoint();
-        Bullet newBullet = towerCtrl.BulletSpawner.Spawn(towerCtrl.Bullet, firePoint.transform.position);
-        
         Vector3 rotatorDirection = towerCtrl.Rotation.transform.forward;
-        newBullet.GetComponent<Rigidbody>().linearVelocity = rotatorDirection * bulletSpeed;
         
-        newBullet.gameObject.SetActive(true);
+        this.SpawnBullet(firePoint.transform.position,rotatorDirection);
+        this.SpawnMuzzle(firePoint.transform.position,rotatorDirection);
+    }
 
+    /*protected virtual void SpawnBullet(Vector3 spawnPoint,Vector3 rotatorDirection )
+    {
+        Bullet newBullet = towerCtrl.BulletSpawner.Spawn(towerCtrl.Bullet, spawnPoint);
+        newBullet.GetComponent<Rigidbody>().linearVelocity = rotatorDirection * bulletSpeed;
+        newBullet.gameObject.SetActive(true);
+    }*/
+    protected virtual void SpawnBullet(Vector3 spawnPoint,Vector3 rotatorDirection )
+    {
+        EffectCtrl effect = effectSpawner.PoolPrefabs.GetByName(nameof(ProjectileCodeName.Projectile1));
+        EffectCtrl newProjectile = effectSpawner.Spawn(effect, spawnPoint);
+        newProjectile.transform.forward = rotatorDirection;
+        
+        EffectFlyAbstract effectFly = newProjectile as EffectFlyAbstract;
+        effectFly.FlyToTarget.SetTarget(target.EnemyTargetable.transform);
+        
+        newProjectile.gameObject.SetActive(true);
+    }
+    protected virtual void SpawnMuzzle(Vector3 spawnPoint, Vector3 rotatorDirection)
+    {
+        EffectCtrl effect = effectSpawner.PoolPrefabs.GetByName(nameof(MuzzleCodeName.MuzzleTower1));
+        EffectCtrl newMuzzle = effectSpawner.Spawn(effect, spawnPoint);
+        newMuzzle.transform.forward = rotatorDirection;
+        newMuzzle.gameObject.SetActive(true);
     }
     protected virtual FirePoint GetFirePoint()
     {
         FirePoint firePoint = towerCtrl.FirePoint[currentFirePoint];
         currentFirePoint++;
         if (currentFirePoint == towerCtrl.FirePoint.Count) currentFirePoint = 0;
-        
         return firePoint;
     }
 }

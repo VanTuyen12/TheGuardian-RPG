@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PathsManager : Singleton<PathsManager>
 {
-   [SerializeField]protected List<Path> paths = new List<Path>();
+   [SerializeField]protected List<PathMoving> paths = new List<PathMoving>();
    
    protected override void LoadComponents()
    {
@@ -16,21 +16,21 @@ public class PathsManager : Singleton<PathsManager>
       if(this.paths.Count > 0) return;
       foreach (Transform child in this.transform)
       {
-         Path path = child.GetComponent<Path>();
-         path.LoadPoint();
-         this.paths.Add(path);
+         PathMoving pathMoving = child.GetComponent<PathMoving>();
+         pathMoving.LoadPoint();
+         this.paths.Add(pathMoving);
       }
       Debug.Log(transform.name + " :LoadPaths" , gameObject);
    }
 
-   public virtual Path GetPath(int index)
+   public virtual PathMoving GetPath(int index)
    {
       return this.paths[index];
    }
 
-   public virtual Path GetPath(string pathName)
+   public virtual PathMoving GetPath(string pathName)
    {
-      foreach (Path path in this.paths)
+      foreach (PathMoving path in this.paths)
       {
          if(pathName == path.name) return path;
       }
