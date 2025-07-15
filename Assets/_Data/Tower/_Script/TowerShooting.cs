@@ -12,7 +12,6 @@ public class TowerShooting : TowerAbstract
     [SerializeField] private float shootSpeed = 1f;
     [SerializeField] private float targetLoadSpeed = 1f;
     [SerializeField] private int currentFirePoint = 0;
-    [SerializeField] private float bulletSpeed = 30f;
     
     [Header("Kill")]
     [SerializeField] private int totalKill = 0;
@@ -122,13 +121,7 @@ public class TowerShooting : TowerAbstract
         this.SpawnBullet(firePoint.transform.position,rotatorDirection);
         this.SpawnMuzzle(firePoint.transform.position,rotatorDirection);
     }
-
-    /*protected virtual void SpawnBullet(Vector3 spawnPoint,Vector3 rotatorDirection )
-    {
-        Bullet newBullet = towerCtrl.BulletSpawner.Spawn(towerCtrl.Bullet, spawnPoint);
-        newBullet.GetComponent<Rigidbody>().linearVelocity = rotatorDirection * bulletSpeed;
-        newBullet.gameObject.SetActive(true);
-    }*/
+    
     protected virtual void SpawnBullet(Vector3 spawnPoint,Vector3 rotatorDirection )
     {
         EffectCtrl effect = effectSpawner.PoolPrefabs.GetByName(nameof(ProjectileCodeName.Projectile1));

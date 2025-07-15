@@ -4,17 +4,13 @@ using UnityEngine;
 public abstract class PoolPrefabs<T> : MyMonoBehaviour where T : MonoBehaviour 
 {
    [SerializeField]protected List<T> poolPrefabs = new List<T>();
-
-   protected override void Awake()
-   {
-      base.Awake();
-      this.HidePrefabs();
-   }
+   
 
    protected override void LoadComponents()
    {
       base.LoadComponents();
       this.LoadPrefabs();
+      this.HidePrefabs();
    }
 
    protected virtual void LoadPrefabs()
@@ -25,7 +21,7 @@ public abstract class PoolPrefabs<T> : MyMonoBehaviour where T : MonoBehaviour
         T prefabs =  child.GetComponent<T>();
         if (prefabs != null) poolPrefabs.Add(prefabs);
       }
-      Debug.Log(transform.name + " :LoadPrefabs ",gameObject);
+      //Debug.Log(transform.name + " :LoadPrefabs ",gameObject);
    }
 
    protected virtual void HidePrefabs()

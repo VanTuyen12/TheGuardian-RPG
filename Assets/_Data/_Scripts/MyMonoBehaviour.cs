@@ -27,4 +27,9 @@ public class MyMonoBehaviour : MonoBehaviour
     {
         //For Override
     }
+
+    protected virtual void SetActive(bool state)
+    {
+        gameObject.SetActive(state);
+    }
 }

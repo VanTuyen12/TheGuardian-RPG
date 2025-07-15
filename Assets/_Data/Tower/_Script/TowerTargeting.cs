@@ -9,6 +9,7 @@ public class TowerTargeting : MyMonoBehaviour
 {
     [SerializeField] protected Rigidbody rb;
     [SerializeField] protected SphereCollider sphereCollider;
+    
     [SerializeField] protected EnemyCtrl nearest;
     public EnemyCtrl Nearest => nearest;
     [SerializeField] protected LayerMask layerMask; 
@@ -20,7 +21,37 @@ public class TowerTargeting : MyMonoBehaviour
         this.FindNearest();
         this.RemoveDeadEnemy();
     }
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadRigidbody();
+        this.SphereCollider();
+        this.SetingLayerMask();
+    }
 
+    protected virtual void SetingLayerMask()
+    {
+        if ( layerMask.value != 0 ) return;
+        layerMask.value = ~0;
+    }
+
+    protected virtual void LoadRigidbody()
+    {
+        if (this.rb != null) return;
+        this.rb = this.GetComponent<Rigidbody>();
+        rb.useGravity = false;
+        Debug.Log(transform.name + " :LoadRigidbody", gameObject);
+    }
+
+    protected virtual void SphereCollider()
+    {
+        if (this.sphereCollider != null) return;
+        this.sphereCollider = this.GetComponent<SphereCollider>();
+        sphereCollider.isTrigger = true;
+        sphereCollider.radius = 6f;
+        Debug.Log(transform.name + " :LoadRigidbody", gameObject);
+    }
+    
     protected virtual void FindNearest()
     {
         float nearestDistance = Mathf.Infinity;
@@ -104,29 +135,7 @@ public class TowerTargeting : MyMonoBehaviour
             }
         }
     }
-    protected override void LoadComponents()
-    {
-        base.LoadComponents();
-        this.LoadRigidbody();
-        this.SphereCollider();
-    }
 
-    protected virtual void LoadRigidbody()
-    {
-        if (this.rb != null) return;
-        this.rb = this.GetComponent<Rigidbody>();
-        rb.useGravity = false;
-        Debug.Log(transform.name + " :LoadRigidbody", gameObject);
-    }
-
-    protected virtual void SphereCollider()
-    {
-        if (this.sphereCollider != null) return;
-        this.sphereCollider = this.GetComponent<SphereCollider>();
-        sphereCollider.isTrigger = true;
-        sphereCollider.radius = 6f;
-        Debug.Log(transform.name + " :LoadRigidbody", gameObject);
-    }
 
     
 }

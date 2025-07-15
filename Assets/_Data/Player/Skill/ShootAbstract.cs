@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class ShootAbstract : MyMonoBehaviour
@@ -19,11 +20,12 @@ public abstract class ShootAbstract : MyMonoBehaviour
         this.LoadEffectSpawner();
     }
     
+   
     protected virtual void LoadEffectSpawner()
     {
         if(effectSpawner != null) return;
-        effectSpawner = GameObject.FindObjectOfType<EffectSpawner>();
-        effectPrefabs = GameObject.FindObjectOfType<EffectPrefabs>();
+        effectSpawner = GameObject.Find("EffectSpawner").GetComponent<EffectSpawner>();
+        effectPrefabs = GameObject.Find("EffectPrefabs").GetComponent<EffectPrefabs>();
         //effectPrefabs = effectSpawner.GetComponentInChildren<EffectPrefabs>();
         Debug.Log(transform.name+" : LoadEffect",gameObject);
         

@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawning : EnemyManagerAbstract
 {
     [SerializeField] private float spawnSpeed = 2f;
-    [SerializeField] private int maxSpawn = 10;
+    [SerializeField] private int maxSpawn = 20;
     [SerializeField]protected List<EnemyCtrl> spawnedEnemies = new();
     protected override void Start()
     {
@@ -22,7 +22,7 @@ public class EnemySpawning : EnemyManagerAbstract
     {
         Invoke(nameof(Spawning), spawnSpeed);
         if (spawnedEnemies.Count > maxSpawn) return;
-        EnemyCtrl prefabs = enemyManagerCtrl.EnemyPrefabs.GetRandomPrefab();
+        EnemyCtrl prefabs = enemyManagerCtrl.EnemyPrefabs.GetRandom();
         EnemyCtrl newEnemy = enemyManagerCtrl.EnemySpawner.Spawn(prefabs,transform.position);
         newEnemy.gameObject.SetActive(true);
         

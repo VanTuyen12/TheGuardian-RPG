@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class TowerCtrl : MyMonoBehaviour
+public abstract class TowerCtrl : PoolObj
 {
    [SerializeField]protected Transform model;
    public Transform Model => model;
