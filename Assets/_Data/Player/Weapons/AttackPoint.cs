@@ -1,10 +1,12 @@
 using UnityEngine;
 
-public class AttackPoint : MyMonoBehaviour
+public abstract class AttackPoint : MyMonoBehaviour
 {
     protected override void Reset()
-    {
-        base.Reset();
-        transform.localPosition = new Vector3(0,0,0.16f);
-    }
+         {
+             base.Reset();
+             SettingAttackPoint();
+         }
+
+    protected abstract void SettingAttackPoint();
 }

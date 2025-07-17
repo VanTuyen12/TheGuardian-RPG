@@ -124,7 +124,7 @@ public class TowerShooting : TowerAbstract
     
     protected virtual void SpawnBullet(Vector3 spawnPoint,Vector3 rotatorDirection )
     {
-        EffectCtrl effect = effectSpawner.PoolPrefabs.GetByName(nameof(ProjectileCodeName.Projectile1));
+        EffectCtrl effect = effectSpawner.PoolPrefabs.GetByName(nameof(ProjectileCodeName.TowerProjectile1));
         EffectCtrl newProjectile = effectSpawner.Spawn(effect, spawnPoint);
         newProjectile.transform.forward = rotatorDirection;
         

@@ -22,8 +22,8 @@ public class Weapons : MyMonoBehaviour
         }
 
 
-    public virtual WeaponAbstract GetCurrentWeapon()
+    public virtual WeaponAbstract GetCurrentWeapon(int index)
     {
-        return weapons[0];
+        return weapons[index];
     }
 }
