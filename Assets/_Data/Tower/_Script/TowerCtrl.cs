@@ -16,40 +16,20 @@ public abstract class TowerCtrl : PoolObj
    
    [SerializeField]protected TowerShooting towerShooting;
    public TowerShooting TowerShooting => towerShooting;
-   [SerializeField]protected BulletSpawner bulletSpawner;
-   public BulletSpawner BulletSpawner => bulletSpawner;
    
-   [SerializeField]protected BulletPrefabs bulletPrefabs;
-   public BulletPrefabs BulletPrefabs => bulletPrefabs;
-
-   [SerializeField]protected Bullet bullet;
-   public Bullet Bullet => bullet;
    [SerializeField]protected LevelAbstract level;
    public LevelAbstract Level => level;
+   
    [SerializeField]protected List<FirePoint> firePoint;
    public List<FirePoint> FirePoint => firePoint;
    
-   private string bulletName = "Bullet";
-   
-   protected override void Awake()
-   {
-      base.Awake();
-      this.HidePrefabs();
-   }
-
-   protected virtual void HidePrefabs()
-   {
-      bullet.gameObject.SetActive(false);
-   }
 
    protected override void LoadComponents()
    {
       base.LoadComponents();
       this.LoadModel();
       this.LoadTowerTargeting();
-      this.LoadBulletSpawner();
       this.LoadFirePoint();
-      this.LoadBulletPrefabs();
       this.LoadTowerShooting();
       this.LoadLevel();
    }
@@ -65,12 +45,6 @@ public abstract class TowerCtrl : PoolObj
       towerShooting =GetComponentInChildren<TowerShooting>();
       Debug.Log(transform.name + " :LoadTowerShooting",gameObject);
    }
-   protected virtual void LoadBulletSpawner()
-   {
-      if(this.bulletSpawner != null) return;
-      bulletSpawner = FindAnyObjectByType<BulletSpawner>();
-      Debug.Log(transform.name + " :LoadBulletSpawner",gameObject);
-   }
    
    protected virtual void LoadFirePoint()
    {
@@ -79,19 +53,6 @@ public abstract class TowerCtrl : PoolObj
       firePoint = point.ToList();
       
       Debug.Log(transform.name + " :LoadTowerTargeting",gameObject);
-   }
-   protected virtual void LoadBulletPrefabs()
-   {
-      if(this.bulletPrefabs != null) return;
-      bulletPrefabs = GameObject.FindAnyObjectByType<BulletPrefabs>();
-      this.LoadBullet();
-      Debug.Log(transform.name + " :LoadBulletSpawner",gameObject);
-   }
-   protected virtual void LoadBullet()
-   {
-      if(this.bullet != null) return;
-      bullet = this.bulletPrefabs.GetByName(bulletName);
-      Debug.Log(transform.name + " :LoadBullet",gameObject);
    }
    protected virtual void LoadTowerTargeting()
    {

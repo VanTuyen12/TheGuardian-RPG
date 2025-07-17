@@ -3,11 +3,11 @@ using UnityEngine;
 
 public abstract class Despawn<T> : DespawnBase where T : PoolObj
 {
+    [SerializeField] protected Spawner<T> spawner;
+    [SerializeField] protected T parent;
     [SerializeField] protected float timeLife = 7f;
     [SerializeField] protected float currentTime = 7f;
     [SerializeField] protected bool isDespawnByTime = true;
-    [SerializeField] protected Spawner<T> spawner;
-    [SerializeField] protected T parent;
 
     protected virtual void FixedUpdate()
     {

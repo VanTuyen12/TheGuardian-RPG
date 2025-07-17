@@ -82,7 +82,6 @@ public class PlayerFastShoot : ShootAbstract
     {
         AttackPoint attackPoint = GetAttackPoint();
         var crosshairTarget = playerCtrl.CrosshairCtrl.GetCrosshair(1).transform;
-        SpawnMuzzle(attackPoint.transform.position, crosshairTarget.position);
         
         EffectCtrl effect = effectSpawner.Spawn(GetEffecct(), attackPoint.transform.position);
         EffectFlyAbstract effectFly = (EffectFlyAbstract)effect;
@@ -109,13 +108,6 @@ public class PlayerFastShoot : ShootAbstract
         return effectPrefabs.GetByName(effectName);
     }
     
-    protected virtual void SpawnMuzzle(Vector3 spawnPoint, Vector3 rotatorDirection)
-    {
-        EffectCtrl effect = effectSpawner.PoolPrefabs.GetByName(nameof(MuzzleCodeName.MuzzleGun2));
-        EffectCtrl newMuzzle = effectSpawner.Spawn(effect, spawnPoint);
-        newMuzzle.transform.forward = rotatorDirection;
-        newMuzzle.gameObject.SetActive(true);
-    }
     protected virtual void CheckCrosshair(bool isShoot)
     {
         playerCtrl.PlayerActionCtrl.SetShootingMode(isShoot);

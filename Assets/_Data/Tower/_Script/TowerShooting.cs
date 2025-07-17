@@ -119,7 +119,6 @@ public class TowerShooting : TowerAbstract
         Vector3 rotatorDirection = towerCtrl.Rotation.transform.forward;
         
         this.SpawnBullet(firePoint.transform.position,rotatorDirection);
-        this.SpawnMuzzle(firePoint.transform.position,rotatorDirection);
     }
     
     protected virtual void SpawnBullet(Vector3 spawnPoint,Vector3 rotatorDirection )
@@ -132,13 +131,6 @@ public class TowerShooting : TowerAbstract
         effectFly.FlyToTarget.SetTarget(target.EnemyTargetable.transform);
         
         newProjectile.gameObject.SetActive(true);
-    }
-    protected virtual void SpawnMuzzle(Vector3 spawnPoint, Vector3 rotatorDirection)
-    {
-        EffectCtrl effect = effectSpawner.PoolPrefabs.GetByName(nameof(MuzzleCodeName.MuzzleTower1));
-        EffectCtrl newMuzzle = effectSpawner.Spawn(effect, spawnPoint);
-        newMuzzle.transform.forward = rotatorDirection;
-        newMuzzle.gameObject.SetActive(true);
     }
     protected virtual FirePoint GetFirePoint()
     {

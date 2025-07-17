@@ -10,8 +10,7 @@ public class PlayerSlowShoot : ShootAbstract
         if (!shouldShoot) return;
         
         AttackPoint attackPoint = GetAttackPoint();
-        var crosshairTarget = playerCtrl.CrosshairCtrl.GetCrosshair(1).transform;
-        SpawnMuzzle(attackPoint.transform.position, crosshairTarget.position);
+        
         EffectCtrl effect = effectSpawner.Spawn(GetEffecct(), attackPoint.transform.position);
         EffectFlyAbstract effectFly = (EffectFlyAbstract)effect;
         effectFly.FlyToTarget.SetTarget(playerCtrl.CrosshairCtrl.GetCrosshair(1).transform);
@@ -20,13 +19,7 @@ public class PlayerSlowShoot : ShootAbstract
         //Debug.Log("PlayerSlowShoot" + attackPoint.transform.position);
     }
     
-    protected virtual void SpawnMuzzle(Vector3 spawnPoint, Vector3 rotatorDirection)
-    {
-        EffectCtrl effect = effectSpawner.PoolPrefabs.GetByName(nameof(MuzzleCodeName.MuzzleGun1));
-        EffectCtrl newMuzzle = effectSpawner.Spawn(effect, spawnPoint);
-        newMuzzle.transform.forward = rotatorDirection;
-        newMuzzle.gameObject.SetActive(true);
-    }
+    
     protected virtual EffectCtrl GetEffecct()
     {
         return effectPrefabs.GetByName(effectName);
