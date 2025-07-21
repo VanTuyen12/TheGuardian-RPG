@@ -28,9 +28,7 @@ public class PlayerCtrl : Singleton<PlayerCtrl>
     public Weapons Weapons => weapons;
     [SerializeField] protected LevelAbstract level;
     public LevelAbstract Level => level;
-
     
-
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -81,7 +79,6 @@ public class PlayerCtrl : Singleton<PlayerCtrl>
     {
         if (model != null) return;
         model = transform.Find("Geometry/Model");
-        //spawnBulletPosition = model.GetComponentInChildren<SpawnBulletPosition>();
         Debug.Log(transform.name + ": LoadModel", gameObject);
     }
 

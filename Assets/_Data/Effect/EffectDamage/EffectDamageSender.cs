@@ -13,9 +13,16 @@ public abstract class EffectDamageSender : DamageSender
         effectCtrl.Despawn.DoDespawn();
     }
 
+    private Vector3 GetSafeHitPoint(Collider col)
+    {
+        if (col is MeshCollider m && !m.convex) return col.transform.position;
+        if (col is BoxCollider || col is SphereCollider || col is CapsuleCollider || col is MeshCollider)
+            return col.ClosestPoint(transform.position);
+        return col.transform.position;
+    }
     protected virtual void ShowHitEffect(Collider collider)
     {
-        var hitPoin =  collider.ClosestPoint(transform.position);
+        var hitPoin =  GetSafeHitPoint(collider);
         EffectCtrl prefab = effectSpawner.PoolPrefabs.GetByName(GetHitName());
         EffectCtrl newObj = effectSpawner.Spawn(prefab, hitPoin);
         newObj.gameObject.SetActive(true);

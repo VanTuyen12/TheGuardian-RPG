@@ -7,7 +7,12 @@
         [SerializeField] private float normalSensitivity = 1f ;
         [SerializeField] private float aimlSensitivity = 0.5f;
         [SerializeField] private bool isAiming = false;
-        
+
+        protected override void Awake()
+        {
+            base.Awake();
+            LookFar();
+        }
 
         protected virtual void Update()
         {

@@ -6,9 +6,10 @@ public class InventoryUI : Singleton<InventoryUI>
 {
     [SerializeField]protected BtnItemInventory defaultItemInventoryUI;
     [SerializeField] protected InventorySpawner invSpawner;
+    public InventorySpawner InvSpawner => invSpawner;
     [SerializeField] protected GameObject showHideUI;
     [SerializeField]protected List<BtnItemInventory> btnItems = new();
-    public InventorySpawner InvSpawner => invSpawner;
+   
     [SerializeField]protected bool isShow = false;
         
     public bool IsShow => isShow;

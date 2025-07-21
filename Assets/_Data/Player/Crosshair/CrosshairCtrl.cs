@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrosshairCtrl : MyMonoBehaviour
+public class CrosshairCtrl : Singleton<CrosshairCtrl>
 {
     [SerializeField]List<CrosshairAbstract> crosshairs = new();
-    public List<CrosshairAbstract> Crosshairs => crosshairs;
 
     protected override void LoadComponents()
     {

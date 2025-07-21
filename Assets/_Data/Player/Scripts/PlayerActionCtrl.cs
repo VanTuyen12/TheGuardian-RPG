@@ -6,6 +6,7 @@ public class PlayerActionCtrl : PlayerAbstract
     [SerializeField] protected CrosshairAbstract normalCrosshair;
     [SerializeField] protected CrosshairAbstract targetCrosshair;
     
+    [Header("Setting Action")]
     [SerializeField] private float rigTransitionSpeed = 5f;
     [SerializeField] private float layerTransitionSpeed = 5f;
     [SerializeField] private float rigDisableSpeed = 6f;
@@ -22,6 +23,7 @@ public class PlayerActionCtrl : PlayerAbstract
         targetCrosshair = GetCrosshair(1);
         playerCtrl.PlayerActionCtrl.SetCrosshairState(false);
     }
+    
     protected virtual void Update()
     {
         UpdateMoveToAttack();
@@ -101,7 +103,7 @@ public class PlayerActionCtrl : PlayerAbstract
         
         isLastState = showTargetCrosshair;
         SetCrosshairState(showTargetCrosshair);
-        
+        CrosshairUI(showTargetCrosshair);
     }
     
     public void SetCrosshairState(bool isAttack)
@@ -109,10 +111,17 @@ public class PlayerActionCtrl : PlayerAbstract
         // Switch crosshair
         if (normalCrosshair != null)
             normalCrosshair.gameObject.SetActive(!isAttack);
-        
+
         if (targetCrosshair != null)
             targetCrosshair.gameObject.SetActive(isAttack);
+        
+        
         //Debug.Log($"Crosshair switched to: {(isAttack ? "target" : "Normal")} mode");
+    }
+
+    public virtual void CrosshairUI(bool isActive)
+    {
+        crosshairUI.gameObject.SetActive(isActive);
     }
     
 }
