@@ -34,7 +34,7 @@ public class InventoryUI : Singleton<InventoryUI>
 
     private void HotkeyToogleInventory()
     {
-        if (InputHotKey.Instance.IsToogleInvUI) Toggle();
+        if (InputHotKeys.Instance.IsToogleInvUI) Toggle();
         
     }
 

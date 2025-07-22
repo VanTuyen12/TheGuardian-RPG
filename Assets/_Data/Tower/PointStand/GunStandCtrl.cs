@@ -5,6 +5,7 @@ public class GunStandCtrl : MyMonoBehaviour
 {
     [SerializeField]protected SphereCollider collider;
     [SerializeField]protected PointStand point;
+    public PointStand Point => point;
 
     protected override void LoadComponents()
     {
