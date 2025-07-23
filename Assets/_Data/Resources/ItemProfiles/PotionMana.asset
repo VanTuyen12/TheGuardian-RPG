@@ -16,3 +16,4 @@ MonoBehaviour:
   itemCode: 100
   itemName: PotionMana
   isStackable: 1
+  image: {fileID: 21300012, guid: 215687feeab0b7445b4a1cd86c82c2e1, type: 3}

@@ -5,16 +5,16 @@ public abstract class ItemDropCtrl : PoolObj
 {
     [SerializeField] protected Rigidbody rigi;
     public Rigidbody Rigidbody => rigi;
-    protected InvCodeName iveCodeName;
-    public InvCodeName InvCodeName => iveCodeName;
+    protected InventoryCodeName iveCodeName;
+    public InventoryCodeName InventoryCodeName => iveCodeName;
     protected ItemCode itemCode;
     public ItemCode ItemCode => itemCode;
     protected int itemCount;
     public int ItemCount => itemCount;
 
-    public virtual void SetValue(InvCodeName invCodeName,ItemCode itemCode, int itemCount)
+    public virtual void SetValue(InventoryCodeName inventoryCodeName,ItemCode itemCode, int itemCount)
     {
-        this.iveCodeName = invCodeName;
+        this.iveCodeName = inventoryCodeName;
         this.itemCode = itemCode;
         this.itemCount = itemCount;
     }

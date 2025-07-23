@@ -4,7 +4,6 @@ using UnityEngine.Serialization;
 public abstract class CrosshairAbstract : MyMonoBehaviour
 {
     [SerializeField] protected Camera mainCamera;
-    [FormerlySerializedAs("crosshair")] [SerializeField] protected CrosshairUI crosshairUI;
     protected override void Awake()
     {
         base.Awake();

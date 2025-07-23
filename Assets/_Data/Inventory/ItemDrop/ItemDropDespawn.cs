@@ -6,15 +6,8 @@ public class ItemDropDespawn : Despawn<ItemDropCtrl>
    {
       ItemDropCtrl itemDropCtrl = parent as ItemDropCtrl;
       
-      ItemInventory item = new();
-      item.itemProfile = InventoryManager.Instance.GetProfileByCode(itemDropCtrl.ItemCode);
-      item.itemCount = itemDropCtrl.ItemCount;
-      item.itemName = itemDropCtrl.GetName();
-      
-      InvCodeName invCodeName = item.ItemProfile.invCodeName;
-      InventoryCtrl inventoryCtrl = InventoryManager.Instance.GetByCodeName(invCodeName);
-      
-      inventoryCtrl.AddItem(item);
+   
+      InventoryManager.Instance.AddItem(itemDropCtrl.ItemCode, itemDropCtrl.ItemCount);
       
       base.DoDespawn();
    }

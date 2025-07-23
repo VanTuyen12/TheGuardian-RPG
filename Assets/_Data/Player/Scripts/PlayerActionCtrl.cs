@@ -103,7 +103,6 @@ public class PlayerActionCtrl : PlayerAbstract
         
         isLastState = showTargetCrosshair;
         SetCrosshairState(showTargetCrosshair);
-        CrosshairUI(showTargetCrosshair);
     }
     
     public void SetCrosshairState(bool isAttack)
@@ -119,9 +118,6 @@ public class PlayerActionCtrl : PlayerAbstract
         //Debug.Log($"Crosshair switched to: {(isAttack ? "target" : "Normal")} mode");
     }
 
-    public virtual void CrosshairUI(bool isActive)
-    {
-        crosshairUI.gameObject.SetActive(isActive);
-    }
+    
     
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class BtnInventoryToggle : ButtonAbstract
@@ -6,9 +7,5 @@ public class BtnInventoryToggle : ButtonAbstract
     {
        InventoryUI.Instance.Toggle();
     }
-
-    public override string GetName()
-    {
-        return "BtnInventoryToggle";
-    }
+    
 }

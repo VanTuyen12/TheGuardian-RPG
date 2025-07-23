@@ -16,3 +16,4 @@ MonoBehaviour:
   itemCode: 10
   itemName: Gun
   isStackable: 0
+  image: {fileID: 21300000, guid: 215687feeab0b7445b4a1cd86c82c2e1, type: 3}

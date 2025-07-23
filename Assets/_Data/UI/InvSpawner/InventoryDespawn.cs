@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InventoryDespawn : Despawn<BtnItemInventory>
+public class InventoryDespawn : MyMonoBehaviour
 {
     
 }

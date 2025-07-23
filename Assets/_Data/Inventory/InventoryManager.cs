@@ -20,7 +20,32 @@ public class InventoryManager : Singleton<InventoryManager>
         
         Debug.Log(transform.name +" LoaditemProfiles: ",gameObject);
     }
- 
+    public virtual void AddItem(ItemInventory itemInventory)
+    {
+        InventoryCodeName invCodeName = itemInventory.ItemProfile.invCodeName;
+        InventoryCtrl inventoryCtrl = InventoryManager.Instance.GetByCodeName(invCodeName);
+        inventoryCtrl.AddItem(itemInventory);
+    }
+
+    public virtual void AddItem(ItemCode itemCode, int itemCount)
+    {
+        ItemProfileSO itemProfile = InventoryManager.Instance.GetProfileByCode(itemCode);
+        ItemInventory item = new(itemProfile, itemCount);
+        this.AddItem(item);
+    }
+    public virtual void RemoveItem(ItemCode itemCode, int itemCount)
+    {
+        ItemProfileSO itemProfile = InventoryManager.Instance.GetProfileByCode(itemCode);
+        ItemInventory item = new(itemProfile, itemCount);
+        this.RemoveItem(item);
+    }
+
+    public virtual void RemoveItem(ItemInventory itemInventory)
+    {
+        InventoryCodeName invCodeName = itemInventory.ItemProfile.invCodeName;
+        InventoryCtrl inventoryCtrl = InventoryManager.Instance.GetByCodeName(invCodeName);
+        inventoryCtrl.RemoveItem(itemInventory);
+    }
     protected virtual void LoadInventories()
     {
         if (inventories.Count > 0) return;
@@ -33,7 +58,7 @@ public class InventoryManager : Singleton<InventoryManager>
         Debug.Log(transform.name +"LoadInventories: ",gameObject);
     }
 
-    public virtual InventoryCtrl GetByCodeName(InvCodeName inventoryName)
+    public virtual InventoryCtrl GetByCodeName(InventoryCodeName inventoryName)
     {
         foreach (InventoryCtrl inventory in inventories)
         {
@@ -52,11 +77,11 @@ public class InventoryManager : Singleton<InventoryManager>
 
     public virtual InventoryCtrl Currency()
     {
-        return GetByCodeName(InvCodeName.Currency);
+        return GetByCodeName(InventoryCodeName.Currency);
     }
     
     public virtual InventoryCtrl Items()
     {
-        return GetByCodeName(InvCodeName.Items);
+        return GetByCodeName(InventoryCodeName.Items);
     }
 }

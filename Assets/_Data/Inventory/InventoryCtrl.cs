@@ -5,7 +5,7 @@ public abstract class InventoryCtrl : MyMonoBehaviour
 {
     [SerializeField]protected List<ItemInventory> items = new();
     public List<ItemInventory> Items => items;
-    public abstract InvCodeName GetName();
+    public abstract InventoryCodeName GetName();
 
     public virtual void AddItem(ItemInventory item)
     {

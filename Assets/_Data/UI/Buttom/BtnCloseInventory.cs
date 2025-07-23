@@ -11,9 +11,4 @@ public class BtnCloseInventory : ButtonAbstract
     {
         InventoryUI.Instance.Hide();
     }
-
-    public override string GetName()
-    {
-        return "BtnCloseInventory";
-    }
 }

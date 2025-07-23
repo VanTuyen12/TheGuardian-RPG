@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class InventoryUI : Singleton<InventoryUI>
 {
-    [SerializeField]protected BtnItemInventory defaultItemInventoryUI;
-    [SerializeField] protected InventorySpawner invSpawner;
-    public InventorySpawner InvSpawner => invSpawner;
+    /*[SerializeField]protected BtnItemInventory defaultItemInventoryUI;
+    [SerializeField] protected InventorySpawner invSpawner;*/
+    /*public InventorySpawner InvSpawner => invSpawner;*/
     [SerializeField] protected GameObject showHideUI;
-    [SerializeField]protected List<BtnItemInventory> btnItems = new();
+    /*[SerializeField]protected List<BtnItemInventory> btnItems = new();*/
    
     [SerializeField]protected bool isShow = false;
         
@@ -19,12 +19,12 @@ public class InventoryUI : Singleton<InventoryUI>
         base.Start();
         Hide();
         //Show();
-        this.HideDefaultItemInventory();
+        /*this.HideDefaultItemInventory();*/
     }
 
     private void FixedUpdate()
     {
-        ItemUpdating();
+        /*ItemUpdating();*/
     }
 
     private void LateUpdate()
@@ -38,10 +38,10 @@ public class InventoryUI : Singleton<InventoryUI>
         
     }
 
-    protected virtual void HideDefaultItemInventory()
+    /*protected virtual void HideDefaultItemInventory()
     {
         defaultItemInventoryUI.gameObject.SetActive(false);
-    }
+    }*/
 
     public virtual void Show()
     {
@@ -62,7 +62,7 @@ public class InventoryUI : Singleton<InventoryUI>
         
     }
     
-    protected virtual void ItemUpdating()
+    /*protected virtual void ItemUpdating()
     {
         InventoryCtrl itemInvCtrl = InventoryManager.Instance.Items();
         foreach (ItemInventory itemInventory in itemInvCtrl.Items)
@@ -96,22 +96,22 @@ public class InventoryUI : Singleton<InventoryUI>
         }
         
         return null;
-    }
+    }*/
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadBtnItemInventory();
-        this.LoadInventorySpawner();
+        /*this.LoadBtnItemInventory();
+        this.LoadInventorySpawner();*/
         this.LoadShowHideUI();
     }
     protected virtual void LoadShowHideUI()
     {
         if (showHideUI != null) return;
-        showHideUI = GameObject.Find("ShowHide");
+        showHideUI = GameObject.Find("MainInventory");
         Debug.Log(transform.name + ": loadShowHideUI", gameObject);
     }
-    protected virtual void LoadInventorySpawner()
+    /*protected virtual void LoadInventorySpawner()
     {
         if (invSpawner != null) return;
         invSpawner = FindAnyObjectByType<InventorySpawner>();
@@ -122,5 +122,5 @@ public class InventoryUI : Singleton<InventoryUI>
         if (defaultItemInventoryUI != null) return;
         defaultItemInventoryUI = GetComponentInChildren<BtnItemInventory>();
         Debug.Log(transform.name + ": LoadBtnItemInventory", gameObject);
-    }
+    }*/
 }

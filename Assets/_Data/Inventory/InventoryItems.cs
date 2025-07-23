@@ -4,9 +4,9 @@ using UnityEngine;
 public class InventoryItems : InventoryCtrl
 {
    
-    public override InvCodeName GetName()
+    public override InventoryCodeName GetName()
     {
-        return InvCodeName.Items;
+        return InventoryCodeName.Items;
     }
     
     

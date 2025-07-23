@@ -8,16 +8,24 @@ public class ItemInventory
     protected int itemId ;
     public int ItemId => itemId;
     public string itemName;
-    public ItemProfileSO itemProfile;
-    public ItemProfileSO ItemProfile => itemProfile;
-    
     public int itemCount;
     
+    public ItemProfileSO itemProfile;
+    public ItemProfileSO ItemProfile => itemProfile;
     public virtual void SetId(int id)
     {
         this.itemId = id;
     }
-    
+    public virtual void SetName(string name)
+    {
+        this.itemName = name;
+    }
+    public ItemInventory(ItemProfileSO itemProfile, int itemCount)
+    {
+        this.itemProfile = itemProfile;
+        this.itemCount = itemCount;
+        this.itemName = this.itemProfile.itemName;
+    }
     public virtual string GetItemName()
     {
         if (this.itemName == null || this.itemName == "") return this.itemProfile.itemName;

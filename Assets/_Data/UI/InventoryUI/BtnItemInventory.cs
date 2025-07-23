@@ -20,10 +20,7 @@ public class BtnItemInventory : ButtonAbstract
         this.txtItemName.text = itemInventory.itemName;
         this.txtItemCount.text = itemInventory.itemCount.ToString();
 
-        if (itemInventory.itemCount <= 0)
-        {
-            despawn.DoDespawn();
-        }
+        if (this.itemInventory.itemCount == 0) Destroy(gameObject);
         
     }
 
@@ -41,11 +38,7 @@ public class BtnItemInventory : ButtonAbstract
         base.LoadComponents();
         this.LoadtxtBtnItem();
     }
-
-    public override string GetName()
-    {
-        return "ItemInventory";
-    }
+    
 
     protected virtual void LoadtxtBtnItem()
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InventorySpawner : Spawner<BtnItemInventory>
+public class InventorySpawner : MyMonoBehaviour
 {
    
 }

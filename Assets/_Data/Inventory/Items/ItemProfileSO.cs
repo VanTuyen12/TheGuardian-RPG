@@ -3,11 +3,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ItemProfile", menuName = "ScriptableObjects/ItemProfile", order = 1)]
 public class ItemProfileSO : ScriptableObject
 {
-    public InvCodeName invCodeName;
+    public InventoryCodeName invCodeName;
     public ItemCode itemCode;
     public string itemName;
-    public bool isStackable = false; //may or may not be merged
-    
+    public bool isStackable = false;
+    public Sprite image;
     
     protected virtual void Reset()
     {
