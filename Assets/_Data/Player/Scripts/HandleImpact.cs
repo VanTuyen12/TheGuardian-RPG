@@ -23,10 +23,26 @@ public class HandleImpact : MyMonoBehaviour
 
    protected virtual void OnTriggerEnter(Collider collider)
    {
-      Debug.Log(collider.gameObject.name);
+      if (CheckOpenTowerUI(collider))
+      {
+         GameEvent.TriggerTowerCollider(true, collider.gameObject);
+      }
+      
       ItemPicker(collider);
    }
 
+   private void OnTriggerExit(Collider collider)
+   {
+      if (CheckOpenTowerUI(collider))
+      {
+         GameEvent.TriggerTowerCollider(false, collider.gameObject);
+      }
+   }
+
+   protected virtual bool CheckOpenTowerUI(Collider other)
+   {
+      return other.transform.GetComponent<GunStandCtrl>();
+   }
    protected virtual void ItemPicker(Collider other)
    {
       if(other.transform.parent == null) return;

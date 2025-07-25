@@ -6,31 +6,16 @@ public class TowerManager : Singleton<TowerManager>
 {
     [SerializeField]protected TowerCodeName newTowerId = TowerCodeName.NoName;
     public TowerCodeName NewTowerId => newTowerId;
-    [SerializeField]protected GunStandCtrl gunStand;
-    protected override void LoadComponents()
-    {
-        base.LoadComponents();
-        this.LoadGunStand();
-    }
+   
 
-    protected virtual void LoadGunStand()
-    {
-        if (this.gunStand != null) return;
-        gunStand = FindAnyObjectByType<GunStandCtrl>();
-        Debug.Log(transform.name + " :LoadGunStand", gameObject);
-    }
-
-    [SerializeField]protected TowerCtrl towerPrefab;
+    
     private void Update()
     {
-        ShowTowerToPlace();
+        //UpdateBuyTower();
     }
-
-    protected virtual void ShowTowerToPlace()
+    /*protected virtual void UpdateBuyTower()
     {
-        newTowerId = TowerSelection();
         
-        if(newTowerId == TowerCodeName.NoName) return;
         if (towerPrefab == null)
         {
             towerPrefab = GetTowerPrefabs(newTowerId);
@@ -39,11 +24,25 @@ public class TowerManager : Singleton<TowerManager>
             towerPrefab.SetActive(true);
         }
     }
-
-    protected TowerCtrl GetTowerPrefabs(TowerCodeName TowerId)
+    protected virtual void ShowTowerToPlace(Vector3 point)
     {
-        return TowerSingleton.Instance.Prefabs.PoolPrefabs.GetByName(TowerId.ToString());
+        
+        if (towerPrefab == null)
+        {
+            towerPrefab = GetTowerPrefabs(newTowerId);
+            Vector3 prefabPos = gunStand.Point.transform.position;
+            towerPrefab.transform.position = prefabPos;
+            towerPrefab.SetActive(true);
+        }
+    }*/
+
+    public virtual bool SelectHotKey()
+    {
+        newTowerId = TowerSelection();
+        if(newTowerId == TowerCodeName.NoName) return false;
+        return true;
     }
+    
     protected virtual TowerCodeName TowerSelection()
     {
         KeyCode pressKey =  InputHotKeys.Instance?.KeyCode ?? KeyCode.None;
