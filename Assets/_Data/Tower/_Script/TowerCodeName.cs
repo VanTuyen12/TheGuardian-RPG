@@ -7,6 +7,4 @@ public enum TowerCodeName
     MachineGunLv2 = 2,
     MachineGunLv3 = 3,
     MachineGunLv5 = 5,
-    
-    
 }

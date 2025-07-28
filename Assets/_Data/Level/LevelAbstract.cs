@@ -5,7 +5,8 @@ public abstract class LevelAbstract : MyMonoBehaviour
 {
     [SerializeField] protected int currentLevel = 1;
     public int CurrentLevel => currentLevel;
-
+    [SerializeField] protected int skillScore = 1;
+    public int SkillScore => skillScore;
     [SerializeField] protected int maxLevel = 100;
     [SerializeField] protected int nextLevelExp;
 
@@ -16,6 +17,12 @@ public abstract class LevelAbstract : MyMonoBehaviour
     {
         this.Leveling();
     }
+   
+    public virtual void UpgradeDamage(int amount)
+    {
+        if (skillScore < 0) return;
+            skillScore -= amount;
+    }
 
     protected virtual void Leveling()
     {
@@ -24,6 +31,7 @@ public abstract class LevelAbstract : MyMonoBehaviour
         if (!DeductExp(GetNextLevelExp())) return;
         
         currentLevel++;
+        skillScore++;
     }
 
     protected virtual int GetNextLevelExp()

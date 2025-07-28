@@ -26,6 +26,10 @@ public class TowerShooting : TowerAbstract
         Invoke(nameof(this.Shooting),this.shootSpeed);
     }
 
+    public virtual void SetShootSpeed(float speed)
+    {
+        this.shootSpeed = speed;
+    }
     protected void FixedUpdate()
     {
         this.Looking();

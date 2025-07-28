@@ -41,7 +41,7 @@ public class HandleImpact : MyMonoBehaviour
 
    protected virtual bool CheckOpenTowerUI(Collider other)
    {
-      return other.transform.GetComponent<GunStandCtrl>();
+      return other.transform.GetComponent<TowerStandCtrl>();
    }
    protected virtual void ItemPicker(Collider other)
    {
