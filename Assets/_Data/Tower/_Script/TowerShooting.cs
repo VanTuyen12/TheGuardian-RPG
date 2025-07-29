@@ -1,15 +1,21 @@
 using System;
+using System.Collections.Generic;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TowerShooting : TowerAbstract
 {
     [SerializeField] protected EnemyCtrl target;
     [SerializeField] protected EffectSpawner effectSpawner;
+    [SerializeField] protected EffectCtrl newProjectile;
+    public EffectCtrl Projectile => newProjectile;
     
     [Header("Setting Tower")]
     [SerializeField] private float rotationSpeed = 5f;
     [SerializeField] private float shootSpeed = 1f;
+    public float ShootSpeed => shootSpeed;
     [SerializeField] private float targetLoadSpeed = 1f;
     [SerializeField] private int currentFirePoint = 0;
     
@@ -18,37 +24,20 @@ public class TowerShooting : TowerAbstract
     [SerializeField] private int killCount = 0;
     public int KillCount => killCount;
     
-
+    protected Coroutine shootingCoroutine;
     protected override void Start()
     {
         base.Start();
         Invoke(nameof(this.TargetLoading),this.targetLoadSpeed);
-        Invoke(nameof(this.Shooting),this.shootSpeed);
+        shootingCoroutine = StartCoroutine(ShootingLoop());
     }
-
-    public virtual void SetShootSpeed(float speed)
-    {
-        this.shootSpeed = speed;
-    }
+    
     protected void FixedUpdate()
     {
         this.Looking();
         this.IsTargetDead();
     }
-
-    protected override void LoadComponents()
-    {
-        base.LoadComponents();
-        this.LoadEffectSpawer();
-    }
-
-    protected virtual void LoadEffectSpawer()
-    {
-        if(this.effectSpawner != null) return;
-        effectSpawner =GameObject.Find("EffectSpawner").GetComponent<EffectSpawner>();
-        Debug.Log(transform.name + " :LoadEffectSpawer",gameObject);
-    }
-
+    
     public virtual bool DeductKillCount(int count)
     {
         if(this.killCount < count ) return false;
@@ -72,7 +61,24 @@ public class TowerShooting : TowerAbstract
         Invoke(nameof(this.TargetLoading),this.targetLoadSpeed);
         this.target = this.towerCtrl.TowerTargeting.Nearest;
     }
-    
+    protected virtual IEnumerator ShootingLoop()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(this.shootSpeed);
+
+            if (this.target != null)
+            {
+                FirePoint firePoint = GetFirePoint();
+                Vector3 rotatorDirection = towerCtrl.Rotation.transform.forward;
+                this.SpawnBullet(firePoint.transform.position, rotatorDirection);
+            }
+        }
+    }
+    public virtual void SetShootSpeed(float speed)
+    {
+        this.shootSpeed = speed;
+    }
     protected virtual void Looking()
     {
         if (this.target == null) return;
@@ -89,7 +95,6 @@ public class TowerShooting : TowerAbstract
         if (directionY != Vector3.zero)
         {
             //towerCtrl.Model.transform.rotation = Quaternion.LookRotation(directionY);
-            
             Quaternion targetRotation = Quaternion.LookRotation(directionY);
             towerCtrl.Model.transform.rotation = Quaternion.Slerp(
                 towerCtrl.Model.transform.rotation, 
@@ -98,7 +103,6 @@ public class TowerShooting : TowerAbstract
             );
         }
     }
-    
     protected virtual void RotateTowerRotation(Vector3 targetPosition)  // Rotation along the X axis (up/down)
     {
         Transform rotationPart = towerCtrl.Rotation.transform;
@@ -113,22 +117,12 @@ public class TowerShooting : TowerAbstract
             targetRotation,
             Time.fixedDeltaTime * rotationSpeed);
     }
-
-    
-    protected virtual void Shooting()
-    {
-        Invoke(nameof(this.Shooting),this.shootSpeed);
-        if (this.target == null) return;
-        FirePoint firePoint = GetFirePoint();
-        Vector3 rotatorDirection = towerCtrl.Rotation.transform.forward;
-        
-        this.SpawnBullet(firePoint.transform.position,rotatorDirection);
-    }
     
     protected virtual void SpawnBullet(Vector3 spawnPoint,Vector3 rotatorDirection )
     {
         EffectCtrl effect = effectSpawner.PoolPrefabs.GetByName(nameof(ProjectileCodeName.TowerProjectile1));
-        EffectCtrl newProjectile = effectSpawner.Spawn(effect, spawnPoint);
+        
+        newProjectile = effectSpawner.Spawn(effect, spawnPoint);
         newProjectile.transform.forward = rotatorDirection;
         
         EffectFlyAbstract effectFly = newProjectile as EffectFlyAbstract;
@@ -136,11 +130,24 @@ public class TowerShooting : TowerAbstract
         
         newProjectile.gameObject.SetActive(true);
     }
+    
     protected virtual FirePoint GetFirePoint()
     {
         FirePoint firePoint = towerCtrl.FirePoint[currentFirePoint];
         currentFirePoint++;
         if (currentFirePoint == towerCtrl.FirePoint.Count) currentFirePoint = 0;
         return firePoint;
+    }
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadEffectSpawer();
+    }
+
+    protected virtual void LoadEffectSpawer()
+    {
+        if(this.effectSpawner != null) return;
+        effectSpawner =GameObject.Find("EffectSpawner").GetComponent<EffectSpawner>();
+        Debug.Log(transform.name + " :LoadEffectSpawer",gameObject);
     }
 }

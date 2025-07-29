@@ -5,26 +5,15 @@ using UnityEngine;
 public class TowerStandUIManager : MyMonoBehaviour
 {
     [SerializeField] protected TowerStandCtrl towerStand;
-    [SerializeField] protected List<TextSkillScoreUI> skillScoreTexts;
+        [SerializeField] protected List<TextSkillScoreUI> skillScoreTexts = new();
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadtowerStand();
+        this.LoadTextSkillScoreUI();
     }
     
-    protected override void Start()
-    {
-        base.Start();
-        LoadSkillScores();
-        //this.SetupTextReferences();
-    }
-
-    protected virtual void LoadSkillScores()
-    {
-        if (skillScoreTexts == null || skillScoreTexts.Count == 0)
-            skillScoreTexts = new List<TextSkillScoreUI>(FindObjectsOfType<TextSkillScoreUI>());
-    }
     
     protected virtual void SetupTextReferences()
     {
@@ -45,6 +34,13 @@ public class TowerStandUIManager : MyMonoBehaviour
     public virtual void OnTowerDespawned()
     {
         // TextSkillScoreUI sẽ tự động hiển thị 0 khi không có tower
+    }
+    protected virtual void LoadTextSkillScoreUI()
+    {
+        if (skillScoreTexts.Count > 0) return;
+        skillScoreTexts = new List<TextSkillScoreUI>(
+            FindObjectsByType<TextSkillScoreUI>(FindObjectsSortMode.None)
+        );
     }
     
     protected virtual void LoadtowerStand()
