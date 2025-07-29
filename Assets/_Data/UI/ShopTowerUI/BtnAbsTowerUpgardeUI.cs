@@ -13,7 +13,7 @@ public abstract class BtnAbsTowerUpgardeUI : ButtonAbstract
     {
         if (upgardeCtrlUI == null || !upgardeCtrlUI.IsShow) return;
         
-        towerStand = LoadTowerStand();
+        towerStand = upgardeCtrlUI.StandCtrl;
         if (towerStand == null) return;
         
         TowerPurchased( TowerName());
@@ -41,14 +41,7 @@ public abstract class BtnAbsTowerUpgardeUI : ButtonAbstract
             ShowBuyButton();
         }
     }
-   
-    protected virtual TowerStandCtrl LoadTowerStand()
-    {
-        var towerObj = upgardeCtrlUI?.HandleTower;
-        if (towerObj == null) return null;
-        
-        return towerObj.GetComponent<TowerStandCtrl>();
-    }
+    
     
     protected virtual void HideBuyButton()
     {

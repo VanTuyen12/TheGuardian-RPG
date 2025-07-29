@@ -4,9 +4,11 @@ using UnityEngine;
 public class TowerUpgardeUI : ToggleAbstractUI<TowerUpgardeUI>
 {
     [SerializeField]protected bool canOpenTowerUI = false;
-    public bool CheckOpenTowerUI => canOpenTowerUI;
+    public bool CanOpenTowerUI => canOpenTowerUI;
     [SerializeField]protected GameObject handleTower;
     public GameObject HandleTower => handleTower;
+    [SerializeField]protected TowerStandCtrl standCtrl;
+    public TowerStandCtrl StandCtrl => standCtrl;
     [SerializeField] protected BtnAbsTowerUpgardeUI btnTowerUpgardeUI;
     public BtnAbsTowerUpgardeUI BtnTowerUpgardeUI => btnTowerUpgardeUI;
    
@@ -14,6 +16,7 @@ public class TowerUpgardeUI : ToggleAbstractUI<TowerUpgardeUI>
     {
        canOpenTowerUI = obj;
        handleTower =  pointTower;
+       LoadTowerStand();
     }
 
     protected override void HotkeyToogleInventory()
@@ -22,6 +25,7 @@ public class TowerUpgardeUI : ToggleAbstractUI<TowerUpgardeUI>
       if (!canOpenTowerUI)
       {
           handleTower =  null;
+          standCtrl = null;
           Hide();
       } 
     }
@@ -29,6 +33,10 @@ public class TowerUpgardeUI : ToggleAbstractUI<TowerUpgardeUI>
     protected virtual void OnEnable()
     {
         GameEvent.OnTowerCollider += HandleTowerCollistion;
+    }
+    public virtual void LoadTowerStand()
+    {
+        standCtrl = handleTower == null  ? null : handleTower.GetComponent<TowerStandCtrl>();
     }
     protected virtual void OnDisable()
     {

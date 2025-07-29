@@ -13,6 +13,7 @@ public abstract class LevelAbstract : MyMonoBehaviour
     protected abstract int GetCurrentExp();
     protected abstract bool DeductExp(int exp);
 
+    
     protected void FixedUpdate()
     {
         this.Leveling();
@@ -37,5 +38,13 @@ public abstract class LevelAbstract : MyMonoBehaviour
     protected virtual int GetNextLevelExp()
     {
         return this.nextLevelExp = currentLevel * 10;
+    }
+    public virtual void SetSkillScore(int rsScore)
+    {
+        skillScore = rsScore;
+    }
+    public virtual void SetCurrentLevel(int rsLevel)
+    {
+        currentLevel = rsLevel;
     }
 }

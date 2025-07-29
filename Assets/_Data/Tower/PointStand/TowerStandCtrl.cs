@@ -9,11 +9,10 @@ public class TowerStandCtrl : MyMonoBehaviour
     public PointStand Point => point;
     [SerializeField]protected TowerCtrl towerPrefab;
     public TowerCtrl TowerPrefab => towerPrefab;
+    [SerializeField]protected TowerStandUIManager uiManager;
     
     private Dictionary<TowerCodeName, TowerState> towerStates;
     
-   
-
     protected override void Awake()
     {
         base.Awake();
@@ -48,12 +47,19 @@ public class TowerStandCtrl : MyMonoBehaviour
     
     public virtual void UpdateBuyTower(TowerCodeName newTowerType)
     {
-        if (towerPrefab != null) DespawnBuyTower(towerPrefab);
+        if (towerPrefab != null)
+        { 
+            towerPrefab.Level.SetSkillScore(1);
+            towerPrefab.Level.SetCurrentLevel(1);
+            DespawnBuyTower(towerPrefab);
+            uiManager?.OnTowerDespawned(); 
+        }
         
-            Vector3 prefabPos = point.transform.position;
-            TowerCtrl tower = GetTowerPrefabs(newTowerType);
-            towerPrefab = TowerSingleton.Instance.Prefabs.Spawn(tower, prefabPos);
-            towerPrefab.SetActive(true);
+        Vector3 prefabPos = point.transform.position;
+        towerPrefab = TowerSingleton.Instance.Prefabs.Spawn( GetTowerPrefabs(newTowerType), prefabPos);
+        towerPrefab.SetActive(true);
+            
+        uiManager?.OnTowerSpawned(towerPrefab);
            
     }
 
@@ -75,12 +81,19 @@ public class TowerStandCtrl : MyMonoBehaviour
         base.LoadComponents();
         this.LoadSphereCollider();
         this.LoadPointStand();
+        this.LoadTowerStandUIManager();
     }
     protected virtual void LoadPointStand()
     {
         if (point!= null) return;
         point = GetComponentInChildren<PointStand>();
         Debug.Log(transform.name + " :LoadPointStand ",gameObject);
+    }
+    protected virtual void LoadTowerStandUIManager()
+    {
+        if (uiManager!= null) return;
+        uiManager = GetComponentInChildren<TowerStandUIManager>();
+        Debug.Log(transform.name + " :LoadTowerStandUIManager ",gameObject);
     }
     protected virtual void LoadSphereCollider()
     {

@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class TextSkillScoreUI : TextAbstract
+public abstract class TextSkillScoreUI : TextAbstract
 {
+    [SerializeField] protected TowerStandCtrl towerStand; 
+    protected abstract TowerCodeName SetTargetTowerType();
     protected virtual void FixedUpdate()
     {
         this.LoadSkillScore();
@@ -9,12 +11,32 @@ public class TextSkillScoreUI : TextAbstract
 
     protected virtual void LoadSkillScore()
     {
-        TowerStandCtrl towerStand = TowerUpgardeUI.Instance.BtnTowerUpgardeUI.TowerStand;
-        var tower = towerStand.TowerPrefab;
+        towerStand = TowerUpgardeUI.Instance.StandCtrl;
+        if (towerStand == null)
+        {
+            txtProUi.text = $"Skill Score: 0";
+            return;
+        }
         
-        int skillScore;
-        skillScore = tower == null ? 0 : towerStand.SetSkillScore(tower);
-        
-        txtProUi.text = $"Skill Score: {skillScore}";
+        if (towerStand.TowerPrefab != null && 
+            IsMatchingTowerType(towerStand.TowerPrefab) &&
+            towerStand.IsTowerBought(SetTargetTowerType()))
+        {
+            int skillScore = towerStand.SetSkillScore(towerStand.TowerPrefab);
+            txtProUi.text = $"Skill Score: {skillScore}";
+        }
+        else
+        {
+            txtProUi.text = $"Skill Score: 0";
+        }
     }
+    
+    protected virtual bool IsMatchingTowerType(TowerCtrl tower)
+    {
+        string towerTypeName = tower.GetName();
+        string targetTypeName = SetTargetTowerType().ToString();
+        
+        return towerTypeName.Equals(targetTypeName);
+    }
+    
 }
