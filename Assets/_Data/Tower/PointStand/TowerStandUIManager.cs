@@ -5,7 +5,7 @@ using UnityEngine;
 public class TowerStandUIManager : MyMonoBehaviour
 {
     [SerializeField] protected TowerStandCtrl towerStand;
-        [SerializeField] protected List<TextSkillScoreUI> skillScoreTexts = new();
+        [SerializeField] protected List<TextTowerStandUI> skillScoreTexts = new();
 
     protected override void LoadComponents()
     {
@@ -38,8 +38,8 @@ public class TowerStandUIManager : MyMonoBehaviour
     protected virtual void LoadTextSkillScoreUI()
     {
         if (skillScoreTexts.Count > 0) return;
-        skillScoreTexts = new List<TextSkillScoreUI>(
-            FindObjectsByType<TextSkillScoreUI>(FindObjectsSortMode.None)
+        skillScoreTexts = new List<TextTowerStandUI>(
+            FindObjectsByType<TextTowerStandUI>(FindObjectsSortMode.None)
         );
     }
     

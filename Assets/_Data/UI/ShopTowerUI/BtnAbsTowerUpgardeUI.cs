@@ -42,7 +42,6 @@ public abstract class BtnAbsTowerUpgardeUI : ButtonAbstract
         }
     }
     
-    
     protected virtual void HideBuyButton()
     {
         button.interactable = false;

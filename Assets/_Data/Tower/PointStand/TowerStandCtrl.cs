@@ -62,11 +62,6 @@ public class TowerStandCtrl : MyMonoBehaviour
         uiManager?.OnTowerSpawned(towerPrefab);
            
     }
-
-    public virtual int SetSkillScore(TowerCtrl tower)
-    {
-        return tower.Level.SkillScore;
-    }
     
     public virtual void DespawnBuyTower(TowerCtrl obj)
     {

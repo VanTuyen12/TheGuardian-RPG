@@ -21,9 +21,12 @@ public abstract class BtnTowerUpgrade : ButtonAbstract
     
     public override void OnClick()
     {
-        OnButtonClick();
+        if (button != null)
+        {
+            OnButtonClick();
+        }
+        
     }
-    
     
     protected virtual void CheckButtonState()
     {
