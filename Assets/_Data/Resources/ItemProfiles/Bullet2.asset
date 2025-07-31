@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   invCodeName: 10
   itemCode: 11
-  itemId: 2
   itemName: Bullet 2
   isStackable: 1
-  image: {fileID: 21300000, guid: b289c623ff8c91a48bfe3faf76be447d, type: 3}
+  image: {fileID: -431767450, guid: 9c45ac2a55b0e324392806c48cebcb2a, type: 3}

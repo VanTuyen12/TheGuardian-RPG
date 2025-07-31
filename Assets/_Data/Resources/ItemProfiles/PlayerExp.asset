@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   invCodeName: 1
   itemCode: 50
-  itemId: 4
   itemName: PlayerExp
   isStackable: 1
   image: {fileID: 37763770702065993, guid: 215687feeab0b7445b4a1cd86c82c2e1, type: 3}

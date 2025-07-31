@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   invCodeName: 10
   itemCode: 20
-  itemId: 6
   itemName: Gun Mac
   isStackable: 0
-  image: {fileID: 21300000, guid: f8bd154c86f6b9d4b8d13ae6ca252554, type: 3}
+  image: {fileID: -1487877384612313618, guid: 215687feeab0b7445b4a1cd86c82c2e1, type: 3}

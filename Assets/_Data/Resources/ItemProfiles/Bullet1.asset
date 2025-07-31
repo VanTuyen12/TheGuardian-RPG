@@ -16,4 +16,4 @@ MonoBehaviour:
   itemCode: 10
   itemName: Bullet 1
   isStackable: 1
-  image: {fileID: 21300000, guid: 11c1e314d6e11574d8c56660ff944c1e, type: 3}
+  image: {fileID: -1323423655, guid: b90f350f940783641b8ecc25aefbe668, type: 3}

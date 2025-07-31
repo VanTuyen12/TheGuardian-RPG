@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   invCodeName: 10
   itemCode: 100
-  itemId: 5
   itemName: PotionMana
   isStackable: 1
-  image: {fileID: 37763770702065993, guid: 215687feeab0b7445b4a1cd86c82c2e1, type: 3}
+  image: {fileID: 6547572931748238266, guid: 215687feeab0b7445b4a1cd86c82c2e1, type: 3}

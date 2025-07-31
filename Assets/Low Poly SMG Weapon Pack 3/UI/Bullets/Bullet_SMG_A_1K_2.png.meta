@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: b90f350f940783641b8ecc25aefbe668
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318173
+  packageName: Low Poly SMG Weapon Pack 3
+  packageVersion: 1.0
+  assetPath: Assets/Low Poly SMG Weapon Pack 3/UI/Bullets/Bullet_SMG_A_1K_2.png
+  uploadId: 752901
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -93,14 +100,49 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Bullet_SMG_A_1K_2_0
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 130
+        width: 1070
+        height: 863
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec6cac8aa23ceb24fbdbdb86e2aeeb34
+      internalID: -1323423655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -109,16 +151,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Bullet_SMG_A_1K_2_0: -1323423655
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 318173
-  packageName: Low Poly SMG Weapon Pack 3
-  packageVersion: 1.0
-  assetPath: Assets/Low Poly SMG Weapon Pack 3/UI/Bullets/Bullet_SMG_A_1K_2.png
-  uploadId: 752901
