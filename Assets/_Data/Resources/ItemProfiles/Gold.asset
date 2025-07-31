@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   invCodeName: 1
   itemCode: 1
+  itemId: 3
   itemName: Gold
   isStackable: 1
   image: {fileID: -6316392241553622110, guid: 215687feeab0b7445b4a1cd86c82c2e1, type: 3}

@@ -23,19 +23,19 @@ public class InventoryManager : Singleton<InventoryManager>
     public virtual void AddItem(ItemInventory itemInventory)
     {
         InventoryCodeName invCodeName = itemInventory.ItemProfile.invCodeName;
-        InventoryCtrl inventoryCtrl = InventoryManager.Instance.GetByCodeName(invCodeName);
+        InventoryCtrl inventoryCtrl = GetByCodeName(invCodeName);
         inventoryCtrl.AddItem(itemInventory);
     }
 
     public virtual void AddItem(ItemCode itemCode, int itemCount)
     {
-        ItemProfileSO itemProfile = InventoryManager.Instance.GetProfileByCode(itemCode);
+        ItemProfileSO itemProfile = GetProfileByCode(itemCode);
         ItemInventory item = new(itemProfile, itemCount);
         this.AddItem(item);
     }
     public virtual void RemoveItem(ItemCode itemCode, int itemCount)
     {
-        ItemProfileSO itemProfile = InventoryManager.Instance.GetProfileByCode(itemCode);
+        ItemProfileSO itemProfile = GetProfileByCode(itemCode);
         ItemInventory item = new(itemProfile, itemCount);
         this.RemoveItem(item);
     }
@@ -43,7 +43,7 @@ public class InventoryManager : Singleton<InventoryManager>
     public virtual void RemoveItem(ItemInventory itemInventory)
     {
         InventoryCodeName invCodeName = itemInventory.ItemProfile.invCodeName;
-        InventoryCtrl inventoryCtrl = InventoryManager.Instance.GetByCodeName(invCodeName);
+        InventoryCtrl inventoryCtrl = GetByCodeName(invCodeName);
         inventoryCtrl.RemoveItem(itemInventory);
     }
     protected virtual void LoadInventories()

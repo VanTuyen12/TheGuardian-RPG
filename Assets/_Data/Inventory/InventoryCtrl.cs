@@ -13,7 +13,7 @@ public abstract class InventoryCtrl : MyMonoBehaviour
         ItemInventory itemExsit = FindItem(item.ItemProfile.itemCode);
         if ( !item.ItemProfile.isStackable ||itemExsit == null)
         {
-            item.SetId(Random.Range(0, int.MaxValue));
+            //item.SetId(Random.Range(0, int.MaxValue));
             items.Add(item);
             return;
         }
@@ -21,6 +21,16 @@ public abstract class InventoryCtrl : MyMonoBehaviour
         if (item.itemCount < 0 ) return;
         itemExsit.itemCount += item.itemCount;
     }
+    public virtual bool RemoveItem(ItemInventory item)
+    {
+        ItemInventory itemExist = this.FindItemNotEmpty(item.ItemProfile.itemCode);
+        if (itemExist == null) return false;
+        if (!itemExist.CanDeduct(item.itemCount)) return false;
+        itemExist.Deduct(item.itemCount);
+        if (itemExist.itemCount == 0) this.items.Remove(itemExist);
+        return true;
+    }
+    
     public virtual ItemInventory FindItem(ItemCode itemCode)
     {
         foreach (ItemInventory itemInventory in items)
@@ -28,15 +38,6 @@ public abstract class InventoryCtrl : MyMonoBehaviour
             if (itemInventory.ItemProfile.itemCode == itemCode) return itemInventory;
         }
         return null;
-    }
-    public virtual bool RemoveItem(ItemInventory item)
-    {
-        ItemInventory itemExsit = FindItemNotEmpty(item.ItemProfile.itemCode);
-        if (itemExsit == null) return false;
-        if (itemExsit.itemCount < item.itemCount) return false;
-        itemExsit.itemCount -= item.itemCount;
-        if (itemExsit.itemCount <= 0) items.Remove(itemExsit);
-        return true;
     }
     
     public virtual ItemInventory FindItemNotEmpty(ItemCode itemCode)

@@ -1,14 +1,16 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = System.Random;
 
 [Serializable]
 public class ItemInventory
 {
-    protected int itemId ;
+    public int itemId ;
     public int ItemId => itemId;
     public string itemName;
     public int itemCount;
+    public Sprite itemImage;
     
     public ItemProfileSO itemProfile;
     public ItemProfileSO ItemProfile => itemProfile;
@@ -24,7 +26,11 @@ public class ItemInventory
     {
         this.itemProfile = itemProfile;
         this.itemCount = itemCount;
+        
+        this.itemId = UnityEngine.Random.Range(1, int.MaxValue);
+        this.itemImage = this.itemProfile.image;
         this.itemName = this.itemProfile.itemName;
+        
     }
     public virtual string GetItemName()
     {
