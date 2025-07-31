@@ -22,8 +22,7 @@ public class InventoryUI : ToggleAbstractUI<InventoryUI>
             BtnItemInventory newBtnItem = this.GetExistItem(itemInventory);
             if (newBtnItem == null)
             {
-                newBtnItem = Instantiate(this.btnItemInventory);
-                newBtnItem.transform.SetParent(this.btnItemInventory.transform.parent, false);
+                newBtnItem = Instantiate(this.btnItemInventory,btnItemInventory.transform.parent, false);
                 newBtnItem.SetItem(itemInventory);
                 newBtnItem.gameObject.SetActive(true);
                 newBtnItem.name = itemInventory.GetItemName() + "-" + itemInventory.ItemId;
