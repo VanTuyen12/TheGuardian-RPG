@@ -21,12 +21,7 @@ public class BtnBuyItemShopUI : ButtonAbstract
    }
    protected virtual void TryBuyItem()
    {
-      if (!this.CheckMoney())
-      {
-         //this.ShowNotEnoughMoneyMessage();
-         return;
-      }
-      
+      if (!this.CheckMoney())return;
       this.BuyItem();
    }
    protected virtual bool CheckMoney()
@@ -42,32 +37,17 @@ public class BtnBuyItemShopUI : ButtonAbstract
    {
       InventoryManager.Instance.RemoveItem(ItemCode.Gold, itemPrice);
       InventoryManager.Instance.AddItem(itemCode, itemQuantity);
-        
-      // Hiển thị thông báo mua thành công
-      //this.ShowBuySuccessMessage();
-        
-      // Cập nhật UI
+      
       this.UpdateUI();
    }
-    
-   protected virtual void ShowNotEnoughMoneyMessage()
-   {
-      Debug.Log("Not enough money to buy " + itemCode.ToString());
-      // Có thể thêm UI notification ở đây
-   }
-    
-   protected virtual void ShowBuySuccessMessage()
-   {
-      Debug.Log($"Successfully bought {itemQuantity}x {itemCode.ToString()} for {itemPrice} gold");
-      // Có thể thêm UI notification ở đây
-   }
+   
     
    protected virtual void UpdateUI()
    {
       // Cập nhật hiển thị tiền
       if (parentSlot != null)
       {
-         //parentSlot.UpdateDisplay();
+         parentSlot.UpdateDisplay();
       }
    }
     

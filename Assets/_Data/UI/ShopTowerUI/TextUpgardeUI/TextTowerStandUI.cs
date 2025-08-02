@@ -20,7 +20,7 @@ public abstract class TextTowerStandUI : TextAbstract
 
     protected virtual void LoadShowTowerText()
     {
-        currentTowerStand = TowerUpgardeUI.Instance.StandCtrl;
+        currentTowerStand = TowerUIManager.Instance.StandCtrl;
         if (currentTowerStand == null) return;
         
         currentTower = currentTowerStand.TowerPrefab;

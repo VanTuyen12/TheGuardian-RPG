@@ -9,6 +9,6 @@ public class BtnCloseTowerUI : ButtonAbstract
 
     protected virtual void CloseTowerUI()
     {
-        TowerUpgardeUI.Instance.Hide();
+        TowerUIManager.Instance.Hide();
     }
 }

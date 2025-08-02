@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -6,59 +7,49 @@ public class TowerManager : Singleton<TowerManager>
 {
     [SerializeField]protected TowerCodeName newTowerId = TowerCodeName.NoName;
     public TowerCodeName NewTowerId => newTowerId;
-   
+    [SerializeField]protected List<TowerProfiles> towerProfiles = new List<TowerProfiles>();
+    public List<TowerProfiles> TowerProfiles => towerProfiles;
 
-    
-    private void Update()
+    public virtual TowerProfiles GetProfileByCode(TowerCodeName towerCodeName)
     {
-        //UpdateBuyTower();
-    }
-    /*protected virtual void UpdateBuyTower()
-    {
-        
-        if (towerPrefab == null)
+        foreach (TowerProfiles itemProfile in towerProfiles)
         {
-            towerPrefab = GetTowerPrefabs(newTowerId);
-            Vector3 prefabPos = gunStand.Point.transform.position;
-            towerPrefab.transform.position = prefabPos;
-            towerPrefab.SetActive(true);
+            if(itemProfile.towerType == towerCodeName) return itemProfile;
         }
+        return null;
     }
-    protected virtual void ShowTowerToPlace(Vector3 point)
+    public int GetPrice(TowerCodeName towerType)
     {
-        
-        if (towerPrefab == null)
+        foreach (var price in towerProfiles)
         {
-            towerPrefab = GetTowerPrefabs(newTowerId);
-            Vector3 prefabPos = gunStand.Point.transform.position;
-            towerPrefab.transform.position = prefabPos;
-            towerPrefab.SetActive(true);
+            if (price.towerType == towerType)
+                return price.price;
         }
-    }*/
-
-    public virtual bool SelectHotKey()
-    {
-        newTowerId = TowerSelection();
-        if(newTowerId == TowerCodeName.NoName) return false;
-        return true;
+        return 0;
     }
     
-    protected virtual TowerCodeName TowerSelection()
+    public string GetDisplayName(TowerCodeName towerType)
     {
-        KeyCode pressKey =  InputHotKeys.Instance?.KeyCode ?? KeyCode.None;
-        if (pressKey == KeyCode.None)
+        foreach (var price in towerProfiles)
         {
-            return TowerCodeName.NoName;
-            
+            if (price.towerType == towerType)
+                return price.currencyName;
         }
-        int keyIndex = (int)(pressKey - KeyCode.Alpha0);
-        
-        if(keyIndex >= 0 && keyIndex <= 9 &&Enum.IsDefined(typeof(TowerCodeName), keyIndex))
-        {
-            TowerCodeName newTower = (TowerCodeName)keyIndex;
-            return newTower;
-        }
-        
-        return newTowerId = TowerCodeName.NoName;
+        return towerType.ToString();
     }
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadTowerProfiles();
+    }
+
+    protected virtual void LoadTowerProfiles()
+    {
+        if (TowerProfiles.Count > 0) return;
+        TowerProfiles[] tower = Resources.LoadAll<TowerProfiles>("TowerProfiles");
+        TowerProfiles.AddRange(tower);
+        
+        Debug.Log(transform.name +" LoadTowerProfiles: ",gameObject);
+    }
+    
 }

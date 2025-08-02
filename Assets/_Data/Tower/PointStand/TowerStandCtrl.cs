@@ -47,29 +47,31 @@ public class TowerStandCtrl : MyMonoBehaviour
     
     public virtual void UpdateBuyTower(TowerCodeName newTowerType)
     {
-        if (towerPrefab != null)
-        { 
-            towerPrefab.Level.SetSkillScore(1);
-            towerPrefab.Level.SetCurrentLevel(1);
-            DespawnBuyTower(towerPrefab);
-            uiManager?.OnTowerDespawned(); 
-        }
-        
+        if (towerPrefab != null) ResetTower();
+
+        SpawnTower(newTowerType);
+    }
+
+    protected virtual void SpawnTower(TowerCodeName newTowerType)
+    {
         Vector3 prefabPos = point.transform.position;
         towerPrefab = TowerSingleton.Instance.Prefabs.Spawn( GetTowerPrefabs(newTowerType), prefabPos);
         towerPrefab.SetActive(true);
-            
-        uiManager?.OnTowerSpawned(towerPrefab);
-           
-    }
-    
-    public virtual void DespawnBuyTower(TowerCtrl obj)
-    {
-        TowerSingleton.Instance.Prefabs.Despawn(obj);
     }
     public TowerCtrl GetTowerPrefabs(TowerCodeName TowerId)
     {
         return TowerSingleton.Instance.Prefabs.PoolPrefabs.GetByName(TowerId.ToString());
+    }
+
+    protected virtual void ResetTower()
+    {
+        towerPrefab.Level.SetSkillScore(1);
+        towerPrefab.Level.SetCurrentLevel(1);
+        DespawnBuyTower(towerPrefab);
+    }
+    protected virtual void DespawnBuyTower(TowerCtrl obj)
+    {
+        TowerSingleton.Instance.Prefabs.Despawn(obj);
     }
     protected override void LoadComponents()
     {

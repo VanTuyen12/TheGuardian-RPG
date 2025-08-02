@@ -5,7 +5,7 @@ using UnityEngine;
 public class TowerStandUIManager : MyMonoBehaviour
 {
     [SerializeField] protected TowerStandCtrl towerStand;
-        [SerializeField] protected List<TextTowerStandUI> skillScoreTexts = new();
+    [SerializeField] protected List<TextTowerStandUI> skillScoreTexts = new();
 
     protected override void LoadComponents()
     {

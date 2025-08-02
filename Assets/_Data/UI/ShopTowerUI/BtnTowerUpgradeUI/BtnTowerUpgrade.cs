@@ -30,7 +30,7 @@ public abstract class BtnTowerUpgrade : ButtonAbstract
     
     protected virtual void CheckButtonState()
     {
-        currentTowerStand = TowerUpgardeUI.Instance.StandCtrl;
+        currentTowerStand = TowerUIManager.Instance.StandCtrl;
         
         if (currentTowerStand == null)
         {

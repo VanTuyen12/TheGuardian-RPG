@@ -6,7 +6,7 @@ public class InventoryTester : MyMonoBehaviour
     protected override void Start()
     {
         base.Start();
-        this.AddTestItems(ItemCode.Gold, 1000);
+        this.AddTestItems(ItemCode.Gold, 10000);
     }
 
     [ProButton]

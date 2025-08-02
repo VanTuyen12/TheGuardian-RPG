@@ -12,24 +12,41 @@ public class InputManager : Singleton<InputManager>
 
     private void Update()
     {
+        CheckFastShoot(); 
         CheckAiming();
-        CheckFastShoot();
         CheckSlowShoot();
     }
 
     protected virtual void CheckAiming()
     {
+        if (isFastShoot) 
+        {
+            this.isRightClick = false;
+            return;
+        }
+        
         this.isRightClick = Input.GetMouseButton(1);
     }
+    
     protected virtual void CheckFastShoot()
     {
-        if(IsAiming()) return;
+        if(IsAiming()) 
+        {
+            this.isFastShoot = false;
+            return;
+        }
         this.isFastShoot = Input.GetMouseButton(0);
     }
     
     protected virtual void CheckSlowShoot()
     {
-        if(!IsAiming()) return;
+        
+        if(!IsAiming()) 
+        {
+            isSlowShoot = false;
+            return;
+        }
+        
         isSlowShoot = Input.GetMouseButtonUp(0);
     }
     
@@ -45,10 +62,7 @@ public class InputManager : Singleton<InputManager>
     
     public virtual bool IsFastShoot()
     {
-        
         return this.isFastShoot;
     }
-
-    
     
 }

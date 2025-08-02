@@ -13,7 +13,6 @@ public abstract class InventoryCtrl : MyMonoBehaviour
         ItemInventory itemExsit = FindItem(item.ItemProfile.itemCode);
         if ( !item.ItemProfile.isStackable ||itemExsit == null)
         {
-            //item.SetId(Random.Range(0, int.MaxValue));
             items.Add(item);
             return;
         }
