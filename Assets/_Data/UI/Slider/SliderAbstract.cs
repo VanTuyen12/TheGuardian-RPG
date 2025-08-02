@@ -4,6 +4,17 @@ using UnityEngine.UI;
 public abstract class SliderAbstract : MyMonoBehaviour
 {
     [SerializeField]protected Slider slider;
+    protected override void Start()
+    {
+        base.Start();
+        this.slider.onValueChanged.AddListener(this.OnSliderValueChanged);
+    }
+
+    protected virtual void OnSliderValueChanged(float value)
+    {
+        //For Override
+    }
+
     protected override void LoadComponents()
     {
         base.LoadComponents();

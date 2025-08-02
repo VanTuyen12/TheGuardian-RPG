@@ -14,7 +14,7 @@ public class BtnBuyItemShopUI : ButtonAbstract
     
    [SerializeField] protected TextMeshProUGUI txtPrice;
     
-   protected SlotItemShop parentSlot;
+   [SerializeField]protected SlotItemShop parentSlot;
    public override void OnClick()
    {
       this.TryBuyItem();

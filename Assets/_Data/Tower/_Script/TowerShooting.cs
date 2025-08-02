@@ -72,6 +72,7 @@ public class TowerShooting : TowerAbstract
                 FirePoint firePoint = GetFirePoint();
                 Vector3 rotatorDirection = towerCtrl.Rotation.transform.forward;
                 this.SpawnBullet(firePoint.transform.position, rotatorDirection);
+                this.SpawnSoundSfx();
             }
         }
     }
@@ -130,7 +131,12 @@ public class TowerShooting : TowerAbstract
         
         newProjectile.gameObject.SetActive(true);
     }
-    
+
+    protected virtual void SpawnSoundSfx()
+    {
+        var soundSfx= SoundManager.Instance.CreateSfx(SoundName.TowerShot);
+        soundSfx.SetActive(true);
+    } 
     protected virtual FirePoint GetFirePoint()
     {
         FirePoint firePoint = towerCtrl.FirePoint[currentFirePoint];

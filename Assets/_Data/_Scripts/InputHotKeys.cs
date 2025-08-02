@@ -5,10 +5,15 @@ public class InputHotKeys : Singleton<InputHotKeys>
 {
     protected bool isToogleInvUI = false;
     public bool IsToogleInvUI => isToogleInvUI;
+    
     protected bool isToogleShopUI = false;
     public bool IsToogleShopUI => isToogleShopUI;
+    
     protected bool isTooleTowerUI = false;
     public bool IsTooleTowerUI => isTooleTowerUI;
+    
+    protected bool isSettings = false;
+    public bool IsSettings => isSettings;
     [SerializeField] protected KeyCode keyCode;
     public KeyCode KeyCode => keyCode;
 
@@ -18,6 +23,7 @@ public class InputHotKeys : Singleton<InputHotKeys>
         this.ToogleNumber();
         this.OpenTowerUpgarde();
         this.OpenShop();
+        this.Settings();
     }
 
     protected virtual void ToogleNumber()
@@ -44,5 +50,9 @@ public class InputHotKeys : Singleton<InputHotKeys>
     public virtual void OpenTowerUpgarde()
     {
         isTooleTowerUI = Input.GetKeyUp(KeyCode.E);
+    }
+    public virtual void Settings()
+    {
+        isSettings = Input.GetKeyUp(KeyCode.Y);
     }
 }

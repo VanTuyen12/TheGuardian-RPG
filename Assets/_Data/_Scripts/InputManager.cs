@@ -5,11 +5,10 @@ using UnityEngine;
 public class InputManager : Singleton<InputManager>
 {
     
-    private bool isLeftClick = false;
-    private bool isRightClick =  false;
-    //Check Shoot
+    private bool isFastShoot = false;
     private bool isSlowShoot = false;
-   
+    //Check Shoot
+    [SerializeField]private bool isRightClick =  false;
 
     private void Update()
     {
@@ -25,16 +24,12 @@ public class InputManager : Singleton<InputManager>
     protected virtual void CheckFastShoot()
     {
         if(IsAiming()) return;
-        
-        this.isLeftClick = Input.GetMouseButton(0);
+        this.isFastShoot = Input.GetMouseButton(0);
     }
     
-    
-    // ReSharper disable Unity.PerformanceAnalysis
     protected virtual void CheckSlowShoot()
     {
         if(!IsAiming()) return;
-        
         isSlowShoot = Input.GetMouseButtonUp(0);
     }
     
@@ -50,7 +45,8 @@ public class InputManager : Singleton<InputManager>
     
     public virtual bool IsFastShoot()
     {
-        return this.isLeftClick;
+        
+        return this.isFastShoot;
     }
 
     

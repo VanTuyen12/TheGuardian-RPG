@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class SlotItemShop : MyMonoBehaviour
 {
     [SerializeField]protected TextMeshProUGUI txtItemName;
+    [SerializeField]protected TextMeshProUGUI txtItemQuantity;
     [SerializeField]protected BtnBuyItemShopUI btnBuyItem;
     [SerializeField]protected Image imageItemShop;
     
@@ -27,11 +28,13 @@ public class SlotItemShop : MyMonoBehaviour
         this.LoadSetupBtnItemShop();
     }
     
-
     protected virtual void LoadSetupBtnItemShop()
     {
         if (txtItemName != null) return;
         txtItemName = transform.Find("TextItemName").GetComponent<TextMeshProUGUI>();
+        
+        if (txtItemQuantity != null) return;
+        txtItemQuantity = transform.Find("TextItemQuantity").GetComponent<TextMeshProUGUI>();
         
         if (btnBuyItem != null) return;
         btnBuyItem = GetComponentInChildren<BtnBuyItemShopUI>();
@@ -52,21 +55,21 @@ public class SlotItemShop : MyMonoBehaviour
         ItemProfileSO itemProfile = InventoryManager.Instance.GetProfileByCode(itemCode);
         if (itemProfile == null) return;
         
-        // Setup UI
         if (txtItemName != null)
             txtItemName.text = itemProfile.itemName;
-            
+        
+        if (txtItemQuantity != null)
+            txtItemQuantity.text = $"SL: {itemQuantity}";
+        
         if (imageItemShop != null)
             imageItemShop.sprite = itemProfile.image;
-            
-        // Setup button
+        
         if (btnBuyItem != null)
             btnBuyItem.SetupItem(itemCode, itemPrice, itemQuantity);
     }
     
     public virtual void UpdateDisplay()
     {
-        // Cập nhật hiển thị khi cần thiết
         this.SetupShopItem();
     }
     

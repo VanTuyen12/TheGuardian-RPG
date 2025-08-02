@@ -5,7 +5,7 @@ public class BtnShopToggle : ButtonAbstract
 {
     public override void OnClick()
     {
-       ShopUICtrl.Instance.Toggle();
+       ShopUIManager.Instance.Toggle();
     }
     
 }

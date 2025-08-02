@@ -9,6 +9,6 @@ public class BtnShopClose : ButtonAbstract
 
     protected virtual void CloseShopUI()
     {
-        ShopUICtrl.Instance.Hide();
+        ShopUIManager.Instance.Hide();
     }
 }
