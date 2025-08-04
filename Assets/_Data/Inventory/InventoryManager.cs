@@ -12,7 +12,7 @@ public class InventoryManager : Singleton<InventoryManager>
         this.LoaditemProfiles();
     }
 
-    private void LoaditemProfiles()
+    protected virtual void LoaditemProfiles()
     {
         if (itemProfiles.Count > 0) return;
         ItemProfileSO[] item = Resources.LoadAll<ItemProfileSO>("ItemProfiles");

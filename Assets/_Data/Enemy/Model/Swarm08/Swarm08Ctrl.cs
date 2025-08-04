@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Swarm08Ctrl : EnemyCtrl
+public class Swarm08Ctrl : EnemyNormalCtrl
 {
     protected override void LoadNavMeshAgent()
     {
@@ -11,6 +11,6 @@ public class Swarm08Ctrl : EnemyCtrl
 
     public override string GetName()
     {
-        return "Enemy";
+        return nameof(EnemyCodeName.Swarm08);
     }
 }

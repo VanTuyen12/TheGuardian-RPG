@@ -13,18 +13,20 @@ public class TowerShooting : TowerAbstract
     public EffectCtrl Projectile => newProjectile;
     
     [Header("Setting Tower")]
-    [SerializeField] private float rotationSpeed = 5f;
-    [SerializeField] private float shootSpeed = 1f;
+    [SerializeField] protected float rotationSpeed = 5f;
+    [SerializeField] protected float shootSpeed = 1f;
     public float ShootSpeed => shootSpeed;
-    [SerializeField] private float targetLoadSpeed = 1f;
-    [SerializeField] private int currentFirePoint = 0;
+    [SerializeField] protected float targetLoadSpeed = 1f;
+    [SerializeField] protected int currentFirePoint = 0;
+    protected Coroutine shootingCoroutine;
+    
     
     [Header("Kill")]
-    [SerializeField] private int totalKill = 0;
-    [SerializeField] private int killCount = 0;
+    [SerializeField] protected int totalKill = 0;
+    [SerializeField] protected int killCount = 0;
     public int KillCount => killCount;
     
-    protected Coroutine shootingCoroutine;
+    
     protected override void Start()
     {
         base.Start();
@@ -61,6 +63,7 @@ public class TowerShooting : TowerAbstract
         Invoke(nameof(this.TargetLoading),this.targetLoadSpeed);
         this.target = this.towerCtrl.TowerTargeting.Nearest;
     }
+    
     protected virtual IEnumerator ShootingLoop()
     {
         while (true)
@@ -69,13 +72,21 @@ public class TowerShooting : TowerAbstract
 
             if (this.target != null)
             {
-                FirePoint firePoint = GetFirePoint();
-                Vector3 rotatorDirection = towerCtrl.Rotation.transform.forward;
-                this.SpawnBullet(firePoint.transform.position, rotatorDirection);
+                ShootFromAllFirePoints();
                 this.SpawnSoundSfx();
             }
         }
     }
+
+    protected virtual void ShootFromAllFirePoints()
+    {
+        Vector3 rotatorDirection = towerCtrl.Rotation.transform.forward;
+        foreach (var firePoint in towerCtrl.FirePoint)
+        {
+            this.SpawnBullet(firePoint.transform.position, rotatorDirection);
+        }
+    }
+    
     public virtual void SetShootSpeed(float speed)
     {
         this.shootSpeed = speed;

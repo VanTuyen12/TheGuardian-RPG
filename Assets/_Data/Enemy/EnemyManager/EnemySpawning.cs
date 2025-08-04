@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemySpawning : EnemyManagerAbstract
 {
-    [SerializeField] private float spawnSpeed = 2f;
-    [SerializeField] private int maxSpawn = 20;
+    [SerializeField] protected float spawnSpeed = 2f;
+    [SerializeField] protected int maxSpawn = 20;
     [SerializeField]protected List<EnemyCtrl> spawnedEnemies = new();
     protected override void Start()
     {
@@ -22,13 +22,17 @@ public class EnemySpawning : EnemyManagerAbstract
     {
         Invoke(nameof(Spawning), spawnSpeed);
         if (spawnedEnemies.Count > maxSpawn) return;
-        EnemyCtrl prefabs = enemyManagerCtrl.EnemyPrefabs.GetRandom();
+        EnemyCtrl prefabs = enemyManagerCtrl.EnemyPrefabs.GetRandomByType<EnemyNormalCtrl>();
         EnemyCtrl newEnemy = enemyManagerCtrl.EnemySpawner.Spawn(prefabs,transform.position);
         newEnemy.gameObject.SetActive(true);
         
         spawnedEnemies.Add(newEnemy);
     }
 
+    protected virtual EnemyCtrl GetEnemies()
+    {
+        return enemyManagerCtrl.EnemyPrefabs.GetRandomByType<EnemyNormalCtrl>();
+    }
     protected virtual void RemoveDeadOne()
     {
         foreach (EnemyCtrl enemyCtrl in spawnedEnemies)

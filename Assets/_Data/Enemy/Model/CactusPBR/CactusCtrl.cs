@@ -1,10 +1,9 @@
 using UnityEngine;
 
-public class CactusCtrl : EnemyCtrl
+public class CactusCtrl : EnemyNormalCtrl
 {
-
     public override string GetName()
     {
-        return "Enemy";
+        return nameof(EnemyCodeName.Cactus);
     }
 }

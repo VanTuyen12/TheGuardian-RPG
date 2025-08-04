@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class PlayerSkillsCtrl : MyMonoBehaviour
 {
-    [SerializeField]List<SkillsAbstract>  skills;
-    public List<SkillsAbstract> Skills => skills;
+    [SerializeField]List<SkillsGunAbstract>  skills;
+    public List<SkillsGunAbstract> Skills => skills;
 
     protected override void LoadComponents()
     {
@@ -16,8 +16,8 @@ public class PlayerSkillsCtrl : MyMonoBehaviour
         if(this.skills.Count > 0) return;
         foreach (Transform child in transform)
         {
-            SkillsAbstract skillPrefabs =  child.GetComponent<SkillsAbstract>();
-            if (skillPrefabs != null) skills.Add(skillPrefabs);
+            SkillsGunAbstract skillGunPrefabs =  child.GetComponent<SkillsGunAbstract>();
+            if (skillGunPrefabs != null) skills.Add(skillGunPrefabs);
         }
         //Debug.Log(transform.name + " :LoadSkills ",gameObject);
     }

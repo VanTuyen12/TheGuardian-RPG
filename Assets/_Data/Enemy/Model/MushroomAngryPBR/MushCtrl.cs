@@ -1,11 +1,10 @@
 using UnityEngine;
 
-public class MushCtrl : EnemyCtrl
+public class MushCtrl : EnemyNormalCtrl
 {
     
-
     public override string GetName()
     {
-        return "Enemy";
+        return nameof(EnemyCodeName.MushroomAngry);
     }
 }

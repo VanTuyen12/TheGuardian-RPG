@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyManagerCtrl : MyMonoBehaviour
+public class EnemyManagerCtrl : Singleton<EnemyManagerCtrl>
 {
     [SerializeField] protected EnemySpawner enemySpawner;
     public EnemySpawner EnemySpawner => enemySpawner;

@@ -44,7 +44,6 @@ public class BtnBuyItemShopUI : ButtonAbstract
     
    protected virtual void UpdateUI()
    {
-      // Cập nhật hiển thị tiền
       if (parentSlot != null)
       {
          parentSlot.UpdateDisplay();

@@ -14,8 +14,7 @@ public abstract class EnemyCtrl : PoolObj
     
     [SerializeField]protected EnemyTargetable enemyTargetable;
     public EnemyTargetable EnemyTargetable => enemyTargetable;
-    /*[SerializeField] protected tower  towerTargetable;
-    public TowerTargetable TowerTargetable => towerTargetable;*/
+   
     protected override void LoadComponents()
     {
         base.LoadComponents();

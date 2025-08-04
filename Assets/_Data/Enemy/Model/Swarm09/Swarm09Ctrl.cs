@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class Swarm09Ctrl : EnemyCtrl
+public class Swarm09Ctrl : EnemyNormalCtrl
 {
 
     public override string GetName()
     {
-        return "Enemy";
+        return nameof(EnemyCodeName.Swarm09);
     }
 }
