@@ -18,6 +18,7 @@ public abstract class BtnAbsTowerUpgardeUI : ButtonAbstract
         if (towerStand == null) return;
         
         TowerPurchased( TowerName());
+        UpdatePriceDisplay();
     }
     protected virtual void OnDisable()
     {
@@ -30,18 +31,15 @@ public abstract class BtnAbsTowerUpgardeUI : ButtonAbstract
        if (towerStand == null) return false;
        TowerCodeName towerType = TowerName();
        if (towerStand.IsTowerBought(towerType)) return false;
-       int cost = GetTowerCost(towerType);
-       bool canAfford = HasEnoughGold(cost);
-       
-       return canAfford;
+      
+       return HasEnoughGold(GetTowerCost(towerType));
     }
 
     protected virtual int GetTowerCost(TowerCodeName towerType)
     {
         return TowerManager.Instance.GetPrice(towerType);
-        /*towerProfiles = TowerManager.Instance.GetProfileByCode(towerType);
-        return towerProfiles != null ? towerProfiles.price : 0;*/
     }
+    
     protected virtual bool HasEnoughGold(int cost)
     {
         int currentGold = GetCurrentGold();
@@ -54,22 +52,22 @@ public abstract class BtnAbsTowerUpgardeUI : ButtonAbstract
         return goldItem?.itemCount ?? 0;
     }
     
-    protected virtual void SpendGold(int amount)
-    {
-        InventoryManager.Instance.RemoveItem(currency, amount);
-    }
-    
     protected abstract TowerCodeName TowerName(); 
     protected virtual void ComeBuyTower(TowerCodeName towerType)
     {
         if (!towerStand.CanBuyTower(towerType)) return;
         if(!UpdatePriceDisplay()) return;
+        if (!towerStand.BuyTower(towerType)) return;
         
-        towerStand.BuyTower(towerType);
-        SpendGold(GetTowerCost(TowerName()));
+        int cost = GetTowerCost(towerType);
+        SpendGold(cost);
         HideBuyButton();
+
     }
-    
+    protected virtual void SpendGold(int amount)
+    {
+        InventoryManager.Instance.RemoveItem(currency, amount);
+    }
     protected virtual void TowerPurchased(TowerCodeName towerType)
     {
         if (!towerStand.IsTowerBought(towerType))

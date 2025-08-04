@@ -461,6 +461,12 @@ MonoBehaviour:
   txtItemName: {fileID: 2052329654204481370}
   txtItemCount: {fileID: 6206196519572206036}
   imageItem: {fileID: 4376650738361387360}
+  itemInventory:
+    itemId: 0
+    itemName: 
+    itemCount: 0
+    itemImage: {fileID: 0}
+    itemProfile: {fileID: 0}
 --- !u!1 &8532030357402196708
 GameObject:
   m_ObjectHideFlags: 0

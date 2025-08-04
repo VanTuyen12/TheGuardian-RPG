@@ -135,6 +135,7 @@ MonoBehaviour:
   towerCtrl: {fileID: 8075123647913071782}
   target: {fileID: 0}
   effectSpawner: {fileID: 0}
+  newProjectile: {fileID: 0}
   rotationSpeed: 5
   shootSpeed: 1
   targetLoadSpeed: 1
@@ -820,6 +821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLevel: 1
+  skillScore: 1
   maxLevel: 100
   nextLevelExp: 0
   towerCtrl: {fileID: 8075123647913071782}

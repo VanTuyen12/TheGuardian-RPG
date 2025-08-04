@@ -13,6 +13,7 @@ public class TowerStandCtrl : MyMonoBehaviour
     
     private Dictionary<TowerCodeName, TowerState> towerStates;
     
+    private bool isFirstBuy = true;
     protected override void Awake()
     {
         base.Awake();
@@ -31,13 +32,13 @@ public class TowerStandCtrl : MyMonoBehaviour
         return !towerStates[towerType].IsBought;
     }
 
-    public void BuyTower(TowerCodeName towerType)
+    public bool BuyTower(TowerCodeName towerType)
     {
-        if (CanBuyTower(towerType))
-        {
-            towerStates[towerType].IsBought = true;
-            UpdateBuyTower(towerType);
-        }
+        if (!CanBuyTower(towerType)) return false;
+        towerStates[towerType].IsBought = true;
+        UpdateBuyTower(towerType);
+        
+        return true;
     }
 
     public bool IsTowerBought(TowerCodeName towerType)
@@ -50,6 +51,12 @@ public class TowerStandCtrl : MyMonoBehaviour
         if (towerPrefab != null) ResetTower();
 
         SpawnTower(newTowerType);
+        
+        if (isFirstBuy)
+        {
+            HideModel();
+            isFirstBuy = false;
+        }
     }
 
     protected virtual void SpawnTower(TowerCodeName newTowerType)
@@ -62,7 +69,7 @@ public class TowerStandCtrl : MyMonoBehaviour
     {
         return TowerSingleton.Instance.Prefabs.PoolPrefabs.GetByName(TowerId.ToString());
     }
-
+    
     protected virtual void ResetTower()
     {
         towerPrefab.Level.SetSkillScore(1);
@@ -79,6 +86,11 @@ public class TowerStandCtrl : MyMonoBehaviour
         this.LoadSphereCollider();
         this.LoadPointStand();
         this.LoadTowerStandUIManager();
+    }
+
+    protected virtual void HideModel()
+    {
+        point.Model.gameObject.SetActive(false);
     }
     protected virtual void LoadPointStand()
     {
