@@ -7,6 +7,8 @@ public class InventoryTester : MyMonoBehaviour
     {
         base.Start();
         this.AddTestItems(ItemCode.Gold, 10000);
+        this.AddTestItems(ItemCode.Bullet1, 120);
+        this.AddTestItems(ItemCode.Bullet2, 60);
     }
 
     [ProButton]

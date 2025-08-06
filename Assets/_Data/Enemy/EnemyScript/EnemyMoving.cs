@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class EnemyMoving : MyMonoBehaviour
 {
     [SerializeField]protected EnemyCtrl enemyCtrl;
-    [SerializeField]protected string pathName = "Path_2" ;
+    [SerializeField]protected string pathName = nameof(EnemyCodePath.Path_2) ;
     [SerializeField]protected PathMoving emenyPathMoving;
     [SerializeField]protected Point currentPoint;
     [SerializeField]protected float stopDistance = 1f;

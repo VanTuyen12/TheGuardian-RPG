@@ -102,7 +102,7 @@ public class TowerTargeting : MyMonoBehaviour
 
     protected virtual void AddEnemy(Collider collider)
     {
-        if (collider.name != Const.TOWER_TARGETABLES) return;
+        if (collider.name != Const.TARGETABLES) return;
         EnemyCtrl enemyCtrl = collider.transform.parent.GetComponent<EnemyCtrl>();
         if(enemyCtrl.DamageRecevier.IsDead()) return;
         

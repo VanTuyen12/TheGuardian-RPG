@@ -1,5 +1,6 @@
 
 public class Const
 {
-    public const string TOWER_TARGETABLES = "EnemyTargetable";
+    public const string TARGETABLES = "EnemyTargetable";
+    
 }

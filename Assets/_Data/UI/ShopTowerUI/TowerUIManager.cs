@@ -36,7 +36,8 @@ public class TowerUIManager : ToggleAbstractUI<TowerUIManager>
     {
         GameEvent.OnTowerCollider += HandleTowerCollistion;
     }
-    public virtual void LoadTowerStand()
+
+    protected virtual void LoadTowerStand()
     {
         standCtrl = handleTower == null  ? null : handleTower.GetComponent<TowerStandCtrl>();
     }

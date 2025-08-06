@@ -5,6 +5,7 @@ public class MawMoving : EnemyMoving
     protected override void ResetValue()
     {
         base.ResetValue();
-        this.pathName = "Path_1";
+        this.pathName = nameof(EnemyCodePath.Path_1);
+        canMove = true;
     }
 }

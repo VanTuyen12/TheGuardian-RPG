@@ -1,93 +1,95 @@
 using UnityEngine;
 
-public class MouseCursorToggle : MonoBehaviour
+public class MouseCursorToggle : MyMonoBehaviour
 {
     [Header("Mouse Cursor Settings")]
     [SerializeField] private bool startWithCursorVisible = false;
     
+    [Header("Camera Control")]
+    [SerializeField] private MonoBehaviour[] cameraScriptsToDisable;
+    
     private bool isCursorVisible;
     
-    void Start()
+    protected override void Start()
     {
-        // Thiết lập trạng thái ban đầu của cursor
+        base.Start();
         isCursorVisible = startWithCursorVisible;
         SetCursorState(isCursorVisible);
     }
     
     void Update()
     {
-        // Kiểm tra input để toggle cursor bằng ESC
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ToggleCursor();
         }
     }
     
-    /// <summary>
-    /// Toggle trạng thái hiển thị của cursor
-    /// </summary>
     public void ToggleCursor()
     {
         isCursorVisible = !isCursorVisible;
         SetCursorState(isCursorVisible);
     }
     
-    /// <summary>
-    /// Hiển thị cursor
-    /// </summary>
     public void ShowCursor()
     {
         isCursorVisible = true;
         SetCursorState(true);
     }
     
-    /// <summary>
-    /// Ẩn cursor
-    /// </summary>
     public void HideCursor()
     {
         isCursorVisible = false;
         SetCursorState(false);
     }
     
-    /// <summary>
-    /// Thiết lập trạng thái cursor
-    /// </summary>
-    /// <param name="visible">True để hiện cursor, false để ẩn</param>
     private void SetCursorState(bool visible)
     {
         if (visible)
         {
-            // Hiển thị cursor và cho phép di chuyển tự do
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+            
+            SetCameraScriptsEnabled(false);
         }
         else
         {
-            // Ẩn cursor và khóa tại giữa màn hình
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+            
+            SetCameraScriptsEnabled(true);
         }
     }
     
-    /// <summary>
-    /// Có thể gọi từ UI Button
-    /// </summary>
+    private void SetCameraScriptsEnabled(bool enabled)
+    {
+        if (cameraScriptsToDisable != null)
+        {
+            foreach (var script in cameraScriptsToDisable)
+            {
+                if (script != null)
+                {
+                    script.enabled = enabled;
+                }
+            }
+        }
+    }
+    
     public void OnToggleButtonClicked()
     {
         ToggleCursor();
     }
     
-    // Hiển thị trạng thái trong Inspector (chỉ khi đang play)
     void OnGUI()
     {
         if (Application.isPlaying)
         {
             GUI.color = isCursorVisible ? Color.green : Color.red;
-            GUI.Label(new Rect(10, 10, 200, 20), 
-                $"Cursor: {(isCursorVisible ? "Visible" : "Hidden")}");
-            GUI.Label(new Rect(10, 30, 200, 20), 
-                "Press ESC to toggle");
+            GUIStyle style = new GUIStyle(GUI.skin.label);
+            style.fontStyle = FontStyle.Bold;
+            style.fontSize = 20; 
+            style.normal.textColor = GUI.color;
+            GUI.Label(new Rect(Screen.width - 60, 10, 100, 50), "ESC",style);
         }
     }
 }

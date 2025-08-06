@@ -17,23 +17,20 @@ public class TowerStandUIManager : MyMonoBehaviour
     
     protected virtual void SetupTextReferences()
     {
-        // Set reference cho tất cả text UI về tower stand này
         /*foreach (var textUI in skillScoreTexts)
         {
             textUI.SetTowerStand(towerStand);
         }*/
     }
     
-    // Method được gọi khi tower được spawn
     public virtual void OnTowerSpawned(TowerCtrl tower)
     {
-        // Không cần làm gì thêm, TextSkillScoreUI sẽ tự động update
+        
     }
     
-    // Method được gọi khi tower bị despawn
     public virtual void OnTowerDespawned()
     {
-        // TextSkillScoreUI sẽ tự động hiển thị 0 khi không có tower
+        
     }
     protected virtual void LoadTextSkillScoreUI()
     {
