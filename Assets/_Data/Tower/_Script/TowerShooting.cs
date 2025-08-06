@@ -138,8 +138,14 @@ public class TowerShooting : TowerAbstract
         newProjectile.transform.forward = rotatorDirection;
         
         EffectFlyAbstract effectFly = newProjectile as EffectFlyAbstract;
-        effectFly.FlyToTarget.SetTarget(target.EnemyTargetable.transform);
-        
+        if (effectFly != null)
+        {
+            if(towerCtrl.DamageSystem != null)
+            {
+                effectFly.DamageSender.SetDamage(towerCtrl.DamageSystem.GetCurrentDamage());
+            }
+            effectFly.FlyToTarget.SetTarget(target.EnemyTargetable.transform);
+        }
         newProjectile.gameObject.SetActive(true);
     }
 

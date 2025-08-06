@@ -87,7 +87,10 @@ public class PlayerFastSkillsGun : SkillsGunAbstract
         
         this.SpawnEffect(effectName,bulletItem, bulletAmount,soundName);
     }
-    
+    protected override float GetDamageEffect()
+    {
+        return playerCtrl.DamageSystem.GetDamageFast();
+    }
     private IEnumerator HideCrosshairAfterDelay()
     {
         
@@ -100,10 +103,6 @@ public class PlayerFastSkillsGun : SkillsGunAbstract
         }
         
         hideCrosshair = null;
-    }
-    protected virtual EffectCtrl GetEffecct()
-    {
-        return effectPrefabs.GetByName(effectName);
     }
     
     protected virtual void CheckCrosshair(bool isShoot)

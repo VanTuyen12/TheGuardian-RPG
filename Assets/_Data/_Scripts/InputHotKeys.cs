@@ -11,6 +11,8 @@ public class InputHotKeys : Singleton<InputHotKeys>
     
     protected bool isTooleTowerUI = false;
     public bool IsTooleTowerUI => isTooleTowerUI;
+    protected bool isTooleStatusUI = false;
+    public bool IsTooleStatusUI => isTooleStatusUI;
     
     protected bool isSettings = false;
     public bool IsSettings => isSettings;
@@ -23,6 +25,7 @@ public class InputHotKeys : Singleton<InputHotKeys>
         this.ToogleNumber();
         this.OpenTowerUpgarde();
         this.OpenShop();
+        this.OpenStatus();
         this.Settings();
     }
 
@@ -51,8 +54,12 @@ public class InputHotKeys : Singleton<InputHotKeys>
     {
         isTooleTowerUI = Input.GetKeyUp(KeyCode.E);
     }
+    public virtual void OpenStatus()
+    {
+       isTooleStatusUI = Input.GetKeyUp(KeyCode.R);
+    }
     public virtual void Settings()
     {
-        isSettings = Input.GetKeyUp(KeyCode.Y);
+        isSettings = Input.GetKeyUp(KeyCode.T);
     }
 }

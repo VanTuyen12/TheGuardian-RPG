@@ -20,8 +20,12 @@ public abstract class TowerCtrl : PoolObj
    [SerializeField]protected LevelAbstract level;
    public LevelAbstract Level => level;
    
+   [SerializeField]protected TowerDamageSystem damageSystem;
+   public TowerDamageSystem DamageSystem => damageSystem;
+   
    [SerializeField]protected List<FirePoint> firePoint;
    public List<FirePoint> FirePoint => firePoint;
+   
    
 
    protected override void LoadComponents()
@@ -32,6 +36,7 @@ public abstract class TowerCtrl : PoolObj
       this.LoadFirePoint();
       this.LoadTowerShooting();
       this.LoadLevel();
+      LoadDamageSystem();
    }
    protected virtual void LoadLevel()
    {
@@ -67,6 +72,13 @@ public abstract class TowerCtrl : PoolObj
       model = this.transform.Find("Model");
       rotation = model.transform.Find("Rotation");
       Debug.Log(transform.name + " :LoadModel",gameObject);
+   }
+
+   protected virtual void LoadDamageSystem()
+   {
+      if(this.damageSystem != null) return;
+      damageSystem = GetComponentInChildren<TowerDamageSystem>();
+      Debug.Log(transform.name + " :LoadDamageSystem",gameObject);
    }
 
 }

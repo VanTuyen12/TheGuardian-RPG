@@ -15,6 +15,12 @@ public class PlayerSlowSkillsGun : SkillsGunAbstract
         this.SpawnEffect(effectName,bulletItem, bulletAmount,soundName);
         //Debug.Log("PlayerSlowShoot" + attackPoint.transform.position);
     }
+
+    protected override float GetDamageEffect()
+    {
+        return playerCtrl.DamageSystem.GetDamageSlow();
+    }
+
     protected virtual EffectCtrl GetEffecct()
     {
         return effectPrefabs.GetByName(effectName);

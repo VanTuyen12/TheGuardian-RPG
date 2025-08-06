@@ -22,10 +22,16 @@ public class PlayerCtrl : Singleton<PlayerCtrl>
 
     [SerializeField] protected PlayerAiming playerAiming;
     public PlayerAiming PlayerAiming => playerAiming;
+    
+    [SerializeField] protected PlayerDamageSystem damageSystem;
+    public PlayerDamageSystem DamageSystem => damageSystem;
+    
     [SerializeField] protected PlayerActionCtrl actionCtrl;
     public PlayerActionCtrl PlayerActionCtrl => actionCtrl;
+    
     [SerializeField] protected Weapons weapons;
     public Weapons Weapons => weapons;
+    
     [SerializeField] protected LevelAbstract level;
     public LevelAbstract Level => level;
     
@@ -42,6 +48,7 @@ public class PlayerCtrl : Singleton<PlayerCtrl>
         this.LoadPlayerAiming();
         this.LoadPlayerActionCtrl();
         this.LoadLevel();
+        this.LoadPlayerDamageSystem();
     }
     protected virtual void LoadLevel()
     {
@@ -114,5 +121,11 @@ public class PlayerCtrl : Singleton<PlayerCtrl>
         if (aimVirtualCamera != null) return;
         aimVirtualCamera = GameObject.Find("PlayerAimCamera").GetComponent<CinemachineCamera>();
         Debug.Log(transform.name + ": LoadCinemachineCamera", gameObject);
+    }
+    protected virtual void LoadPlayerDamageSystem()
+    {
+        if (damageSystem != null) return;
+        damageSystem = GetComponentInChildren<PlayerDamageSystem>();
+        Debug.Log(transform.name + ": LoadDamageSystem", gameObject);
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class GameStatusUI : Singleton<GameStatusUI>
+public class GameStatusUI : ToggleAbstractUI<GameStatusUI>
 {
     [SerializeField] protected Transform objLoseGame;
     [SerializeField] private bool isLose = false;
@@ -11,6 +11,11 @@ public class GameStatusUI : Singleton<GameStatusUI>
     {
         base.Start();
         objLoseGame.gameObject.SetActive(false);
+    }
+
+    protected override void HotkeyToogleInventory()
+    {
+        if(InputHotKeys.Instance.IsTooleStatusUI) Toggle();
     }
 
     private void OnEnable()

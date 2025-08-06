@@ -6,16 +6,7 @@ public class BtnUpgradeDamage : BtnTowerUpgrade
     protected override void DoUpgrade()
     {
         if (currentTower == null) return;
-        EffectFlyAbstract effectFly = currentTower.TowerShooting.Projectile as EffectFlyAbstract;
+        currentTower.DamageSystem.UpgradeDamage(damageIncreaseAmount);
         
-        if (effectFly == null) return;
-        DamageSender damageSender = effectFly.DamageSender;
-        
-        if (damageSender == null) return;
-        float currentDamage = damageSender.Damage;
-        float newDamage = currentDamage + damageIncreaseAmount;
-        damageSender.SetDamage(newDamage);
-            
-        Debug.Log($"Upgraded {currentTower.name} damage from {currentDamage} to {newDamage}");
     }
 }

@@ -14,6 +14,7 @@ public abstract class LevelAbstract : MyMonoBehaviour
     protected abstract bool DeductExp(int exp);
 
     
+
     protected void FixedUpdate()
     {
         this.Leveling();
@@ -32,13 +33,19 @@ public abstract class LevelAbstract : MyMonoBehaviour
         if (!DeductExp(GetNextLevelExp())) return;
         
         currentLevel++;
+        LevelingUp();
         skillScore++;
     }
 
+    protected virtual void LevelingUp()
+    {
+        //For override
+    }
     protected virtual int GetNextLevelExp()
     {
         return this.nextLevelExp = currentLevel * 10;
     }
+    
     public virtual void SetSkillScore(int rsScore)
     {
         skillScore = rsScore;

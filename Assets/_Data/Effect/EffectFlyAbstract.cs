@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -9,6 +10,8 @@ public abstract class EffectFlyAbstract : EffectCtrl
     public FlyToTarget FlyToTarget => flyToTarget;
     [SerializeField]protected DamageSender damageSender;
     public DamageSender DamageSender => damageSender;
+    
+  
     protected override void LoadComponents()
     {
         base.LoadComponents();

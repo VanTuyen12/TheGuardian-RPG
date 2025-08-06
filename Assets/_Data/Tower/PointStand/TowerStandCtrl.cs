@@ -48,7 +48,7 @@ public class TowerStandCtrl : MyMonoBehaviour
     
     public virtual void UpdateBuyTower(TowerCodeName newTowerType)
     {
-        if (towerPrefab != null) ResetTower();
+        if (towerPrefab != null) DespawnBuyTower(towerPrefab);
 
         SpawnTower(newTowerType);
         
@@ -70,12 +70,6 @@ public class TowerStandCtrl : MyMonoBehaviour
         return TowerSingleton.Instance.Prefabs.PoolPrefabs.GetByName(TowerId.ToString());
     }
     
-    protected virtual void ResetTower()
-    {
-        towerPrefab.Level.SetSkillScore(1);
-        towerPrefab.Level.SetCurrentLevel(1);
-        DespawnBuyTower(towerPrefab);
-    }
     protected virtual void DespawnBuyTower(TowerCtrl obj)
     {
         TowerSingleton.Instance.Prefabs.Despawn(obj);

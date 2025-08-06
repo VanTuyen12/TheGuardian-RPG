@@ -51,13 +51,17 @@ public abstract class SkillsGunAbstract : MyMonoBehaviour
         AttackPoint attackPoint = GetAttackPoint();
         EffectCtrl newEffect = effectSpawner.Spawn( GetEffecct(prefals), attackPoint.transform.position);
         EffectFlyAbstract effectFly = (EffectFlyAbstract)newEffect;
+        if (effectFly == null) return;
+        if(playerCtrl == null) return;
+        
+        effectFly.DamageSender.SetDamage(GetDamageEffect());
         effectFly.FlyToTarget.SetTarget(playerCtrl.CrosshairCtrl.GetCrosshair(1).transform);
         newEffect.gameObject.SetActive(true);
         
         DuductItem(item, quantity);
         SpawnSoundSfx(sfxName);
     }
-
+    protected abstract float GetDamageEffect();
     protected virtual void DuductItem(ItemCode item,int quantity)
     {
         InventoryManager.Instance.RemoveItem(item, quantity);

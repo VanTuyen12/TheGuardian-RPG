@@ -2,13 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemySpawning : EnemyManagerAbstract
 {
     [SerializeField] protected float spawnSpeed = 2f;
     public float SpawnSpeed { get => spawnSpeed; set => spawnSpeed = value; }
-    [SerializeField] protected int maxSpawn = 20;
-    public int MaxSpawn { get => maxSpawn; set => maxSpawn = value; }
+    [SerializeField] protected int currentSpawn = 20;
+    private int maxSpawn = 50;
+    private float maxSpawnSpeed = 0.5f;
+    public int MaxSpawn { get => currentSpawn; set => currentSpawn = value; }
     [SerializeField]protected List<EnemyCtrl> spawnedEnemies = new();
     [SerializeField] protected bool canSpawnBoss;
     protected Coroutine Spawning;
@@ -26,8 +29,15 @@ public class EnemySpawning : EnemyManagerAbstract
     private void GameEventOnOnSpawning(bool obj)
     {
         canSpawnBoss = obj;
+        RoundEnemis();
     }
 
+    protected virtual void RoundEnemis()
+    {
+        if(currentSpawn >= maxSpawn || spawnSpeed <= maxSpawnSpeed) return;
+            currentSpawn += 5;
+            spawnSpeed -= 0.1f;
+    }
     protected override void Start()
     {
         base.Start();
@@ -43,25 +53,20 @@ public class EnemySpawning : EnemyManagerAbstract
         while (true)
         {
             yield return new WaitForSeconds(this.spawnSpeed);
-            if (spawnedEnemies.Count > maxSpawn) yield break;
+            if (spawnedEnemies.Count > currentSpawn) yield break;
             if (canSpawnBoss)
             {
-                SpawmBoss();
+                SpawnEnemis(GetRdEnemiesBoss());
                 canSpawnBoss = false;
-                continue;;
+                continue;
             }
-            
-            EnemyCtrl prefabs = GetRdEnemiesNormal();
-            EnemyCtrl newEnemy = enemyManagerCtrl.EnemySpawner.Spawn(prefabs,transform.position);
-            newEnemy.gameObject.SetActive(true);
-            spawnedEnemies.Add(newEnemy);
+
+            SpawnEnemis(GetRdEnemiesNormal());
         }
     }
 
-    public virtual void SpawmBoss()
+    public virtual void SpawnEnemis(EnemyCtrl prefabs)
     {
-        if (spawnedEnemies.Count > maxSpawn) return;
-        EnemyCtrl prefabs = GetRdEnemiesBoss();
         EnemyCtrl newEnemy = enemyManagerCtrl.EnemySpawner.Spawn(prefabs,transform.position);
         newEnemy.gameObject.SetActive(true);
         spawnedEnemies.Add(newEnemy);

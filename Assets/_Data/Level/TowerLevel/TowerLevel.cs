@@ -3,7 +3,11 @@ using UnityEngine;
 public class TowerLevel : LevelAbstract
 {
     [SerializeField] protected TowerCtrl towerCtrl;
-    
+    protected virtual void OnDisable()
+    {
+        SetSkillScore(1);
+        SetCurrentLevel(1);
+    }
     protected override int GetCurrentExp()
     {
         return towerCtrl.TowerShooting.KillCount;
