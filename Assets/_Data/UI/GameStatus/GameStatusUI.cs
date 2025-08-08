@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class GameStatusUI : ToggleAbstractUI<GameStatusUI>
 {
-    [SerializeField] protected Transform objLoseGame;
+    [SerializeField] protected Transform gameOverUI;
     [SerializeField] private bool isLose = false;
     public bool IsLose => isLose;
     
     protected override void Start()
     {
         base.Start();
-        objLoseGame.gameObject.SetActive(false);
+        gameOverUI.gameObject.SetActive(false);
     }
 
     protected override void HotkeyToogleInventory()
@@ -25,14 +25,16 @@ public class GameStatusUI : ToggleAbstractUI<GameStatusUI>
     private void GameEventOnOnEnemyReachEnd(bool obj)
     {
         isLose = obj;
-        LoseGame(isLose);
+        GameOver(isLose);
     }
 
-    public virtual void LoseGame(bool lose)
+    public virtual void GameOver(bool lose)
     {
-        objLoseGame.gameObject.SetActive(lose);
+        gameOverUI.gameObject.SetActive(lose);
+        SettingsUIManager.Instance.Show();
         Time.timeScale = 0f;
     }
+    
     private void OnDisable()
     {
         GameEvent.OnEnemyReachEnd -= GameEventOnOnEnemyReachEnd;
@@ -41,13 +43,12 @@ public class GameStatusUI : ToggleAbstractUI<GameStatusUI>
     {
         base.LoadComponents();
         this.LoadObjLoseGame();
-
     }
 
     protected virtual void LoadObjLoseGame()
     {
-        if (this.objLoseGame != null) return;
-        this.objLoseGame = transform.Find("LoseGame");
+        if (this.gameOverUI != null) return;
+        this.gameOverUI = transform.Find("GameOverUI");
         Debug.Log(transform.name + " :LoadObjLoseGame " ,gameObject);
         
     }

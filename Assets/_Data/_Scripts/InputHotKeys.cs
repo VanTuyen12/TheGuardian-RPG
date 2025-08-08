@@ -3,18 +3,19 @@ using UnityEngine;
 
 public class InputHotKeys : Singleton<InputHotKeys>
 {
-    protected bool isToogleInvUI = false;
+    [SerializeField]protected bool isToogleInvUI = false;
     public bool IsToogleInvUI => isToogleInvUI;
     
-    protected bool isToogleShopUI = false;
+    [SerializeField]protected bool isToogleShopUI = false;
     public bool IsToogleShopUI => isToogleShopUI;
     
-    protected bool isTooleTowerUI = false;
+    [SerializeField]protected bool isTooleTowerUI = false;
     public bool IsTooleTowerUI => isTooleTowerUI;
-    protected bool isTooleStatusUI = false;
+    
+    [SerializeField]protected bool isTooleStatusUI = false;
     public bool IsTooleStatusUI => isTooleStatusUI;
     
-    protected bool isSettings = false;
+    [SerializeField]protected bool isSettings = false;
     public bool IsSettings => isSettings;
     [SerializeField] protected KeyCode keyCode;
     public KeyCode KeyCode => keyCode;

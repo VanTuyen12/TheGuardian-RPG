@@ -21,15 +21,7 @@ public class Singleton<T> : MyMonoBehaviour where T : MyMonoBehaviour
             }
         }
     }
-
-    public static bool HasInstance 
-    {
-        get
-        {
-            return _instance != null;
-        }
-    }
-
+    
     protected override void Awake()
     {
         base.Awake();
@@ -51,11 +43,5 @@ public class Singleton<T> : MyMonoBehaviour where T : MyMonoBehaviour
                            $"Existing: {_instance.gameObject.name}, Duplicate: {gameObject.name}");
         }
     }
-    protected virtual void OnDestroy() 
-    {
-        if (_instance == this)
-        {
-            _instance = null; 
-        }
-    }
+    
 }

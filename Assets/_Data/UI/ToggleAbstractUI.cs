@@ -6,9 +6,7 @@ public abstract class ToggleAbstractUI<T> : Singleton<T> where T : MyMonoBehavio
 {
     
     [SerializeField] protected GameObject showHideUI;
-   
-    [SerializeField]protected bool isShow = false;
-        
+    [SerializeField] protected bool isShow = false;
     public bool IsShow => isShow;
 
     protected override void Start()
@@ -30,25 +28,27 @@ public abstract class ToggleAbstractUI<T> : Singleton<T> where T : MyMonoBehavio
     {
         isShow = true;
         showHideUI.gameObject.SetActive(isShow);
+        MouseCursorManager.Instance.SetCursorVisible(true, GetType().Name);
     }
 
     public virtual void Hide()
     {
         isShow = false;
         showHideUI.gameObject.SetActive(isShow);
+        MouseCursorManager.Instance.SetCursorVisible(false, GetType().Name);
     }
 
     public virtual void Toggle()
     {
         if (isShow) Hide();
         else Show();
-        
     }
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadShowHideUI();
+        
     }
     protected virtual void LoadShowHideUI()
     {
@@ -57,7 +57,7 @@ public abstract class ToggleAbstractUI<T> : Singleton<T> where T : MyMonoBehavio
         Debug.Log(transform.name + ": loadShowHideUI", gameObject);
     }
     
-    protected  virtual GameObject FindChildWithTag(Transform parent, string tag)
+    protected virtual GameObject FindChildWithTag(Transform parent, string tag)
     {
         foreach (Transform child in parent)
         {
@@ -65,5 +65,13 @@ public abstract class ToggleAbstractUI<T> : Singleton<T> where T : MyMonoBehavio
                 return child.gameObject;
         }
         return null;
+    }
+    
+    protected virtual void OnDestroy()
+    {
+        if (MouseCursorManager.Instance != null)
+        {
+            MouseCursorManager.Instance.SetCursorVisible(false, GetType().Name);
+        }
     }
 }

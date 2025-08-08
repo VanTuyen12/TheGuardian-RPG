@@ -51,11 +51,6 @@
             playerCtrl.ThirdPersonCtrl.SetRotateOnMove(true);
             
         }
-        // ReSharper disable Unity.PerformanceAnalysis
-        protected virtual void MoveAiming()
-        {
-            playerCtrl.PlayerActionCtrl.FaceTarget(isAiming);
-            //playerCtrl.PlayerActionCtrl.UpdateRigAndLayer(isAiming);
-        }
+        
     }
 

@@ -40,7 +40,7 @@ public class PlayerActionCtrl : PlayerAbstract
         }
     }
     
-    public void UpdateRigAndLayer(bool isAttack)
+    protected virtual void UpdateRigAndLayer(bool isAttack)
     {
         
         float rigWeight = isAttack ? 1f : 0f;
@@ -48,6 +48,7 @@ public class PlayerActionCtrl : PlayerAbstract
             
         if (isAttack)
         {
+            //playerCtrl.Animator.SetLayerWeight(2, 0);
             playerCtrl.Rig.weight = Mathf.MoveTowards(playerCtrl.Rig.weight, 
                 rigWeight, Time.deltaTime * rigTransitionSpeed);
             
@@ -64,6 +65,7 @@ public class PlayerActionCtrl : PlayerAbstract
                 playerCtrl.Animator.SetLayerWeight(1, Mathf.MoveTowards( 
                     playerCtrl.Animator.GetLayerWeight(1), 0f, Time.deltaTime * layerTransitionSpeed));
             }
+            //playerCtrl.Animator.SetLayerWeight(2, 1);
         }
     }
     

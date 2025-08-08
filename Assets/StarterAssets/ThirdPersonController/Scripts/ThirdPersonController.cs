@@ -112,6 +112,7 @@ namespace StarterAssets
 
         private bool _hasAnimator;
 
+        private MouseCursorManager _mouseCursor;
         private bool IsCurrentDeviceMouse
         {
             get
@@ -131,6 +132,10 @@ namespace StarterAssets
             if (_mainCamera == null)
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            }
+            if (_mouseCursor == null)
+            {
+                _mouseCursor = FindAnyObjectByType<MouseCursorManager>();
             }
         }
 
@@ -157,7 +162,9 @@ namespace StarterAssets
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
-
+            
+            if (_mouseCursor.IsCursorVisible) return;
+            
             JumpAndGravity();
             GroundedCheck();
             Move();

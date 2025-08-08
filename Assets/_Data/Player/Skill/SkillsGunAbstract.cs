@@ -8,12 +8,13 @@ public abstract class SkillsGunAbstract : MyMonoBehaviour
     [SerializeField]protected PlayerCtrl playerCtrl;
     [SerializeField] protected EffectSpawner effectSpawner;
     [SerializeField] protected EffectPrefabs effectPrefabs;
-    
+    [SerializeField]protected MouseCursorManager mouseCursor;
 
     protected int quantity = 1;
     
     protected virtual void Update()
     {
+        if(mouseCursor.IsCursorVisible) return;
         Shooting();
     }
     protected abstract void Shooting();
@@ -23,17 +24,20 @@ public abstract class SkillsGunAbstract : MyMonoBehaviour
         base.LoadComponents();
         this.LoadPlayerCtrl();
         this.LoadEffectSpawner();
+        this.LoadMouseCursor();
     }
-    
-   
+    protected virtual void LoadMouseCursor()
+    {
+        if(mouseCursor != null) return;
+        mouseCursor = FindAnyObjectByType<MouseCursorManager>();
+        Debug.Log(transform.name+" : LoadMouseCursor",gameObject);
+    }
     protected virtual void LoadEffectSpawner()
     {
         if(effectSpawner != null) return;
         effectSpawner = GameObject.Find("EffectSpawner").GetComponent<EffectSpawner>();
         effectPrefabs = GameObject.Find("EffectPrefabs").GetComponent<EffectPrefabs>();
-        //effectPrefabs = effectSpawner.GetComponentInChildren<EffectPrefabs>();
         Debug.Log(transform.name+" : LoadEffect",gameObject);
-        
     }
 
     protected virtual bool CheckBulletItem(ItemCode item)

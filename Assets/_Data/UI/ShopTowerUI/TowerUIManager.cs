@@ -23,13 +23,17 @@ public class TowerUIManager : ToggleAbstractUI<TowerUIManager>
 
     protected override void HotkeyToogleInventory()
     {
-      if( canOpenTowerUI && InputHotKeys.Instance.IsTooleTowerUI) Toggle();
-      if (!canOpenTowerUI)
-      {
-          handleTower =  null;
-          standCtrl = null;
-          Hide();
-      } 
+        if (canOpenTowerUI && InputHotKeys.Instance.IsTooleTowerUI)
+        {
+            Toggle();
+        }
+      
+        if (!canOpenTowerUI)
+        {
+            handleTower =  null;
+            standCtrl = null;
+            Hide();
+        } 
     }
     
     protected virtual void OnEnable()
