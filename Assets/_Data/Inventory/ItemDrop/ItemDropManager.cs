@@ -19,11 +19,11 @@ public class ItemDropManager : Singleton<ItemDropManager>
         Debug.Log(transform.name + ":LoadItemDropSpawner", gameObject);
     }
     
-    public virtual void DropMany(ItemCode itemCode, int dropCount, Vector3 dropPosition)
+    public virtual void DropMany(ItemCode itemCode, int dropCount, Vector3 dropPosition,int valueItem)
     {
         for (int i = 0; i < dropCount; i++)
         {
-            this.Drop(itemCode,1,dropPosition);
+            this.Drop(itemCode,valueItem,dropPosition);
         }
             
     }

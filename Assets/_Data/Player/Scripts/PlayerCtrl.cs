@@ -12,8 +12,7 @@ public class PlayerCtrl : Singleton<PlayerCtrl>
     [SerializeField] private Animator animator;
     public Animator Animator => animator;
     [SerializeField] private RigBuilder rigBuilder;
-    [SerializeField] private Rig rig;
-    public Rig Rig => rig;
+    public RigBuilder RigBuilder => rigBuilder;
     [SerializeField] protected ThirdPersonController thirdPersonCtrl;
     public ThirdPersonController ThirdPersonCtrl => thirdPersonCtrl;
 
@@ -49,6 +48,16 @@ public class PlayerCtrl : Singleton<PlayerCtrl>
         this.LoadPlayerActionCtrl();
         this.LoadLevel();
         this.LoadPlayerDamageSystem();
+    }
+
+    public Rig GetRig(int index)
+    {
+        if (rigBuilder.layers.Count > index)
+        {
+            var rig = rigBuilder.layers[index].rig;
+            return rig;
+        }
+        return null;
     }
     protected virtual void LoadLevel()
     {
@@ -101,11 +110,6 @@ public class PlayerCtrl : Singleton<PlayerCtrl>
     {
         if (rigBuilder != null) return;
         rigBuilder = GetComponent<RigBuilder>();
-        if (rig == null && rigBuilder.layers.Count > 0)
-        {
-            rig = rigBuilder.layers[0].rig;
-        }
-
         Debug.Log(transform.name + ": LoadRigBuilder", gameObject);
     }
 

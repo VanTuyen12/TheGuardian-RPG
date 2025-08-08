@@ -370,12 +370,12 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Idle
     m_StateMachine: {fileID: -1641433888580268573}
-    m_Mask: {fileID: 31900000, guid: 35d0ab00ba5655d44aa7d76241fc03d7, type: 2}
+    m_Mask: {fileID: 31900000, guid: 2300b2be7ce2647498d534792b72b1da, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
     m_SyncedLayerIndex: -1
-    m_DefaultWeight: 0
+    m_DefaultWeight: 1
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}

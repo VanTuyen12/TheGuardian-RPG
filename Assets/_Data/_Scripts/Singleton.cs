@@ -35,6 +35,7 @@ public class Singleton<T> : MyMonoBehaviour where T : MyMonoBehaviour
             _instance = this as T;
             if(transform.parent == null) DontDestroyOnLoad(gameObject);
             return;
+            
         }
         
         if (_instance != this)

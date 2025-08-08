@@ -66,12 +66,4 @@ public abstract class ToggleAbstractUI<T> : Singleton<T> where T : MyMonoBehavio
         }
         return null;
     }
-    
-    protected virtual void OnDestroy()
-    {
-        if (MouseCursorManager.Instance != null)
-        {
-            MouseCursorManager.Instance.SetCursorVisible(false, GetType().Name);
-        }
-    }
 }

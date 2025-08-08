@@ -9,8 +9,12 @@ public class PlayerActionCtrl : PlayerAbstract
     [Header("Setting Action")]
     [SerializeField] private float rigTransitionSpeed = 5f;
     [SerializeField] private float layerTransitionSpeed = 5f;
-    [SerializeField] private float rigDisableSpeed = 6f;
+    [SerializeField] private float rigDisableSpeed = 15f;
     [SerializeField] private float rotationSpeed = 20f;
+    
+    [Header("Aim/Idle Transition Speeds")]
+    [SerializeField] private float idleDisableSpeed = 15f; 
+    [SerializeField] private float idleEnableSpeed = 8f;
     
     private bool isShootingMode = false;
     private bool isAimingMode = false;
@@ -32,35 +36,55 @@ public class PlayerActionCtrl : PlayerAbstract
     protected virtual void UpdateMoveToAttack()
     {
         bool shouldActivateRig = isShootingMode || isAimingMode;
-        UpdateRigAndLayer(shouldActivateRig);
+        UpdateIdleRigAndLayer(shouldActivateRig);
+        UpdateAimRigAndLayer(shouldActivateRig);
         
         if (shouldActivateRig)
         {
             FaceTarget(true);
         }
     }
-    
-    protected virtual void UpdateRigAndLayer(bool isAttack)
+
+    protected virtual void UpdateIdleRigAndLayer(bool isIdle)
+    {
+        float idleRigWeight = isIdle ? 0f : 1f;
+        float idleLayerWeight = isIdle ? 0f : 1f;
+        
+        if (isIdle)
+        {
+            playerCtrl.GetRig(1).weight = Mathf.MoveTowards(playerCtrl.GetRig(1).weight, idleRigWeight, Time.deltaTime * idleDisableSpeed);
+            playerCtrl.Animator.SetLayerWeight(2, Mathf.MoveTowards(playerCtrl.Animator.GetLayerWeight(2), idleLayerWeight, Time.deltaTime * idleDisableSpeed));
+        }
+        else
+        {
+            playerCtrl.GetRig(1).weight = Mathf.MoveTowards(playerCtrl.GetRig(1).weight, 1f, Time.deltaTime * idleEnableSpeed);
+            playerCtrl.Animator.SetLayerWeight(2, Mathf.MoveTowards(playerCtrl.Animator.GetLayerWeight(2), 1f, Time.deltaTime * idleEnableSpeed));
+        }
+            
+    }
+    protected virtual void UpdateAimRigAndLayer(bool isAttack)
     {
         
-        float rigWeight = isAttack ? 1f : 0f;
-        float layerWeight = isAttack ? 1f : 0f;
+        float aimRigWeight = isAttack ? 1f : 0f;
+        float aimLayerWeight = isAttack ? 1f : 0f;
+        
+       
             
         if (isAttack)
         {
             //playerCtrl.Animator.SetLayerWeight(2, 0);
-            playerCtrl.Rig.weight = Mathf.MoveTowards(playerCtrl.Rig.weight, 
-                rigWeight, Time.deltaTime * rigTransitionSpeed);
+            playerCtrl.GetRig(0).weight = Mathf.MoveTowards(playerCtrl.GetRig(0).weight, 
+                aimRigWeight, Time.deltaTime * rigTransitionSpeed);
             
             playerCtrl.Animator.SetLayerWeight(1, Mathf.MoveTowards( playerCtrl.Animator.GetLayerWeight(1), 
-                layerWeight, Time.deltaTime * layerTransitionSpeed));
+                aimLayerWeight, Time.deltaTime * layerTransitionSpeed));
         }
         else
         {
-            playerCtrl.Rig.weight = Mathf.MoveTowards(playerCtrl.Rig.weight, 
+            playerCtrl.GetRig(0).weight = Mathf.MoveTowards(playerCtrl.GetRig(0).weight, 
                 0f, Time.deltaTime * rigDisableSpeed);
             
-            if (playerCtrl.Rig.weight < 0.1f)
+            if (playerCtrl.GetRig(0).weight < 0.1f)
             {
                 playerCtrl.Animator.SetLayerWeight(1, Mathf.MoveTowards( 
                     playerCtrl.Animator.GetLayerWeight(1), 0f, Time.deltaTime * layerTransitionSpeed));
