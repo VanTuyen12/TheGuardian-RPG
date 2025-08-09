@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : Singleton<SoundManager>
 {
@@ -19,9 +20,26 @@ public class SoundManager : Singleton<SoundManager>
     protected override void Awake()
     {
         base.Awake();
-        DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
-
+    
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    
+    
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        LoadSoundSpawnerCtrl();
+        ClearNullReferences();
+        StartMusicBackground();
+    }
+    private void ClearNullReferences()
+    {
+        listMusic.RemoveAll(m => m == null);
+        listSfx.RemoveAll(s => s == null);
+    }
     protected override void Start()
     {
         base.Start();
@@ -37,14 +55,20 @@ public class SoundManager : Singleton<SoundManager>
     protected virtual void LoadSoundSpawnerCtrl()
     {
         if (this.soundSpCtrl != null) return;
-        this.soundSpCtrl = GameObject.FindAnyObjectByType<SoundSpawnerCtrl>();
+        this.soundSpCtrl = FindAnyObjectByType<SoundSpawnerCtrl>();
         Debug.Log(transform.name + ": LoadSoundSpawnerCtrl", gameObject);
     }
 
     public virtual void StartMusicBackground()
     {
-        if (this.bgMusic == null) this.bgMusic = this.CreateMusic(this.bgName);
-        this.bgMusic.gameObject.SetActive(true);
+        if (this.soundSpCtrl == null)  return;
+
+        if (this.bgMusic == null)
+            this.bgMusic = CreateMusic(this.bgName);
+
+        if (this.bgMusic != null)
+            this.bgMusic.gameObject.SetActive(true);
+        
     }
 
     public virtual void ToggleMusic()

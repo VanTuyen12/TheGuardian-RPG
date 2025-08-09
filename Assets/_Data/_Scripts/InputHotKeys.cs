@@ -3,21 +3,22 @@ using UnityEngine;
 
 public class InputHotKeys : Singleton<InputHotKeys>
 {
-    [SerializeField]protected bool isToogleInvUI = false;
+    protected bool isToogleInvUI = false;
     public bool IsToogleInvUI => isToogleInvUI;
     
-    [SerializeField]protected bool isToogleShopUI = false;
+    protected bool isToogleShopUI = false;
     public bool IsToogleShopUI => isToogleShopUI;
     
-    [SerializeField]protected bool isTooleTowerUI = false;
+    protected bool isTooleTowerUI = false;
     public bool IsTooleTowerUI => isTooleTowerUI;
     
-    [SerializeField]protected bool isTooleStatusUI = false;
+    protected bool isTooleStatusUI = false;
     public bool IsTooleStatusUI => isTooleStatusUI;
     
-    [SerializeField]protected bool isSettings = false;
+    protected bool isSettings = false;
     public bool IsSettings => isSettings;
-    [SerializeField] protected KeyCode keyCode;
+    
+    protected KeyCode keyCode;
     public KeyCode KeyCode => keyCode;
 
     protected virtual void Update()
@@ -57,10 +58,10 @@ public class InputHotKeys : Singleton<InputHotKeys>
     }
     public virtual void OpenStatus()
     {
-       isTooleStatusUI = Input.GetKeyUp(KeyCode.R);
+       isTooleStatusUI = Input.GetKeyUp(KeyCode.Q);
     }
     public virtual void Settings()
     {
-        isSettings = Input.GetKeyUp(KeyCode.T);
+        isSettings = Input.GetKeyUp(KeyCode.R);
     }
 }

@@ -3,8 +3,8 @@ using UnityEngine.Serialization;
 
 public class PlayerDamageSystem : MyMonoBehaviour
 {
-    [SerializeField] protected float baseDamageSkillFast = 10f;
-    [SerializeField] protected float baseDamageSkillSlow= 20f;
+    [SerializeField] protected float baseDamageSkillFast = 5f;
+    [SerializeField] protected float baseDamageSkillSlow= 15f;
     [SerializeField] protected float damageSkillFast;
     [SerializeField] protected float damageSkillSlow;
 

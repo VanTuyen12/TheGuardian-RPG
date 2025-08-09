@@ -1,9 +1,10 @@
+using UnityEditor;
 using UnityEngine;
 
 public class GoldDrope : ItemDropCtrl
 {
     public override string GetName()
     {
-        return "Gold";
+        return nameof(ItemCode.Gold);
     }
 }

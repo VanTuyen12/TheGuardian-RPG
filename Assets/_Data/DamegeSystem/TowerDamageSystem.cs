@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TowerDamageSystem : TowerAbstract
 {
-    [SerializeField] protected float baseDamage = 50f;
+    [SerializeField] protected float baseDamage = 10f;
     [SerializeField] protected float currentDamage;
 
     protected virtual void OnEnable()

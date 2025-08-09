@@ -35,13 +35,12 @@ public class Singleton<T> : MyMonoBehaviour where T : MyMonoBehaviour
             _instance = this as T;
             if(transform.parent == null) DontDestroyOnLoad(gameObject);
             return;
-            
         }
         
-        if (_instance != this)
+        if (_instance != null && _instance != this)
         {
-            Debug.LogError($"[Singleton] already has instance of {typeof(T).Name} exist! " +
-                           $"Existing: {_instance.gameObject.name}, Duplicate: {gameObject.name}");
+            Destroy(gameObject);
+            return;
         }
     }
     

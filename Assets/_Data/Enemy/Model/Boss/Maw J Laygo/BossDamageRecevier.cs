@@ -2,6 +2,19 @@ using UnityEngine;
 
 public class BossDamageRecevier : EnemyDamageRecevier
 {
+    protected override void RewardOnDead()
+    {
+        base.RewardOnDead();
+        
+        var dropManager = ItemDropManager.Instance;
+        var pos = transform.position;
+
+        dropManager.DropMany(ItemCode.Gold, 5, pos, 100);
+        dropManager.DropMany(ItemCode.PlayerExp, 5, pos, 2);
+        dropManager.DropMany(ItemCode.Bullet1, 1, pos, 50);
+        dropManager.DropMany(ItemCode.Bullet2, 2, pos, 10 );
+    }
+
     protected override void LoadCapsuleCollider()
     {
         if (capsuleCollider != null) return;

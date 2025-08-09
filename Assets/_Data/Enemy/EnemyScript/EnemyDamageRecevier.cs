@@ -34,10 +34,12 @@ public class EnemyDamageRecevier : DamageRecevier
 
     protected virtual void RewardOnDead()
     {
-        
-        ItemDropManager.Instance.DropMany(ItemCode.Gold,5,transform.position,100);
-        ItemDropManager.Instance.DropMany(ItemCode.PlayerExp,10,transform.position,1);
-        ItemDropManager.Instance.DropMany(ItemCode.Bullet1,1,transform.position,10);
+        var dropManager = ItemDropManager.Instance;
+        var pos = transform.position;
+
+        dropManager.DropMany(ItemCode.Gold, 5, pos, 50 );
+        dropManager.DropMany(ItemCode.PlayerExp, 5, pos, 1);
+        dropManager.DropMany(ItemCode.Bullet1, 1, pos, 20 );
     }
 
     protected override void LoadComponents()

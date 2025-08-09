@@ -4,6 +4,6 @@ public class ExpDrop : ItemDropCtrl
 {
     public override string GetName()
     {
-        return "PlayerExp";
+        return nameof(ItemCode.PlayerExp);
     }
 }
