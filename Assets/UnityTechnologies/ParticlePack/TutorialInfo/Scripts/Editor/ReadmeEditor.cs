@@ -106,16 +106,16 @@ public class ReadmeEditor : Editor {
 	bool m_Initialized;
 	
 	GUIStyle LinkStyle { get { return m_LinkStyle; } }
-	[SerializeField] GUIStyle m_LinkStyle;
+	 private GUIStyle m_LinkStyle;
 	
 	GUIStyle TitleStyle { get { return m_TitleStyle; } }
-	[SerializeField] GUIStyle m_TitleStyle;
+	private GUIStyle m_TitleStyle;
 	
 	GUIStyle HeadingStyle { get { return m_HeadingStyle; } }
-	[SerializeField] GUIStyle m_HeadingStyle;
+	private GUIStyle m_HeadingStyle;
 	
 	GUIStyle BodyStyle { get { return m_BodyStyle; } }
-	[SerializeField] GUIStyle m_BodyStyle;
+	private GUIStyle m_BodyStyle;
 	
 	void Init()
 	{
