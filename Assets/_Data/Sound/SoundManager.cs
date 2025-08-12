@@ -1,26 +1,39 @@
 using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[System.Serializable]
+public class SceneMusicPair
+{
+    public string sceneName;
+    public SoundName soundName;
+}
 public class SoundManager : Singleton<SoundManager>
 {
-    [SerializeField] protected SoundName bgName = SoundName.LastStand;
+    //[SerializeField] protected SoundName bgName = SoundName.LastStand;
     [SerializeField] protected MusicCtrl bgMusic;
     [SerializeField] protected SoundSpawnerCtrl soundSpCtrl;
     public SoundSpawnerCtrl SoundSpCtrl => soundSpCtrl;
-
-    [Range(0f, 1f)]
+    
+    [Header("Music LoadScene")]
+    [SerializeField]protected List<SceneMusicPair> sceneMusicList  = new List<SceneMusicPair>();
+    protected Dictionary<string,MusicCtrl> sceneMusicMap = new Dictionary<string, MusicCtrl>();
+    
+    [UnityEngine.Range(0f, 1f)]
     [SerializeField] protected float volumeMusic = 1f;
 
-    [Range(0f, 1f)]
+    [UnityEngine.Range(0f, 1f)]
     [SerializeField] protected float volumeSfx = 1f;
     [SerializeField] protected List<MusicCtrl> listMusic;
     [SerializeField] protected List<SFXCtrl> listSfx;
-
+    
     protected override void Awake()
     {
         base.Awake();
         SceneManager.sceneLoaded += OnSceneLoaded;
+        sceneMusicMap.Clear();
+        SetupSecenMusic();
     }
     
     private void OnDestroy()
@@ -28,22 +41,28 @@ public class SoundManager : Singleton<SoundManager>
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
     
-    
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         LoadSoundSpawnerCtrl();
         ClearNullReferences();
-        StartMusicBackground();
+        StartMusicScene();
+    }
+    
+    protected virtual void SetupSecenMusic()
+    {
+        foreach (var pair in sceneMusicList)
+        {
+            MusicCtrl musicPrefabs = (MusicCtrl)this.soundSpCtrl.SoundSp.PoolPrefabs.GetByName(pair.soundName.ToString());
+            if (musicPrefabs != null && !sceneMusicMap.ContainsKey(pair.sceneName))
+            {
+                sceneMusicMap.Add(pair.sceneName, musicPrefabs);
+            }
+        }
     }
     private void ClearNullReferences()
     {
         listMusic.RemoveAll(m => m == null);
         listSfx.RemoveAll(s => s == null);
-    }
-    protected override void Start()
-    {
-        base.Start();
-        this.StartMusicBackground();
     }
     
     protected override void LoadComponents()
@@ -59,23 +78,37 @@ public class SoundManager : Singleton<SoundManager>
         Debug.Log(transform.name + ": LoadSoundSpawnerCtrl", gameObject);
     }
 
-    public virtual void StartMusicBackground()
+    public virtual void StartMusicScene()
     {
         if (this.soundSpCtrl == null)  return;
-
-        if (this.bgMusic == null)
-            this.bgMusic = CreateMusic(this.bgName);
-
-        if (this.bgMusic != null)
-            this.bgMusic.gameObject.SetActive(true);
+        StopAllMusic();
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (sceneMusicMap.TryGetValue(currentScene, out MusicCtrl music))
+        {
+            bgMusic = CreateMusic(music);
+            bgMusic.gameObject.SetActive(true);
+        }
         
     }
-
+    
+    protected virtual void StopAllMusic()
+    {
+        foreach (var music in listMusic)
+        {
+            if (music != null)
+            {
+                music.Despawn.DoDespawn();
+            }
+        }
+        listMusic.Clear();
+        bgMusic = null;
+    }
+    
     public virtual void ToggleMusic()
     {
         if (this.bgMusic == null)
         {
-            this.StartMusicBackground();
+            this.StartMusicScene();
             return;
         }
 

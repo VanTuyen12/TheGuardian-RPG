@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -7,7 +8,6 @@ using UnityEngine.UI;
 public class EnemyMoving : MyMonoBehaviour
 {
     [SerializeField]protected EnemyCtrl enemyCtrl;
-    [SerializeField]protected string pathName = nameof(EnemyCodePath.Path_2) ;
     [SerializeField]protected PathMoving emenyPathMoving;
     [SerializeField]protected Point currentPoint;
     [SerializeField]protected float stopDistance = 1f;
@@ -27,14 +27,7 @@ public class EnemyMoving : MyMonoBehaviour
         this.LoadEnemyCtrl();
         
     }
-
-    protected override void Start()
-    {
-        base.Start();
-        this.LoadEnemyPath();
-    }
-
-
+    
     void FixedUpdate()
     {
         Moving();
@@ -99,11 +92,9 @@ public class EnemyMoving : MyMonoBehaviour
         
         Debug.Log(transform.name+ " :LoadEnemyCtrl",gameObject);
     }
-    protected virtual void LoadEnemyPath()
+    public virtual void SetEnemyPath(PathMoving path)
     {
-        if(emenyPathMoving != null) return;
-        this.emenyPathMoving = PathsManager.Instance.GetPath(pathName);
-       // Debug.Log(transform.name+ " :LoadEnemyCtrl",gameObject);
+        this.emenyPathMoving = path;
     }
     
 }

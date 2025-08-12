@@ -14,6 +14,9 @@ public abstract class EnemyCtrl : PoolObj
     
     [SerializeField]protected EnemyTargetable enemyTargetable;
     public EnemyTargetable EnemyTargetable => enemyTargetable;
+
+    [SerializeField] protected EnemyMoving _enemyMoving;
+    public EnemyMoving EnemyMoving => _enemyMoving;
    
     protected override void LoadComponents()
     {
@@ -23,8 +26,14 @@ public abstract class EnemyCtrl : PoolObj
         this.LoadAnimator();
         this.LoadEnemyTargetable();
         this.LoadDamageRecevier();
+        this.LoadEnemyMoving();
     }
-    
+    protected virtual void LoadEnemyMoving()
+    {
+        if(this._enemyMoving != null) return;
+        _enemyMoving = GetComponentInChildren<EnemyMoving>();
+        Debug.Log(transform.name + " :LoadEnemyMoving",gameObject);
+    }
     protected virtual void LoadDamageRecevier()
     {
         if(this.damageRecevier != null) return;

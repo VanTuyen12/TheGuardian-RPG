@@ -27,7 +27,12 @@ public class PathsManager : Singleton<PathsManager>
    {
       return this.paths[index];
    }
-   
+
+   public virtual PathMoving RandomPath()
+   {
+      int index = UnityEngine.Random.Range(0, this.paths.Count);
+      return this.paths[index];
+   }
    public virtual PathMoving GetPath(string pathName)
    {
       foreach (PathMoving path in this.paths)

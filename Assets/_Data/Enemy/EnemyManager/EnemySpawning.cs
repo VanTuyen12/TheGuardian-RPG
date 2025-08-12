@@ -68,7 +68,11 @@ public class EnemySpawning : EnemyManagerAbstract
     public virtual void SpawnEnemis(EnemyCtrl prefabs)
     {
         EnemyCtrl newEnemy = enemyManagerCtrl.EnemySpawner.Spawn(prefabs,transform.position);
+        
+        var path = SetEnemyPathMoving();
+        newEnemy.EnemyMoving.SetEnemyPath(path);
         newEnemy.gameObject.SetActive(true);
+        
         spawnedEnemies.Add(newEnemy);
     }
     protected virtual EnemyCtrl GetRdEnemiesNormal()
@@ -78,6 +82,11 @@ public class EnemySpawning : EnemyManagerAbstract
     protected virtual EnemyCtrl GetRdEnemiesBoss()
     {
         return enemyManagerCtrl.EnemyPrefabs.GetRandomByType<EnemyBossCtrl>();
+    }
+
+    protected virtual PathMoving SetEnemyPathMoving()
+    {
+        return PathsManager.Instance.RandomPath();
     }
     protected virtual void RemoveDeadOne()
     {
