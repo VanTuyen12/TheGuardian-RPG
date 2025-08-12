@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryUI : ToggleAbstractUI<InventoryUI>
+public class InventoryUI : GameplayToggleUI<InventoryUI>
 {
     [SerializeField]protected BtnItemInventory btnItemInventory;
     [SerializeField]protected List<BtnItemInventory> btnItems = new();
@@ -30,7 +30,7 @@ public class InventoryUI : ToggleAbstractUI<InventoryUI>
             }
         }
     }
-    protected override void HotkeyToogleInventory()
+    protected override void HotkeyToogleUI()
     {
         if(InputHotKeys.Instance.IsToogleInvUI) Toggle();
     }

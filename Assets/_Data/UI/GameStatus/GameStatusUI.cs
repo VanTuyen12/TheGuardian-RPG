@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class GameStatusUI : ToggleAbstractUI<GameStatusUI>
+public class GameStatusUI : GameplayToggleUI<GameStatusUI>
 {
     [SerializeField] protected Transform gameOverUI;
     [SerializeField] private bool isLose = false;
@@ -13,7 +13,7 @@ public class GameStatusUI : ToggleAbstractUI<GameStatusUI>
         gameOverUI.gameObject.SetActive(false);
     }
 
-    protected override void HotkeyToogleInventory()
+    protected override void HotkeyToogleUI()
     {
         if(InputHotKeys.Instance.IsTooleStatusUI) Toggle();
     }

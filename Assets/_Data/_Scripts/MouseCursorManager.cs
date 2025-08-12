@@ -1,17 +1,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class MouseCursorManager : Singleton<MouseCursorManager>
 {
     private bool startWithCursorVisible = false;
     
     [Header("Camera Control")]
-    [SerializeField] private MonoBehaviour[] cameraScriptsToDisable;
+    [SerializeField] private List<MonoBehaviour> cameraToDisable;
     private HashSet<string> cursorRequests = new HashSet<string>();
     [SerializeField]private bool isCursorVisible;
     public bool IsCursorVisible => isCursorVisible;
-    
-    
+
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadCamera();
+    }
+
+    private void LoadCamera()
+    {
+        if (cameraToDisable != null && cameraToDisable.Count > 0) return;
+
+        GameObject camObj = GameObject.Find("PlayerFollowCamera");
+        if (camObj != null)
+        {
+            var camScript = camObj.GetComponent<MonoBehaviour>(); 
+            if (camScript != null)
+                cameraToDisable.Add(camScript);
+        }
+        
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -95,9 +115,9 @@ public class MouseCursorManager : Singleton<MouseCursorManager>
    
     private void SetCameraScriptsEnabled(bool enabled)
     {
-        if (cameraScriptsToDisable != null)
+        if (cameraToDisable != null)
         {
-            foreach (var script in cameraScriptsToDisable)
+            foreach (var script in cameraToDisable)
             {
                 if (script != null)
                 {

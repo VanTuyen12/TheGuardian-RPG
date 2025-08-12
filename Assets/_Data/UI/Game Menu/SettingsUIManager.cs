@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class SettingsUIManager : ToggleAbstractUI<SettingsUIManager>
+public class SettingsUIManager : GameplayToggleUI<SettingsUIManager>
 {
-    protected override void HotkeyToogleInventory()
+    protected override void HotkeyToogleUI()
     {
         if(InputHotKeys.Instance.IsSettings) Toggle();
     }

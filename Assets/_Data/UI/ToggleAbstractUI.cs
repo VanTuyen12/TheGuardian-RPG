@@ -19,23 +19,23 @@ public abstract class ToggleAbstractUI<T> : Singleton<T> where T : MyMonoBehavio
 
     private void LateUpdate()
     {
-        this.HotkeyToogleInventory();
+        this.HotkeyToogleUI();
     }
 
-    protected abstract void HotkeyToogleInventory();
+    protected abstract void HotkeyToogleUI();
 
     public virtual void Show()
     {
         isShow = true;
         showHideUI.gameObject.SetActive(isShow);
-        MouseCursorManager.Instance.SetCursorVisible(true, GetType().Name);
+        OnShowUI();
     }
 
     public virtual void Hide()
     {
         isShow = false;
         showHideUI.gameObject.SetActive(isShow);
-        MouseCursorManager.Instance.SetCursorVisible(false, GetType().Name);
+        OnHideUI();
     }
 
     public virtual void Toggle()
@@ -43,7 +43,9 @@ public abstract class ToggleAbstractUI<T> : Singleton<T> where T : MyMonoBehavio
         if (isShow) Hide();
         else Show();
     }
-
+    
+    protected virtual void OnShowUI() { }
+    protected virtual void OnHideUI() { }
     protected override void LoadComponents()
     {
         base.LoadComponents();

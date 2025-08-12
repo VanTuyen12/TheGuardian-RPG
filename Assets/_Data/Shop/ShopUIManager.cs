@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShopUIManager : ToggleAbstractUI<ShopUIManager>
+public class ShopUIManager : GameplayToggleUI<ShopUIManager>
 {
     [Header("Shop Logic")]
     [SerializeField] protected List<ShopItemData> shopItems = new();
@@ -17,7 +17,7 @@ public class ShopUIManager : ToggleAbstractUI<ShopUIManager>
         base.Show();
         RefreshShop();
     }
-    protected override void HotkeyToogleInventory()
+    protected override void HotkeyToogleUI()
     {
         if(InputHotKeys.Instance.IsToogleShopUI) Toggle();
     }

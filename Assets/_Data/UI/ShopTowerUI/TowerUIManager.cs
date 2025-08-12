@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TowerUIManager : ToggleAbstractUI<TowerUIManager>
+public class TowerUIManager : GameplayToggleUI<TowerUIManager>
 {
     [SerializeField]protected bool canOpenTowerUI = false;
     public bool CanOpenTowerUI => canOpenTowerUI;
@@ -21,7 +21,7 @@ public class TowerUIManager : ToggleAbstractUI<TowerUIManager>
        LoadTowerStand();
     }
 
-    protected override void HotkeyToogleInventory()
+    protected override void HotkeyToogleUI()
     {
         if (canOpenTowerUI && InputHotKeys.Instance.IsTooleTowerUI)
         {

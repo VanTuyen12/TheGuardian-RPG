@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BtnNewGame : ButtonAbstract
+public class Btn_NewGame : ButtonAbstract
 {
     
     public override void OnClick()
