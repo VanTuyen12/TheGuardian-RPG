@@ -1009,6 +1009,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1568660102 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7815196286330495837, guid: 0b1176e58c856474b8189c76f18f2528,
+    type: 3}
+  m_PrefabInstance: {fileID: 1209231125}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d9a86dcd5182e41b7bfe7f2dfd95c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1627829224
 GameObject:
   m_ObjectHideFlags: 0
@@ -1332,6 +1344,36 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4735977766618263023, guid: 83f5bcef6543fd84584ccde491635d85,
+        type: 3}
+      propertyPath: soundSpCtrl
+      value: 
+      objectReference: {fileID: 1568660102}
+    - target: {fileID: 4735977766618263023, guid: 83f5bcef6543fd84584ccde491635d85,
+        type: 3}
+      propertyPath: sceneMusicList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735977766618263023, guid: 83f5bcef6543fd84584ccde491635d85,
+        type: 3}
+      propertyPath: sceneMusicList.Array.data[0].sceneName
+      value: MainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735977766618263023, guid: 83f5bcef6543fd84584ccde491635d85,
+        type: 3}
+      propertyPath: sceneMusicList.Array.data[0].soundName
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735977766618263023, guid: 83f5bcef6543fd84584ccde491635d85,
+        type: 3}
+      propertyPath: sceneMusicList.Array.data[1].sceneName
+      value: Game
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735977766618263023, guid: 83f5bcef6543fd84584ccde491635d85,
+        type: 3}
+      propertyPath: sceneMusicList.Array.data[1].soundName
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6348033598240465212, guid: 83f5bcef6543fd84584ccde491635d85,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3993,6 +4035,7 @@ GameObject:
   - component: {fileID: 2315632113457187658}
   - component: {fileID: 112775442111815704}
   - component: {fileID: 6494499636915345551}
+  - component: {fileID: 6494499636915345552}
   m_Layer: 5
   m_Name: MusicSlider
   m_TagString: Untagged
@@ -13998,6 +14041,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &6494499636915345552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151419611187792281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deb20728a04ed7149a2e2692f6e722c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 112775442111815704}
 --- !u!114 &6523011881359752788
 MonoBehaviour:
   m_ObjectHideFlags: 0

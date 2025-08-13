@@ -10,13 +10,13 @@ public static class SaveSystem
     public static void SaveGameState()
     {
         string filePathSaveData = Application.persistentDataPath + FILENAME_SAVEDATA;
-        Debug.Log(filePathSaveData);
         CurrencyData currencyData = new CurrencyData(InventoryManager.Instance.Currency());
         BulletData bulletData = new BulletData(InventoryManager.Instance.Items());
         SaveData saveData = new SaveData(currencyData,bulletData);
         string jsonSaveData = JsonUtility.ToJson(saveData);
         File.WriteAllText(filePathSaveData, jsonSaveData);
         
+        //Debug.Log(filePathSaveData);
     }
 }
 

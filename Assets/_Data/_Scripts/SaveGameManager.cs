@@ -32,17 +32,25 @@ public class SaveGameManager : Singleton<SaveGameManager>
             return;
         }
         
+        SetDataGameContinue(saveData);
+    }
+
+    public void SetDataGameContinue(SaveData saveData)
+    {
         goldData = saveData.currencyData.gold;
         bullet1 = saveData.bulletData.bullet_1;
         bullet2 = saveData.bulletData.bullet_2;
-        
-        Debug.Log(goldData);
     }
-
     public void NewGame()
     {
         ResetToDefault();
         SaveGame();
+        
+        InventoryManager inventoryManager = InventoryManager.Instance;
+        if (inventoryManager != null)
+        {
+            inventoryManager.RefreshInventoryData();
+        }
     }
     protected virtual void ResetToDefault()
     {

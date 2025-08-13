@@ -7,6 +7,14 @@ public abstract class InventoryCtrl : MyMonoBehaviour
     public List<ItemInventory> Items => items;
     public abstract InventoryCodeName GetName();
 
+    
+    public virtual void ClearAllItems()
+    {
+        if (items != null)
+        {
+            items.Clear();
+        }
+    }
     public virtual void AddItem(ItemInventory item)
     {
         

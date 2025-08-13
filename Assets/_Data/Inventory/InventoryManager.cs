@@ -18,7 +18,21 @@ public class InventoryManager : Singleton<InventoryManager>
         base.Start();
         LoadDataStartGame();
     }
-
+    public virtual void RefreshInventoryData()
+    {
+        ClearAllItems(); 
+        LoadDataStartGame();
+    }
+    protected virtual void ClearAllItems()
+    {
+        foreach (var inventory in inventories)
+        {
+            if (inventory != null)
+            {
+                inventory.ClearAllItems();
+            }
+        }
+    }
     protected virtual void LoadDataStartGame()
     {
         SaveGameManager saveGameManager = SaveGameManager.Instance;

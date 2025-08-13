@@ -11,7 +11,6 @@ public class SceneMusicPair
 }
 public class SoundManager : Singleton<SoundManager>
 {
-    //[SerializeField] protected SoundName bgName = SoundName.LastStand;
     [SerializeField] protected MusicCtrl bgMusic;
     [SerializeField] protected SoundSpawnerCtrl soundSpCtrl;
     public SoundSpawnerCtrl SoundSpCtrl => soundSpCtrl;
@@ -22,18 +21,21 @@ public class SoundManager : Singleton<SoundManager>
     
     [UnityEngine.Range(0f, 1f)]
     [SerializeField] protected float volumeMusic = 1f;
+    public float VolumeMusic => volumeMusic;
 
     [UnityEngine.Range(0f, 1f)]
     [SerializeField] protected float volumeSfx = 1f;
+    public float VolumeSfx => volumeSfx;
+    
     [SerializeField] protected List<MusicCtrl> listMusic;
     [SerializeField] protected List<SFXCtrl> listSfx;
     
+    private bool isInitialized = false;
     protected override void Awake()
     {
         base.Awake();
         SceneManager.sceneLoaded += OnSceneLoaded;
-        sceneMusicMap.Clear();
-        SetupSecenMusic();
+       
     }
     
     private void OnDestroy()
@@ -45,10 +47,16 @@ public class SoundManager : Singleton<SoundManager>
     {
         LoadSoundSpawnerCtrl();
         ClearNullReferences();
+        if (!isInitialized)
+        {
+            SetupSceneMusic();
+            isInitialized = true;
+        }
+        
         StartMusicScene();
     }
     
-    protected virtual void SetupSecenMusic()
+    protected virtual void SetupSceneMusic()
     {
         foreach (var pair in sceneMusicList)
         {
@@ -81,10 +89,14 @@ public class SoundManager : Singleton<SoundManager>
     public virtual void StartMusicScene()
     {
         if (this.soundSpCtrl == null)  return;
-        StopAllMusic();
         string currentScene = SceneManager.GetActiveScene().name;
+        
+        StopAllMusic();
+       
         if (sceneMusicMap.TryGetValue(currentScene, out MusicCtrl music))
         {
+
+            if (bgMusic != null ) return;
             bgMusic = CreateMusic(music);
             bgMusic.gameObject.SetActive(true);
         }
@@ -93,6 +105,12 @@ public class SoundManager : Singleton<SoundManager>
     
     protected virtual void StopAllMusic()
     {
+        if (bgMusic != null)
+        {
+            bgMusic.Despawn.DoDespawn();
+            bgMusic = null;
+        }
+        
         foreach (var music in listMusic)
         {
             if (music != null)
@@ -101,7 +119,6 @@ public class SoundManager : Singleton<SoundManager>
             }
         }
         listMusic.Clear();
-        bgMusic = null;
     }
     
     public virtual void ToggleMusic()
