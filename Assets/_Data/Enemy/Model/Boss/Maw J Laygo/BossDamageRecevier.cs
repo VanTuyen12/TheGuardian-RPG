@@ -9,9 +9,9 @@ public class BossDamageRecevier : EnemyDamageRecevier
         var dropManager = ItemDropManager.Instance;
         var pos = transform.position;
 
-        dropManager.DropMany(ItemCode.Gold, 5, pos, 100);
-        dropManager.DropMany(ItemCode.PlayerExp, 5, pos, 2);
-        dropManager.DropMany(ItemCode.Bullet1, 1, pos, 50);
+        dropManager.DropMany(ItemCode.Gold, 5, pos, 50);
+        dropManager.DropMany(ItemCode.PlayerExp, 1, pos, 50);
+        dropManager.DropMany(ItemCode.Bullet1, 1, pos, 20);
         dropManager.DropMany(ItemCode.Bullet2, 2, pos, 10 );
     }
 

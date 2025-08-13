@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class InventoryTester : MyMonoBehaviour
 {
-    protected override void Start()
+    /*protected override void Start()
     {
         base.Start();
         this.AddTestItems(ItemCode.Gold, 10000);
         this.AddTestItems(ItemCode.Bullet1, 120);
         this.AddTestItems(ItemCode.Bullet2, 60);
-    }
+    }*/
 
     [ProButton]
     public virtual void AddTestItems(ItemCode itemCode, int count)

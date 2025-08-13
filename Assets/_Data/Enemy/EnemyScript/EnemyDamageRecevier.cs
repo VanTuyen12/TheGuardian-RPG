@@ -37,9 +37,9 @@ public class EnemyDamageRecevier : DamageRecevier
         var dropManager = ItemDropManager.Instance;
         var pos = transform.position;
 
-        dropManager.DropMany(ItemCode.Gold, 5, pos, 50 );
-        dropManager.DropMany(ItemCode.PlayerExp, 5, pos, 1);
-        dropManager.DropMany(ItemCode.Bullet1, 1, pos, 20 );
+        dropManager.DropMany(ItemCode.Gold, 5, pos, 20 );
+        dropManager.DropMany(ItemCode.PlayerExp, 1, pos, 5);
+        dropManager.DropMany(ItemCode.Bullet1, 1, pos, 10 );
     }
 
     protected override void LoadComponents()

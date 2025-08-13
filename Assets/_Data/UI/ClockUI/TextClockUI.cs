@@ -32,7 +32,7 @@ public class TextClockUI : TextAbstract
         DoSomething();
         nextSpawnTime += checkTimer;
         
-        Debug.Log("Logg at " + playTimeSpan.ToString("mm\\:ss\\.fff"));
+        //Debug.Log("Logg at " + playTimeSpan.ToString("mm\\:ss\\.fff"));
     }
 
     protected virtual void DoSomething()

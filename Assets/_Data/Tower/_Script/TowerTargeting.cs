@@ -29,6 +29,12 @@ public class TowerTargeting : MyMonoBehaviour
         this.SetingLayerMask();
     }
 
+    protected override void ResetValue()
+    {
+        base.ResetValue();
+        transform.localPosition = new Vector3(0,2,0);
+    }
+
     protected virtual void SetingLayerMask()
     {
         if ( layerMask.value != 0 ) return;
@@ -48,7 +54,7 @@ public class TowerTargeting : MyMonoBehaviour
         if (this.sphereCollider != null) return;
         this.sphereCollider = this.GetComponent<SphereCollider>();
         sphereCollider.isTrigger = true;
-        sphereCollider.radius = 6f;
+        sphereCollider.radius = 8f;
         Debug.Log(transform.name + " :LoadRigidbody", gameObject);
     }
     
@@ -70,13 +76,14 @@ public class TowerTargeting : MyMonoBehaviour
         }
     }
 
-    protected virtual bool CanSeeTarget(EnemyCtrl target)
+    protected virtual bool CanSeeTarget(EnemyCtrl enemy)
     {
-        Vector3 directionToTager = target.transform.position - this.transform.position;
+        var target = enemy.EnemyTargetable.transform.position; 
+        Vector3 directionToTager = target - this.transform.position;
         float distanceToTager = directionToTager.magnitude;
         Ray rayToTager = new Ray(this.transform.position, directionToTager);
         
-        if (Physics.Raycast( rayToTager, out RaycastHit hitInfo, distanceToTager , layerMask))
+        if (Physics.Raycast( rayToTager, out RaycastHit hitInfo, distanceToTager , layerMask,QueryTriggerInteraction.Ignore))
         {
             Vector3 directionToCollder = hitInfo.point - this.transform.position;
             float distanceToCollider = directionToCollder.magnitude;

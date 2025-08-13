@@ -9,6 +9,8 @@ public abstract class LevelAbstract : MyMonoBehaviour
     public int SkillScore => skillScore;
     [SerializeField] protected int maxLevel = 100;
     [SerializeField] protected int nextLevelExp;
+    
+    [SerializeField] protected int baseExp = 5;
 
     protected abstract int GetCurrentExp();
     protected abstract bool DeductExp(int exp);
@@ -43,7 +45,7 @@ public abstract class LevelAbstract : MyMonoBehaviour
     }
     protected virtual int GetNextLevelExp()
     {
-        return this.nextLevelExp = currentLevel * 10;
+        return this.nextLevelExp = baseExp * currentLevel * currentLevel;
     }
     
     public virtual void SetSkillScore(int rsScore)

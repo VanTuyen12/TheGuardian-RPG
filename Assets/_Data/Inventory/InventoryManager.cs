@@ -10,6 +10,25 @@ public class InventoryManager : Singleton<InventoryManager>
         base.LoadComponents();
         this.LoadInventories();
         this.LoaditemProfiles();
+        
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        LoadDataStartGame();
+    }
+
+    protected virtual void LoadDataStartGame()
+    {
+        SaveGameManager saveGameManager = SaveGameManager.Instance;
+        int gold = saveGameManager.GoldData;
+        int bullet1 = saveGameManager.Bullet1Data;
+        int bullet2 = saveGameManager.Bullet2Data;
+        
+        AddItem(ItemCode.Gold, gold);
+        AddItem(ItemCode.Bullet1, bullet1);
+        AddItem(ItemCode.Bullet2, bullet2);
     }
 
     protected virtual void LoaditemProfiles()
