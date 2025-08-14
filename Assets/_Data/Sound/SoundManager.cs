@@ -188,4 +188,12 @@ public class SoundManager : Singleton<SoundManager>
             sfxCtrl.AudioSource.volume = this.volumeSfx;
         }
     }
+    
+    public virtual void PlaySfx(SoundName soundName)
+    {
+        SFXCtrl sfx = CreateSfx(soundName);
+        sfx.AudioSource.volume = this.volumeSfx; 
+        sfx.gameObject.SetActive(true);
+        sfx.AudioSource.Play();
+    }
 }

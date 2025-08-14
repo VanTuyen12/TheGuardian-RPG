@@ -51,7 +51,7 @@ MonoBehaviour:
     soundName: 2
   - sceneName: Game
     soundName: 1
-  volumeMusic: 0.5
+  volumeMusic: 1
   volumeSfx: 1
   listMusic: []
   listSfx: []

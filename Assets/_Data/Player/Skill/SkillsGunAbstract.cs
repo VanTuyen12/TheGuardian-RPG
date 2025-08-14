@@ -89,7 +89,6 @@ public abstract class SkillsGunAbstract : MyMonoBehaviour
     }
     protected virtual void SpawnSoundSfx(SoundName sfxName)
     {
-        var sfxPrefabs = SoundManager.Instance.CreateSfx(sfxName);
-        sfxPrefabs.SetActive(true);
+        SoundManager.Instance.PlaySfx(sfxName);
     }
 }
