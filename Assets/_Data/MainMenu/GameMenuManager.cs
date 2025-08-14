@@ -31,19 +31,18 @@ public class GameMenuManager : Singleton<GameMenuManager>
         SetThemeColors();
     }
     
-    private void Update()
-    {
-            SetThemeColors();
-    }
-    
     public void PlayCampaign(){
-        exitCtrl.SetActive(false);
-        playGameCtrl.SetActive(true);
+        exitCtrl.Hide();
     }
     
-    public void ReturnMenu(){
-        playGameCtrl.SetActive(false);
-        exitCtrl.SetActive(true);
+    public void PlayExit(){
+        playGameCtrl.Hide();
+    }
+
+    public void PlaySetings()
+    {
+        playGameCtrl.Hide();
+        exitCtrl.Hide();
     }
     protected override void LoadComponents()
     {

@@ -47,11 +47,11 @@ MonoBehaviour:
   bgMusic: {fileID: 0}
   soundSpCtrl: {fileID: 0}
   sceneMusicList:
+  - sceneName: MainMenu
+    soundName: 2
   - sceneName: Game
     soundName: 1
-  - sceneName: MainMenu
-    soundName: 1
-  volumeMusic: 1
+  volumeMusic: 0.5
   volumeSfx: 1
   listMusic: []
   listSfx: []

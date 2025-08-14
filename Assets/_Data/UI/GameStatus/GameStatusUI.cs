@@ -10,6 +10,7 @@ public class GameStatusUI : GameplayToggleUI<GameStatusUI>
     protected override void Start()
     {
         base.Start();
+        Show();
         gameOverUI.gameObject.SetActive(false);
     }
 

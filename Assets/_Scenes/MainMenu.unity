@@ -1349,31 +1349,6 @@ PrefabInstance:
       propertyPath: soundSpCtrl
       value: 
       objectReference: {fileID: 1568660102}
-    - target: {fileID: 4735977766618263023, guid: 83f5bcef6543fd84584ccde491635d85,
-        type: 3}
-      propertyPath: sceneMusicList.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4735977766618263023, guid: 83f5bcef6543fd84584ccde491635d85,
-        type: 3}
-      propertyPath: sceneMusicList.Array.data[0].sceneName
-      value: MainMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 4735977766618263023, guid: 83f5bcef6543fd84584ccde491635d85,
-        type: 3}
-      propertyPath: sceneMusicList.Array.data[0].soundName
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4735977766618263023, guid: 83f5bcef6543fd84584ccde491635d85,
-        type: 3}
-      propertyPath: sceneMusicList.Array.data[1].sceneName
-      value: Game
-      objectReference: {fileID: 0}
-    - target: {fileID: 4735977766618263023, guid: 83f5bcef6543fd84584ccde491635d85,
-        type: 3}
-      propertyPath: sceneMusicList.Array.data[1].soundName
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6348033598240465212, guid: 83f5bcef6543fd84584ccde491635d85,
         type: 3}
       propertyPath: m_LocalPosition.x

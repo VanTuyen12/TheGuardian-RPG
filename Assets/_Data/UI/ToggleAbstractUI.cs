@@ -13,7 +13,6 @@ public abstract class ToggleAbstractUI<T> : Singleton<T> where T : MyMonoBehavio
     {
         base.Start();
         Hide();
-        //Show();
     }
     
 
