@@ -58,8 +58,7 @@ QualitySettings:
     terrainBillboardStart: 50
     terrainFadeLength: 5
     terrainMaxTrees: 50
-    excludedTargetPlatforms:
-    - Standalone
+    excludedTargetPlatforms: []
   - serializedVersion: 4
     name: Low
     pixelLightCount: 0
@@ -329,3 +328,4 @@ QualitySettings:
   m_PerPlatformDefaultQuality:
     Android: 0
     Standalone: 5
+    WebGL: 5

@@ -20,11 +20,11 @@ public class SoundManager : Singleton<SoundManager>
     protected Dictionary<string,MusicCtrl> sceneMusicMap = new Dictionary<string, MusicCtrl>();
     
     [UnityEngine.Range(0f, 1f)]
-    [SerializeField] protected float volumeMusic = 1f;
+    [SerializeField] protected float volumeMusic = 0.5f;
     public float VolumeMusic => volumeMusic;
 
     [UnityEngine.Range(0f, 1f)]
-    [SerializeField] protected float volumeSfx = 1f;
+    [SerializeField] protected float volumeSfx = 0.8f;
     public float VolumeSfx => volumeSfx;
     
     [SerializeField] protected List<MusicCtrl> listMusic;

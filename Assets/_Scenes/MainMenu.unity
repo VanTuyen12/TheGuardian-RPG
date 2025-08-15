@@ -10368,6 +10368,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 3815463974456818395}
+  soundNameClick: 60
+  playSfxOnClick: 1
 --- !u!224 &4426085764622700049
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14063,6 +14065,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 5796914911602571664}
+  soundNameClick: 60
+  playSfxOnClick: 1
 --- !u!224 &6527323203677233295
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15498,6 +15502,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 798081881280791845}
+  soundNameClick: 60
+  playSfxOnClick: 1
 --- !u!23 &7271136227012132404
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15962,6 +15968,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 5881637247271682958}
+  soundNameClick: 60
+  playSfxOnClick: 1
 --- !u!114 &7471811362778046546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16318,6 +16326,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 25510051893221761}
+  soundNameClick: 60
+  playSfxOnClick: 1
 --- !u!114 &7695107658522703096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17830,6 +17840,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1717845400046945951}
+  soundNameClick: 60
+  playSfxOnClick: 1
 --- !u!23 &8474765259251748628
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -18673,6 +18685,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 47686073627938478}
+  soundNameClick: 60
+  playSfxOnClick: 1
 --- !u!114 &9008135187639134355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18821,6 +18835,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 3840830784031525338}
+  soundNameClick: 60
+  playSfxOnClick: 1
 --- !u!1 &9085771219990973753
 GameObject:
   m_ObjectHideFlags: 0

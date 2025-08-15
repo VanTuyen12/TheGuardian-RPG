@@ -34,6 +34,7 @@ public class EnemyDamageRecevier : DamageRecevier
 
     protected virtual void RewardOnDead()
     {
+        
         var dropManager = ItemDropManager.Instance;
         var pos = transform.position;
 

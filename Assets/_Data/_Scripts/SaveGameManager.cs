@@ -44,12 +44,13 @@ public class SaveGameManager : Singleton<SaveGameManager>
     public void NewGame()
     {
         ResetToDefault();
-        SaveGame();
+       
         
         InventoryManager inventoryManager = InventoryManager.Instance;
         if (inventoryManager != null)
         {
             inventoryManager.RefreshInventoryData();
+            SaveGame();
         }
     }
     protected virtual void ResetToDefault()

@@ -66,7 +66,7 @@ public abstract class EnemyCtrl : PoolObj
     {
         if(agent != null) return;
         agent = GetComponent<NavMeshAgent>();
-        agent.speed = 3f;
+        agent.speed = 2f;
         agent.angularSpeed = 200f;
         agent.acceleration = 50f;
         agent.height = 1f;

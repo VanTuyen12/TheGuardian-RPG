@@ -8,4 +8,5 @@ public enum SoundName
     FastShot = 10,
     SlowShot = 11,
     TowerShot = 50,
+    ClickPunch = 60,
 }
